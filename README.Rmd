@@ -31,7 +31,7 @@ We record our discoveries here for posterity
   - [transition_time](transition_time/transition_time.md)
   - [ease_aes](ease_aes.md)
   - [harvest_animation](example_harvest_animation.md)
-  - [shadow_wake](shadow_wake.html)
+  - [shadow_wake](shadow_wake.md)
   - [enter_exit](enter_exit/enter_exit.md)
   
   
