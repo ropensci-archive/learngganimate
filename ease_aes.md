@@ -76,7 +76,7 @@ ggplot(mtcars, aes(factor(cyl), mpg)) +
 
 ![](ease_aes_files/figure-gfm/unnamed-chunk-4-1.gif)<!-- -->
 
-# The affect of the modifiers
+# The effect of the modifiers
 
 ## Motivation
 
