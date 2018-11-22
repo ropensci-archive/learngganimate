@@ -21,7 +21,7 @@ from the `tweenr` package. They are
     `-out`, or `-in-out`.
 
 Each `ease_aes()` command requires the ease function AND the modifier,
-*except* for the special case of the `linear function`.
+*except* for the special case of the `linear` function (explained later).
 
 ## The `ease` function
 
