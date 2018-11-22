@@ -5,6 +5,9 @@ Danielle Navarro
 
 One of the nice features of gganimate is the ability to create *shadows*, in which previous states of the animation can remain visible at later states in the animation. There are four shadow functions, `shadow_wake()`, `shadow_trail()`, `shadow_mark()` and `shadow_null()`. In this walkthrough I'll discuss the `shadow_wake()` function.
 
+Creating the animation
+----------------------
+
 To illustrate the flexibility of the function, I'll start by creating a two dimensional brownian bridge simulation using the `rbridge()` function from the `e1071` package:
 
 ``` r
@@ -64,6 +67,9 @@ base_anim %>% animate()
 
 ![](shadow_wake_files/figure-markdown_github/baseanim-1.gif)
 
+Basic use of shadow wake
+------------------------
+
 To see what `shadow_wake()` does, we'll add it to the animation. the one required argument to the function is `wake_length`, which governs how "long" the wake is. The `wake_length` is a value from 0 to 1, where 1 means "the full length of the animation":
 
 ``` r
@@ -73,9 +79,12 @@ wake1 %>% animate()
 
 ![](shadow_wake_files/figure-markdown_github/wake1-1.gif)
 
-Yay!
+Yay! We have shadows following along in the "wake" of each of our particles.
 
-The discrete look is a bit meh. If we want it to look like a continuous thing we can up the detail on the call to `animate()`.
+Tinkering with detail and graphics devices
+------------------------------------------
+
+There's a bit of subtlety to this that is worth noting. By default, the animation leaves a shadow from each previous frame. Because this is a 100 frame anumation (the gganimate default) and we asked for a `wake_length` of .1, it's leaving 10 dots behind each particle, and they fall off in size and transparency. That's a sensible default, but in many situations the interpolating frames in the animation aren't actually terribly meaningful in and of themselves, and you might want to have a "continuous" wake. To do this, the easiest solution is to increase the `detail` argument in the call to `animate()`. What this does is increase the number of interpolated frames between successive states of the anumation. So if I set `detail = 5` the animation won't actually include any extra frames in the output, but the shadow wake will be computed as if there had been 5 additional frames between each "actual" frame:
 
 ``` r
 wake1 %>% animate(detail = 5)
@@ -83,13 +92,18 @@ wake1 %>% animate(detail = 5)
 
 ![](shadow_wake_files/figure-markdown_github/wake1_detail-1.gif)
 
-This still looks janky. When I rendered this on Adam Gruer's Mac it worked beautifully, but I'm rendering this on a Windows machine and it looks garbage. To fix this we need to tinker with the rendering. Under the hood, each frame is being rendered with the `png()` graphics device and by default it's using the Windows GDI. Let's use Cairo:
+This is getting closer to something worthwhile, but it still looks a bit janky. When I rendered this on Adam Gruer's Mac it worked beautifully, but I'm rendering this on my Windows machine and it looks like garbage for some reason. Something odd is going on here. To fix this we need to tinker with the rendering. Under the hood, each frame is being rendered with the `png()` graphics device and by default on my machine it using the Windows GDI as the graphics device. Let's use Cairo instead:
 
 ``` r
 wake1 %>% animate(detail = 5, type = "cairo")
 ```
 
 ![](shadow_wake_files/figure-markdown_github/wake1_cairo-1.gif)
+
+Much nicer!
+
+Changing length, size and transparency
+--------------------------------------
 
 Changing the length of the tail by changing `wake_length`. To make it 20% of the total animation
 
@@ -118,6 +132,9 @@ wake4 %>% animate(detail = 5, type = "cairo")
 
 ![](shadow_wake_files/figure-markdown_github/wake4-1.gif)
 
+Colour and fill
+---------------
+
 We can set it so that the `colour` and `fill` end up at a certain value. For example, to have the trails fade to black:
 
 ``` r
@@ -132,6 +149,9 @@ wake5 %>% animate(detail = 5, type = "cairo")
 ```
 
 ![](shadow_wake_files/figure-markdown_github/wake5-1.gif)
+
+Easing functions on the shadow wake
+-----------------------------------
 
 At the moment the colour isn't changing linearly. We can do that by changing the `falloff` argument. By default it uses a the "cubic-in" easing function, but we can make it "linear":
 
@@ -179,6 +199,9 @@ wake8 %>% animate(detail = 5, type = "cairo")
 
 ![](shadow_wake_files/figure-markdown_github/wake8-1.gif)
 
+To wrap or not to wrap the shadows
+----------------------------------
+
 The other arguments to the function allow flexiblity in other ways. In this simulation it makes sense to "wrap" the shadow wake (i.e., allow shadows from the end of the animation to appear at the beginning) because the time series' are all designed to be cyclic: they end at the same state that they started. Sometimes that's undesirable (wrapping a shadow from 1977 onto a data point from 2018 is a bit weird since time is thankfully not a loop), so you can turn this off by setting `wrap = FALSE`.
 
 This can also produce interesting effects!
@@ -195,6 +218,9 @@ wake9 %>% animate(detail = 5, type = "cairo")
 ```
 
 ![](shadow_wake_files/figure-markdown_github/wake9-1.gif)
+
+Controlling which layers leave shadows
+--------------------------------------
 
 When the base plot has multiple layers, you can control which layers get shadow wake and which don't. Let's create a plot with multiple layers:
 
