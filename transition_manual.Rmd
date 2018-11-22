@@ -94,8 +94,7 @@ dislike_plot + transition_manual(sign) + labs(title="{current_frame}")
 ```
 ```{r}
 profiles_red3 <- profiles_red %>% filter(!is.na(pets_like))
-like_plot <- ggplot(profiles_red3, aes(x = sex)) + geom_bar(aes(fill=pets_like), position="fill") 
-like_plot + transition_manual(sign)
+like_plot <- ggplot(profiles_red3, aes(x = status)) + geom_bar(aes(fill=pets_like), position="fill") 
 
 images = c(
  dogs= "https://www.akc.org/wp-content/themes/akc/component-library/assets//img/welcome.jpg",
@@ -103,7 +102,7 @@ images = c(
  dogs_cats = "https://www.southernmallee.sa.gov.au/webdata/resources/images/Cat_and_Dog.jpg"
 )
 
-like_plot <- ggplot(profiles_red3, aes(sex, image = pets_like, class=pets_like)) +
+like_plot <- ggplot(profiles_red3, aes(status, image = pets_like, class=pets_like)) +
   geom_textured_bar(position="fill") +
   scale_image_manual(values = images)
 
