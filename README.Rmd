@@ -1,0 +1,26 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+# learngganimate
+
+The goal of learngganimate is to record the discoveries of an intrepid
+group of animation explorers in the wild, amazing jungle of [`gganimate` package](https://github.com/thomasp85/gganimate)
+
+we collectively set our minds to the task of exploring the gganimate
+package.
+
+We record our discoveries here for posterity
+
+  - [ease_aes](ease_aes.md)
+  - [harvest_animation](example_harvest_animation.md)
+  - [shadow_wake](shadow_wake.html)
+  - [transition_filter](tranistion_filter.md)

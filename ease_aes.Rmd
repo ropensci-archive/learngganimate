@@ -147,3 +147,52 @@ ggplot(mtcars, aes(factor(cyl), mpg)) +
 
 # A more interesting example
 
+We can use the `ggimage` package to add in the image of a car and visualise it transitioning from state (one side of the screen to the other) and changing the way it gets there using `ease_aes()`.
+
+We first set up out static background -
+
+```{r}
+library(ggimage)
+
+ggdat <- expand.grid(x=0.75 * c(0:14),
+                     y=3* c(0:10),
+                     fill=NA)
+
+
+fill <- rep(NA, nrow(ggdat))
+
+for(i in 1:nrow(ggdat)){
+  if(ggdat$y[i]<=12){
+    fill[i] <- "#009900"
+  }
+  else if(ggdat$y[i]==15){
+    fill[i] <- "#72777f"
+  } else
+  {fill[i] <- "#4e86e0"}
+}
+
+ggdat$fill <- fill
+
+ga <- ggplot(ggdat, aes(x, y)) +
+  geom_tile(aes(fill=I(fill)), height=6, width=0.75, colour="white", size=1.2) +theme_void()
+ga
+
+```
+
+And now we add a `bounce` function with `-in-out` modifier - creating the feeling of struggling to parallel park!
+
+```{r}
+dta <- data.frame(y =     c(15, 15),
+                  x =     c(0,  10.5),
+                  tstep = c("a" , "b"),
+                  image = rep("images/car.png",2))
+
+
+ga1 <- ga +geom_image(data=dta, aes(x,y, image=image), size=0.2)
+ga1 + transition_states(tstep,
+                     transition_length=1,
+                     state_length = 1) +
+  ease_aes('bounce-in-out')
+
+```
+
