@@ -11,6 +11,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This was working in the old version of `gganimate` but since upgrading to the new one, it has stopped working :(
 
+```{r install pkgs, eval=FALSE}
+## install from Github
+devtools::install_github("jespermaag/gganatogram")
+
+```
+
 ```{r}
 library(gganimate)
 library(gganatogram)
@@ -32,16 +38,43 @@ heart1 <- heart1 %>%
          y=0.8*(y - mean(y)) + mean(y),
          state=1)
 heart <- rbind(heart1, heart2) %>% select(x, y, state)
+```
+I can't get this `transition_states` function to work and am not sure why.
+It worked under an older version of gganimate. Then i updated the package and now I get an error?
+this is the error
 
-ggplot(data=body, aes(x, -y)) + geom_path() +
+> Error in is_quosure(e2) : argument "e2" is missing, with no default
+
+```{r transition_states, eval=FALSE}
+ggplot(data=body, aes(x, -y)) +
+  geom_path() +
   geom_polygon(fill="yellow", colour="black") +
   geom_path(data=heart, aes(x, -y)) + 
   geom_polygon(data=heart, aes(x, -y), fill="red") + 
-  theme_void() + 
-  transition_time(state)
-#  transition_states(state,
+  theme_void()  +
+  ease_aes('quadratic-in-out') +
+  
+ #  transition_manual(state) 
+  transition_states(state,
                     transition_length=3,
-                    state_length=1) #+
-  ease_aes('quadratic-in-out')
-animate(ga, nframes=10, width=350)  
+                    state_length=1) 
+
+#animate(ga, nframes=10, width=350)  
 ```
+
+BUt `transition_manual` works, if underwhelming.
+
+```{r transition_manual}
+ggplot(data=body, aes(x, -y)) +
+  geom_path() +
+  geom_polygon(fill="yellow", colour="black") +
+  geom_path(data=heart, aes(x, -y)) + 
+  geom_polygon(data=heart, aes(x, -y), fill="red") + 
+  theme_void()  +
+  ease_aes('quadratic-in-out') +
+  transition_manual(state) 
+ 
+
+#animate(ga, nframes=10, width=350)  
+```
+
