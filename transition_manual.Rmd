@@ -9,10 +9,12 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(gganimate)
+library(okcupiddata)
+library(icon)
 theme_set(theme_minimal())
 ```
 
-Explain transistion_manual
+## Explain transistion_manual
 
 A static plot
 ```{r static plot}
@@ -28,7 +30,8 @@ cars_plot + facet_wrap(~cyl)
 
 ```
 
-Animate
+##Animate
+
 Transition manual will show one frame per level of the supplied variable.
 the `{current_frame}` can be used anywhere that accepts a string (I think!)
 to display the value of the 'frame' variable at each step of the animation.
@@ -38,5 +41,37 @@ cars_plot + transition_manual(cyl) +
   labs(title = "{current_frame}")
 ```
 
-More complex example
+## More complex example
+
+```{r}
+data(profiles)
+profiles_red <- profiles %>% select(pets, sex, status, sign)
+
+profiles_red <- profiles_red %>% mutate(sign = str_extract(sign, "[a-z']+[[:space:]]"))
+profiles_red <- profiles_red %>% 
+  mutate(pets_dislike = case_when(
+    str_detect(pets, "dislikes dogs and dislikes cats") ~ "dogs/cats",
+    str_detect(pets, "dislikes dogs") ~ "dogs", 
+    str_detect(pets, "dislikes cats") ~ "cats"))
+profiles_red <- profiles_red %>% mutate(sign = gsub(" ", "", sign))
+profiles_red <- profiles_red %>% 
+  mutate(pets_like = case_when(
+    str_detect(pets, "likes dogs and likes cats") ~ "dogs/cats",
+    str_detect(pets, "likes dogs") ~ "dogs", 
+    str_detect(pets, "likes cats") ~ "cats"))
+profiles_red <- profiles_red %>% 
+  mutate(pets_has = case_when(
+    str_detect(pets, "has dogs and has cats") ~ "dogs/cats",
+    str_detect(pets, "has dogs") ~ "dogs", 
+    str_detect(pets, "has cats") ~ "cats"))
+
+# define factor
+profiles_red <- profiles_red %>% filter(!is.na(sign))
+profiles_red <- profiles_red %>% 
+  mutate(sign = factor(sign, levels=c("aries", "taurus", "gemini", "cancer",
+                                      "leo", "virgo", "libra", "scorpio",
+                                      "sagittarius", "capricorn", "aquarius",
+                                      "pisces"))) 
+```
+
 
