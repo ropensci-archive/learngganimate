@@ -5,18 +5,6 @@ library(gganimate)
 library(tidyverse)
 
 
-
-ga <- ggplot(dta, aes(x,y))
-ga <-  ga +geom_image(data=dta, 
-                  aes(x, y, image=image), size=0.1) 
-ga <- ga +theme_void()
-ga+transition_states(tstep,
-                     transition_length=1,
-                     state_length = 1) +
-  ease_aes('quintic-in')
-
-
-
 #########################################
 
 ggdat <- expand.grid(x=0.75 * c(0:14),
@@ -49,14 +37,14 @@ dta <- data.frame(y =     c(15, 15),
                   tstep = c("a" , "b"),
                   image = rep("images/car.png",2))
 
-ga <- ga + geom_point(data=dta, aes(x,y), col="red", size=20)
+# ga <- ga + geom_point(data=dta, aes(x,y), col="red", size=20)
+# 
+# ga+transition_states(tstep,
+#                      transition_length=1,
+#                      state_length = 1) +
+#   ease_aes('bounce-in-out')
 
-ga+transition_states(tstep,
-                     transition_length=1,
-                     state_length = 1) +
-  ease_aes('bounce-in-out')
-
-ga1 <- ga +geom_image(data=dta, image=image, size=0.1)
+ga1 <- ga +geom_image(data=dta, aes(x,y, image=image), size=0.5)
 ga1 + transition_states(tstep,
                      transition_length=1,
                      state_length = 1) +
