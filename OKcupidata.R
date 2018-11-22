@@ -1,49 +1,8 @@
----
-title: "transition_manual"
-author: "Adam Gruer + Saskia Freytag"
-date: "22/11/2018"
-output: github_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
 library(gganimate)
+library(tidyverse)
 library(okcupiddata)
 library(icon)
-theme_set(theme_minimal())
-```
 
-## Explain transistion_manual
-
-A static plot
-```{r static plot}
-cars_plot <- ggplot(mtcars, aes(disp, mpg), ) + 
-  geom_point(colour = "purple", size = 3) 
-cars_plot
-
-```
-
-Facet by cylinder
-```{r a facet}
-cars_plot + facet_wrap(~cyl)
-
-```
-
-##Animate
-
-Transition manual will show one frame per level of the supplied variable.
-the `{current_frame}` can be used anywhere that accepts a string (I think!)
-to display the value of the 'frame' variable at each step of the animation.
-
-```{r animate}
-cars_plot + transition_manual(cyl) +
-  labs(title = "{current_frame}")
-```
-
-## More complex example
-
-```{r}
 data(profiles)
 profiles_red <- profiles %>% select(pets, sex, status, sign)
 
@@ -72,6 +31,17 @@ profiles_red <- profiles_red %>%
                                       "leo", "virgo", "libra", "scorpio",
                                       "sagittarius", "capricorn", "aquarius",
                                       "pisces"))) 
-```
 
+# start with easy ggplot
+ggplot(profiles_red, aes(x =pets_dislike)) + geom_bar() + facet_grid(~ sign)
+ggplot(profiles_red, aes(x =pets_like)) + geom_bar() + facet_grid(~ sign)
+ggplot(profiles_red, aes(x =pets_has)) + geom_bar() + facet_grid(~ sign)
 
+dislike_plot <- ggplot(profiles_red, aes(x =pets_dislike)) + geom_bar() 
+dislike_plot + transition_manual(sign)
+
+like_plot <- ggplot(profiles_red, aes(x =pets_like)) + geom_bar() 
+like_plot + transition_manual(sign) + labs(title="{current_frame}")
+
+has_plot <- ggplot(profiles_red, aes(x =pets_has)) + geom_bar() 
+has_plot + transition_manual(sign) + labs(title="{current_frame}")
