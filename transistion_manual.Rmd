@@ -1,0 +1,36 @@
+---
+title: "transition_manual"
+author: "Adam Gruer"
+date: "22/11/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(gganimate)
+theme_set(theme_minimal())
+```
+
+Explain transistion_manual
+
+A static plot
+```{r static plot}
+cars_plot <- ggplot(mtcars, aes(disp, mpg), ) + 
+  geom_point(colour = "purple", size = 3) 
+cars_plot
+
+```
+
+Facet by cylinder
+```{r a facet}
+cars_plot + facet_wrap(~cyl)
+
+```
+
+Animate
+```{r animate}
+cars_plot + transition_manual(cyl) +
+  labs(title = "{current_frame}")
+```
+
