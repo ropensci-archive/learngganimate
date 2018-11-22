@@ -3,8 +3,7 @@ transition\_manual
 Adam Gruer + Saskia Freytag
 22/11/2018
 
-Explain transistion\_manual
----------------------------
+## Explain transistion\_manual
 
 A static plot
 
@@ -14,7 +13,7 @@ cars_plot <- ggplot(mtcars, aes(disp, mpg), ) +
 cars_plot
 ```
 
-![](transition_manual_files/figure-markdown_github/static%20plot-1.png)
+![](transition_manual_files/figure-gfm/static%20plot-1.png)<!-- -->
 
 Facet by cylinder
 
@@ -22,12 +21,14 @@ Facet by cylinder
 cars_plot + facet_wrap(~cyl)
 ```
 
-![](transition_manual_files/figure-markdown_github/a%20facet-1.png)
+![](transition_manual_files/figure-gfm/a%20facet-1.png)<!-- -->
 
-Animate
--------
+\#\#Animate
 
-Transition manual will show one frame per level of the supplied variable. the `{current_frame}` can be used anywhere that accepts a string (I think!) to display the value of the 'frame' variable at each step of the animation.
+Transition manual will show one frame per level of the supplied
+variable. the `{current_frame}` can be used anywhere that accepts a
+string (I think\!) to display the value of the ‘frame’ variable at each
+step of the animation.
 
 ``` r
 cars_plot + transition_manual(cyl) +
@@ -36,12 +37,13 @@ cars_plot + transition_manual(cyl) +
 
     ## nframes and fps adjusted to match transition
 
-![](transition_manual_files/figure-markdown_github/animate-1.gif)
+![](transition_manual_files/figure-gfm/animate-1.gif)<!-- -->
 
-More complex example
---------------------
+## More complex example
 
-In this example we will be using the `okcupiddata` package to visualize how feelings about pets change with star sign. First let's begin with some data wrangling.
+In this example we will be using the `okcupiddata` package to visualize
+how feelings about pets change with star sign. First let’s begin with
+some data wrangling.
 
 ``` r
 data(profiles)
@@ -92,24 +94,19 @@ dislike_plot + transition_manual(sign) + labs(title="{current_frame}")
 
     ## nframes and fps adjusted to match transition
 
-![](transition_manual_files/figure-markdown_github/unnamed-chunk-2-1.gif)
+![](transition_manual_files/figure-gfm/unnamed-chunk-2-1.gif)<!-- -->
 
 ``` r
 profiles_red3 <- profiles_red %>% filter(!is.na(pets_like))
-like_plot <- ggplot(profiles_red3, aes(x = sex)) + geom_bar(aes(fill=pets_like), position="fill") 
-like_plot + transition_manual(sign)
-```
+like_plot <- ggplot(profiles_red3, aes(x = status)) + geom_bar(aes(fill=pets_like), position="fill") 
 
-    ## nframes and fps adjusted to match transition
-
-``` r
 images = c(
  dogs= "https://www.akc.org/wp-content/themes/akc/component-library/assets//img/welcome.jpg",
  cats= "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2WhOti17crdhQ5YaH0tWnaPwy-EL7rVEWpyH_VABFAmjfA8mZKA",
  dogs_cats = "https://www.southernmallee.sa.gov.au/webdata/resources/images/Cat_and_Dog.jpg"
 )
 
-like_plot <- ggplot(profiles_red3, aes(sex, image = pets_like, class=pets_like)) +
+like_plot <- ggplot(profiles_red3, aes(status, image = pets_like, class=pets_like)) +
   geom_textured_bar(position="fill") +
   scale_image_manual(values = images)
 
@@ -118,4 +115,4 @@ like_plot + transition_manual(sign) + labs(title="{current_frame}")
 
     ## nframes and fps adjusted to match transition
 
-![](transition_manual_files/figure-markdown_github/unnamed-chunk-3-1.gif)
+![](transition_manual_files/figure-gfm/unnamed-chunk-3-1.gif)<!-- -->
