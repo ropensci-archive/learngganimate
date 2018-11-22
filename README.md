@@ -4,7 +4,8 @@
 # learngganimate
 
 The goal of learngganimate is to record the discoveries of an intrepid
-group of animation explorers in the wild jungle of gganimate.
+group of animation explorers in the wild, amazing jungle of [`gganimate`
+package](https://github.com/thomasp85/gganimate)
 
 we collectively set our minds to the task of exploring the gganimate
 package.
