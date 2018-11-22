@@ -29,6 +29,10 @@ cars_plot + facet_wrap(~cyl)
 ```
 
 Animate
+Transition manual will show one frame per level of the supplied variable.
+the `{current_frame}` can be used anywhere that accepts a string (I think!)
+to display the value of the 'frame' variable at each step of the animation.
+
 ```{r animate}
 cars_plot + transition_manual(cyl) +
   labs(title = "{current_frame}")
