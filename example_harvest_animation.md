@@ -1,16 +1,24 @@
----
-title: "Harvest of Field"
-author: "Emi Tanaka"
-date: "22 November 2018"
-output: github_document
----
+Harvest of Field
+================
+Emi Tanaka
+22 November 2018
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+``` r
+library(tidyverse)
 ```
 
-```{r}
-library(tidyverse)
+    ## ── Attaching packages ──────────────────────────── tidyverse 1.2.1 ──
+
+    ## ✔ ggplot2 3.1.0     ✔ purrr   0.2.5
+    ## ✔ tibble  1.4.2     ✔ dplyr   0.7.7
+    ## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
+    ## ✔ readr   1.1.1     ✔ forcats 0.3.0
+
+    ## ── Conflicts ─────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter() masks stats::filter()
+    ## ✖ dplyr::lag()    masks stats::lag()
+
+``` r
 library(gganimate)
 library(ggimage)
 
@@ -82,12 +90,19 @@ for(atime in 1:nrow(harvest_df)) {
 }
 ```
 
-```{r, cache=T}
+``` r
 ga <- ggplot(ggdat, aes(x, y)) +
   geom_tile(aes(fill=I(fill)), height=6, width=0.75, colour="white", size=1.2) +
   geom_image(data=harvest_df, 
              aes(x, y, image=image), size=0.09)  +
   theme_void() + transition_time(time) +
   ease_aes('linear')
+```
+
+    ## Warning: Ignoring unknown parameters: image_colour
+
+``` r
 animate(ga, width=400)
 ```
+
+![](example_harvest_animation_files/figure-gfm/unnamed-chunk-2-1.gif)<!-- -->
