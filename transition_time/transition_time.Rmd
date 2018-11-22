@@ -1,0 +1,88 @@
+---
+title: "transition_time"
+author: "Robbie Bonelli"
+date: "22/11/2018"
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE,echo=F}
+library(gganimate)
+library(dplyr)
+library(readxl)
+knitr::opts_chunk$set(echo = TRUE,cache = T)
+
+rm(list=ls())
+airquality <- airquality
+
+```
+
+# What does `transition_time()` do?
+
+> transition_time() allows you to let data gradually appear, based on a given time dimension. 
+
+
+The function needs one simple paramteres, **time**.
+
+Look at this plot
+
+```{r}
+p <- ggplot(airquality, aes(Day, Temp, group = Month)) +
+  geom_line()
+
+p
+
+```
+
+
+
+We can try to track down each time series of Day Temp(eratures) along thes Months (**time**)
+
+
+
+```{r}
+p <- ggplot(airquality, aes(Day, Temp)) +
+   geom_line(color = 'red', size = 1) +
+   transition_time(time=Month)
+ 
+ animate(p,nframes = 50)
+```
+
+
+
+
+We can try to visualise how all months move by also tacking them down
+
+
+```{r}
+airquality$month_name <- rep(c("May","June","July","August","September"),c(31, 30, 31 ,31 ,30 ))
+
+
+p <- ggplot(airquality, aes(Day, Temp)) +
+  geom_line() +
+  geom_text(aes(x=1,y=max(Temp),label=month_name),hjust = 0,data=airquality[airquality$Day==1,])+
+  transition_time(time=Month)
+
+animate(p,nframes = 50)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
