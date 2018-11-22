@@ -79,10 +79,8 @@ profiles_red <- profiles_red %>%
 
 ```{r}
 profiles_red2 <- profiles_red %>% filter(!is.na(pets_dislike))
-dislike_plot <- ggplot(profiles_red2, aes(x = pets_dislike)) + geom_bar() 
+dislike_plot <- ggplot(profiles_red2, aes(x = sex, class=pets_dislike)) + geom_bar() 
 dislike_plot + transition_manual(sign)
-
-profiles_red
 
 images = c(
  dogs= "https://www.akc.org/wp-content/themes/akc/component-library/assets//img/welcome.jpg",
