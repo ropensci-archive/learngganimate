@@ -169,7 +169,6 @@ Playing with the combinations produces other variations,
 wake8 <- base_anim + 
   shadow_wake(wake_length = .3, 
               size = 15, 
-              colour = "black",
               fill = "white",
               falloff = "quintic-in"
               )
@@ -177,3 +176,18 @@ wake8 %>% animate(detail = 5, type = "cairo")
 ```
 
 ![](shadow_wake_files/figure-markdown_github/wake8-1.gif)
+
+The other arguments to the function allow flexiblity in other ways. In this simulation it makes sense to "wrap" the shadow wake (i.e., allow shadows from the end of the animation to appear at the beginning) because the time series' are all designed to be cyclic: they end at the same state that they started. Sometimes that's undesirable (wrapping a shadow from 1977 onto a data point from 2018 is a bit weird since time is thankfully not a loop), so you can turn this off by setting `wrap = FALSE`:
+
+``` r
+wake9 <- base_anim + 
+  shadow_wake(wake_length = .3, 
+              size = 15, 
+              fill = "white",
+              falloff = "quintic-in",
+              wrap = FALSE
+              )
+wake9 %>% animate(detail = 5, type = "cairo")
+```
+
+![](shadow_wake_files/figure-markdown_github/wake9-1.gif)
