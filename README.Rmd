@@ -9,8 +9,23 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+library(emo)
+library(icon)
 ```
-# learngganimate
+
+**Team members**
+
+* [Adam Gruer](https://github.com/adam-gruer) @AdamGruer 
+* [Saskia Freytag](https://github.com/SaskiaFreytag) @trashystats
+* [Anna Quaglieri](https://github.com/SaskiaFreytag) @annaquagli
+* [Sarah Romanes](https://github.com/sarahromanes) @sarah_romanes
+* [Danielle Navarro](https://github.com/SaskiaFreytag) @djnavarro
+* [Roberto Bonelli](https://github.com/Robbie90) @robbie_bonelli
+* [Emi Tanaka](https://github.com/emitanaka) @statsgen
+
+
+# `learngganimate`
 
 ![](transition_manual_files/figure-gfm/unnamed-chunk-2-1.gif)
 
@@ -31,7 +46,7 @@ We record our discoveries here for posterity
   - [transition_time](transition_time/transition_time.md)
   - [ease_aes](ease_aes.md)
   - [harvest_animation](example_harvest_animation.md)
-  - [shadow_wake](shadow_wake.html)
+  - [shadow_wake](shadow_wake.md)
   - [enter_exit](enter_exit/enter_exit.md)
   
   
