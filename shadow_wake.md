@@ -3,7 +3,9 @@ shadow\_wake
 Danielle Navarro
 22/11/2018
 
-Create a two dimensional brownian bridge simulation
+One of the nice features of gganimate is the ability to create *shadows*, in which previous states of the animation can remain visible at later states in the animation. There are four shadow functions, `shadow_wake()`, `shadow_trail()`, `shadow_mark()` and `shadow_null()`. In this walkthrough I'll discuss the `shadow_wake()` function.
+
+To illustrate the flexibility of the function, I'll start by creating a two dimensional brownian bridge simulation using the `rbridge()` function from the `e1071` package:
 
 ``` r
 ntimes <- 20  # how many time points to run the bridge?
@@ -32,7 +34,7 @@ glimpse(tbl)
     ## $ Vertical   <dbl> 0.00000000, -0.15372441, -0.30528943, -0.52619625, ...
     ## $ Series     <fct> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
 
-Draw a picture so that you can see what each of the frames looks like:
+We have a data frame with 10 separate time `Series`, each of which extends for 20 `Time` points, and plots the `Horizontal` and `Vertical` location of a particle that is moving along a Brownian bridge path. To see what the data looks like, here's a plot showing each time point as a separate facet:
 
 ``` r
 base_pic <- tbl %>%
@@ -53,7 +55,7 @@ base_pic + facet_wrap(~Time)
 
 ![](shadow_wake_files/figure-markdown_github/basepic-1.png)
 
-Make the base animation using `transition_time()`
+We can now create a basic animation using `transition_time()`, in which we can see each of the points moving smoothly along the path.
 
 ``` r
 base_anim <- base_pic + transition_time(time = Time) 
@@ -62,7 +64,7 @@ base_anim %>% animate()
 
 ![](shadow_wake_files/figure-markdown_github/baseanim-1.gif)
 
-Now add some `shadow_wake()` because shadow wake is cool
+To see what `shadow_wake()` does, we'll add it to the animation. the one required argument to the function is `wake_length`, which governs how "long" the wake is. The `wake_length` is a value from 0 to 1, where 1 means "the full length of the animation":
 
 ``` r
 wake1 <- base_anim + shadow_wake(wake_length = .1)
