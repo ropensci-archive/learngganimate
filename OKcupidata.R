@@ -31,6 +31,8 @@ profiles_red <- profiles_red %>%
                                       "leo", "virgo", "libra", "scorpio",
                                       "sagittarius", "capricorn", "aquarius",
                                       "pisces"))) 
+profiles_red %>%
+  write.csv("profiles_red.csv")
 
 # start with easy ggplot
 ggplot(profiles_red, aes(x =pets_dislike)) + geom_bar() + facet_grid(~ sign)
