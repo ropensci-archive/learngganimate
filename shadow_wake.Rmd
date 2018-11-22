@@ -147,4 +147,60 @@ wake7 <- base_anim +
 wake7 %>% animate(detail = 5, type = "cairo")
 ```
 
+Playing with the combinations produces other variations,
 
+```{r, wake8, cache=TRUE}
+wake8 <- base_anim + 
+  shadow_wake(wake_length = .3, 
+              size = 15, 
+              fill = "white",
+              falloff = "quintic-in"
+              )
+wake8 %>% animate(detail = 5, type = "cairo")
+```
+
+
+The other arguments to the function allow flexiblity in other ways. In this simulation it makes sense to "wrap" the shadow wake (i.e., allow shadows from the end of the animation to appear at the beginning) because the time series' are all designed to be cyclic: they end at the same state that they started. Sometimes that's undesirable (wrapping a shadow from 1977 onto a data point from 2018 is a bit weird since time is thankfully not a loop), so you can turn this off by setting `wrap = FALSE`.
+
+This can also produce interesting effects!
+
+```{r, wake9, cache=TRUE}
+wake9 <- base_anim + 
+  shadow_wake(wake_length = .3, 
+              size = 15, 
+              fill = "white",
+              falloff = "quintic-in",
+              wrap = FALSE
+              )
+wake9 %>% animate(detail = 5, type = "cairo")
+```
+
+When the base plot has multiple layers, you can control which layers get shadow wake and which don't. Let's create a plot with multiple layers:
+
+```{r, wake10, cache=TRUE}
+newanim <- base_pic + 
+  geom_point(colour = "black", size = 1, show.legend = FALSE) + 
+  transition_time(time = Time) + 
+  shadow_wake(wake_length = .2)
+  
+newanim %>% animate(detail = 5, type = "cairo")
+```
+
+This is really cool, but perhaps that's not what I want. I've constructed a plot with two layers, and maybe I only want to add shadow wake to the first one.
+
+```{r}
+newanim$layers
+```
+
+So let's suppose I want to exclude the second layer (the black dots I added over the top of the coloured ones). I can do this by setting `exclude_later = 2`:
+
+```{r, wake11, cache=TRUE}
+newanim2 <- base_pic + 
+  geom_point(colour = "black", size = 1, show.legend = FALSE) + 
+  transition_time(time = Time) + 
+  shadow_wake(wake_length = .2, exclude_layer = 2)
+  
+newanim2 %>% animate(detail = 5, type = "cairo")
+```
+
+Yay!
