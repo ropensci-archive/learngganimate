@@ -104,8 +104,33 @@ wake4 %>% animate(detail = 5, type = "cairo")
 ```
 
 
+We can set it so that the `colour` and `fill` end up at a certain value. For example, to have the trails fade to black:
+
+```{r, wake5, cache=TRUE}
+wake5 <- base_anim + 
+  shadow_wake(wake_length = .1, 
+              size = NULL, 
+              alpha = NULL,
+              colour = "black",
+              fill = "black"
+              )
+wake5 %>% animate(detail = 5, type = "cairo")
+```
 
 
+At the moment the colour isn't changing linearly. We can do that by changing the `falloff` argument. By default it uses a the "cubic-in" easing function, but we can make it "linear":
+
+```{r, wake6, cache=TRUE}
+wake6 <- base_anim + 
+  shadow_wake(wake_length = .1, 
+              size = NULL, 
+              alpha = NULL,
+              colour = "black",
+              fill = "black",
+              falloff = "linear"
+              )
+wake6 %>% animate(detail = 5, type = "cairo")
+```
 
 
 
