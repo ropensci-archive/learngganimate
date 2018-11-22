@@ -2,13 +2,83 @@
 title: "transistion_layers"
 author: "Adam Gruer"
 date: "22/11/2018"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, cache=TRUE)
 library(tidyverse)
 library(gganimate)
+theme_set(theme_minimal())
 ```
 
-transistion_layers 
+# transistion_layers()
+
+## what do I think it will do?
+I think it will  add a frame for each geom_ I add to the plot.
+
+# What does the help say
+
+```{r transition_layers help}
+?transition_layers
+```
+> ## Build up a plot, layer by layer
+>
+> This transition gradually adds layers to the plot in the order they have been defined. By default prior layers are kept for the remainder of the   animation, but they can also be set to be removed as the next layer  enters.
+
+> ## Usage
+
+> transition_layers(layer_length, transition_length, keep_layers = TRUE,
+  from_blank = TRUE, layer_names = NULL)
+
+# First attempt
+
+add three layers geom_point and geom_histogram and a geom_bar
+It did do as I expected.
+
+I still struggle to understand the layer_length and transition_length beyond them being relative times 
+
+```{r first attempt}
+ ggplot(mtcars ) + 
+  geom_point(aes(disp, mpg), colour = "purple", size = 3)  +
+  geom_histogram(aes(disp)) +
+  geom_bar(aes(cyl))+
+  transition_layers(layer_length = 1, transition_length = 1, keep_layers = TRUE)
+```
+
+It is very literal. `ggplot(mtcars)` is a layer albeit an uninteresting one. However one of the arguments `from_blank` which defaults to TRUE can be changed to FALSE so as to not show this first layer.
+
+Here i show the effect of not showing the first 'blank' layer.
+
+```{r hid blank layer }
+ ggplot(mtcars ) + 
+  geom_point(aes(disp, mpg), colour = "purple", size = 3)  +
+  geom_histogram(aes(disp)) +
+    geom_bar(aes(cyl))+
+  transition_layers(layer_length = 1, transition_length = 1, keep_layers = TRUE, from_blank =  FALSE ) 
+```
+
+I can choose not to keep each layer as I animate by setting `keep_layers = FALSE`
+
+```{r dont keep layers}
+ ggplot(mtcars ) + 
+  geom_point(aes(disp, mpg), colour = "purple", size = 3)  +
+  geom_histogram(aes(disp)) +
+    geom_bar(aes(cyl))+
+  transition_layers(layer_length = 1, transition_length = 1, keep_layers = FALSE, from_blank =  FALSE ) 
+```
+
+I can supply layer names to be used as label literals
+
+```{r supply label literals}
+ggplot(mtcars ) + 
+  geom_point(aes(disp, mpg), colour = "purple", size = 3)  +
+  geom_histogram(aes(disp)) +
+    geom_bar(aes(cyl)) +
+  labs(title = "{closest_layer}") +
+  transition_layers(layer_length = 1, transition_length = 1, keep_layers = FALSE, from_blank =  FALSE, layer_names  = c("geom_point(disp,mpg)",
+                                                                                                                        "geom_histogram(disp)",
+                                              "geom_bar(cyl)")
+                    ) 
+```
+
