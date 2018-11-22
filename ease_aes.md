@@ -81,7 +81,7 @@ ggplot(mtcars, aes(factor(cyl), mpg)) +
 ## Motivation
 
 For the `linear` ease function, it is clear the rate of change is
-constant - so there is only one possible linear combination
+constant - so there is only one possible way a linear rate of change could occur:
 
 ``` r
 tweenr::display_ease('linear')
