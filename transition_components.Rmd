@@ -1,0 +1,54 @@
+---
+title: "transition_components"
+author: "Anna Quaglieri"
+date: "22/11/2018"
+output:
+  github_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message = FALSE,cache=TRUE)
+```
+
+```{r}
+library(gganimate)
+library(tidyverse)
+library(fivethirtyeight)
+library(emo)
+devtools::install_github("hadley/emo")
+devtools::install_github("ropenscilabs/icon")
+library(icon)
+# List all the transitions
+#ls("package:gganimate")
+```
+
+
+To understand how `transition_component` works I will use the `US_births_1994_2003` dataset from the `fivethirtyeight` package. The title of the article where this data was used is *Some People Are Too Superstitious To Have A Baby On Friday The 13th*. Is that true?
+
+```{r}
+head(US_births_1994_2003)
+```
+
+Some key points to keep in mind:
+
+You need **id** and **time** components. The `transition_component` function is useful when you have the same subject (a plane, a day, a person, a neighborood etc..) with multiple observation over time. 
+
+The first thing to keep in mind 
+
+```{r eval=TRUE}
+library(ggrepel)
+
+fridays <- US_births_1994_2003 %>% 
+  filter(day_of_week %in% c("Fri") & date_of_month %in% c(1,2,3,13,18,28))
+table(fridays$date_of_month)
+
+p=ggplot(fridays) + 
+  geom_point(aes(x=year,y=births,colour=date_of_month)) +
+  facet_wrap(~date_of_month)+
+  transition_components(id=factor(date_of_month),time=date)+
+  shadow_trail(distance = 0.01, size = 0.3)
+
+animate(p, 200, 10,duration=20)
+```
+
