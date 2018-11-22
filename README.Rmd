@@ -20,7 +20,14 @@ package.
 
 We record our discoveries here for posterity
 
+  - [transition_filter](transition_filter.md)
+  - [transition_manual](transition_manual.md)
+  - [transition_layers](transition_layers.md)
+  - [transition_reveal](transition_reveal/transition_reveal.md)
+  - [transition_time](transition_time/transition_time.md)
   - [ease_aes](ease_aes.md)
   - [harvest_animation](example_harvest_animation.md)
   - [shadow_wake](shadow_wake.html)
-  - [transition_filter](tranistion_filter.md)
+  - [enter_exit](enter_exit/enter_exit.md)
+  
+  
