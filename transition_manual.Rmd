@@ -1,8 +1,8 @@
 ---
 title: "transition_manual"
-author: "Adam Gruer"
+author: "Adam Gruer + Saskia Freytag"
 date: "22/11/2018"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -37,4 +37,6 @@ to display the value of the 'frame' variable at each step of the animation.
 cars_plot + transition_manual(cyl) +
   labs(title = "{current_frame}")
 ```
+
+More complex example
 
