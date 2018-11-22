@@ -177,7 +177,9 @@ wake8 %>% animate(detail = 5, type = "cairo")
 
 ![](shadow_wake_files/figure-markdown_github/wake8-1.gif)
 
-The other arguments to the function allow flexiblity in other ways. In this simulation it makes sense to "wrap" the shadow wake (i.e., allow shadows from the end of the animation to appear at the beginning) because the time series' are all designed to be cyclic: they end at the same state that they started. Sometimes that's undesirable (wrapping a shadow from 1977 onto a data point from 2018 is a bit weird since time is thankfully not a loop), so you can turn this off by setting `wrap = FALSE`:
+The other arguments to the function allow flexiblity in other ways. In this simulation it makes sense to "wrap" the shadow wake (i.e., allow shadows from the end of the animation to appear at the beginning) because the time series' are all designed to be cyclic: they end at the same state that they started. Sometimes that's undesirable (wrapping a shadow from 1977 onto a data point from 2018 is a bit weird since time is thankfully not a loop), so you can turn this off by setting `wrap = FALSE`.
+
+This can also produce interesting effects!
 
 ``` r
 wake9 <- base_anim + 
@@ -191,3 +193,47 @@ wake9 %>% animate(detail = 5, type = "cairo")
 ```
 
 ![](shadow_wake_files/figure-markdown_github/wake9-1.gif)
+
+When the base plot has multiple layers, you can control which layers get shadow wake and which don't. Let's create a plot with multiple layers:
+
+``` r
+newanim <- base_pic + 
+  geom_point(colour = "black", size = 1, show.legend = FALSE) + 
+  transition_time(time = Time) + 
+  shadow_wake(wake_length = .2)
+  
+newanim %>% animate(detail = 5, type = "cairo")
+```
+
+![](shadow_wake_files/figure-markdown_github/wake10-1.gif)
+
+This is really cool, but perhaps that's not what I want. I've constructed a plot with two layers, and maybe I only want to add shadow wake to the first one.
+
+``` r
+newanim$layers
+```
+
+    ## [[1]]
+    ## geom_point: na.rm = FALSE
+    ## stat_identity: na.rm = FALSE
+    ## position_identity 
+    ## 
+    ## [[2]]
+    ## geom_point: na.rm = FALSE
+    ## stat_identity: na.rm = FALSE
+    ## position_identity
+
+So let's suppose I want to exclude the second layer (the black dots I added over the top of the coloured ones). I can do this by setting `exclude_later = 2`:
+
+``` r
+newanim2 <- base_pic + 
+  geom_point(colour = "black", size = 1, show.legend = FALSE) + 
+  transition_time(time = Time) + 
+  shadow_wake(wake_length = .2, exclude_layer = 2)
+  
+newanim2 %>% animate(detail = 5, type = "cairo")
+```
+
+![](shadow_wake_files/figure-markdown_github/wake11-1.gif)
+
+Yay!

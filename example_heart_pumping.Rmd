@@ -1,0 +1,47 @@
+---
+title: "Heart Pumping"
+author: "Emi Tanaka"
+date: "22/11/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This was working in the old version of `gganimate` but since upgrading to the new one, it has stopped working :(
+
+```{r}
+library(gganimate)
+library(gganatogram)
+library(dplyr)
+body <- hgMale_list$human_male_outline %>% 
+  mutate(index=1:nrow(.)) %>%
+  group_by(group) %>%
+  summarise(x=NA, y=NA, index=0) %>%
+  bind_rows(., hgMale_list$human_male_outline) %>% 
+  arrange(group, index) %>% 
+  select(x, y)
+heart1 <- heart2 <- hgMale_list$heart[-1,]
+heart2 <- heart2 %>% 
+  mutate(x=1.3*(x - mean(x)) + mean(x),
+         y=1.3*(y - mean(y)) + mean(y),
+         state=2)
+heart1 <- heart1 %>% 
+  mutate(x=0.8*(x - mean(x)) + mean(x),
+         y=0.8*(y - mean(y)) + mean(y),
+         state=1)
+heart <- rbind(heart1, heart2) %>% select(x, y, state)
+
+ggplot(data=body, aes(x, -y)) + geom_path() +
+  geom_polygon(fill="yellow", colour="black") +
+  geom_path(data=heart, aes(x, -y)) + 
+  geom_polygon(data=heart, aes(x, -y), fill="red") + 
+  theme_void() + 
+  transition_time(state)
+#  transition_states(state,
+                    transition_length=3,
+                    state_length=1) #+
+  ease_aes('quadratic-in-out')
+animate(ga, nframes=10, width=350)  
+```
