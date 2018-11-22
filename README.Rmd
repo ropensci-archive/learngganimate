@@ -17,6 +17,8 @@ knitr::opts_chunk$set(
 The goal of learngganimate is to record the discoveries of an intrepid
 group of animation explorers in the wild, amazing jungle of [`gganimate` package](https://github.com/thomasp85/gganimate)
 
+We aim to create documentation and share our user experience for this amazing, yet sparsly documented package.
+
 we collectively set our minds to the task of exploring the gganimate
 package.
 
