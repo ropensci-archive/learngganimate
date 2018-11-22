@@ -11,7 +11,7 @@ nseries <- 10 # how many time series to generate?
 
 # function to generate the brownian bridges
 make_bridges <- function(ntimes, nseries) {
-  replicate(nseries, rbridge(frequency = ntimes)) %>% as.vector()
+  replicate(nseries, c(0,rbridge(frequency = ntimes-1))) %>% as.vector()
 }
 
 # construct tibble
@@ -28,8 +28,8 @@ glimpse(tbl)
     ## Observations: 200
     ## Variables: 4
     ## $ Time       <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, ...
-    ## $ Horizontal <dbl> -0.02793644, -0.40154871, -0.85470290, -1.04202398,...
-    ## $ Vertical   <dbl> 0.032655275, -0.369434096, 0.188353927, 0.187846677...
+    ## $ Horizontal <dbl> 0.000000000, -0.049879825, 0.415680479, 0.537517639...
+    ## $ Vertical   <dbl> 0.00000000, -0.15372441, -0.30528943, -0.52619625, ...
     ## $ Series     <fct> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
 
 Draw a picture so that you can see what each of the frames looks like:

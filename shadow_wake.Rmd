@@ -21,7 +21,7 @@ nseries <- 10 # how many time series to generate?
 
 # function to generate the brownian bridges
 make_bridges <- function(ntimes, nseries) {
-  replicate(nseries, rbridge(frequency = ntimes)) %>% as.vector()
+  replicate(nseries, c(0,rbridge(frequency = ntimes-1))) %>% as.vector()
 }
 
 # construct tibble
