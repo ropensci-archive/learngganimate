@@ -67,7 +67,15 @@ wake1 <- base_anim + shadow_wake(wake_length = .1)
 wake1 %>% animate()
 ```
 
-Yay! 
+Yay!
+
+The discrete look is a bit meh. If we want it to look like a continuous thing we can up the detail on the call to `animate()`
+
+```{r, firstshadowwakedetail, cache=TRUE}
+wake1 %>% animate(detail = 5)
+```
+
+
 
 
 
