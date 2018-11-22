@@ -152,6 +152,8 @@ We can use the `ggimage` package to add in the image of a car and visualise it t
 We first set up out static background -
 
 ```{r}
+library(ggimage)
+
 ggdat <- expand.grid(x=0.75 * c(0:14),
                      y=3* c(0:10),
                      fill=NA)
@@ -186,7 +188,7 @@ dta <- data.frame(y =     c(15, 15),
                   image = rep("images/car.png",2))
 
 
-ga1 <- ga +geom_image(data=dta, aes(x,y, image=image), size=0.5)
+ga1 <- ga +geom_image(data=dta, aes(x,y, image=image), size=0.2)
 ga1 + transition_states(tstep,
                      transition_length=1,
                      state_length = 1) +
