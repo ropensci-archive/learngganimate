@@ -13,6 +13,7 @@ library(dplyr)
 library(readxl)
 library(knitr)
 
+
 knitr::opts_chunk$set(echo = TRUE,cache = T)
 
 rm(list=ls())
@@ -109,6 +110,60 @@ animate(p)
 As we see this not work properly!
 
 
+# oz baby names
+
+Use the oz baby names backage to show how a selection of names have varied in popularity in Australia over time.
+
+This animation uses
+  `geom_line()` and `geom_label()`
+  with a 
+  `transition_reveal()`
+  and `enter_grow(fade = TRUE)` and  `exit_shrink(fade = TRUE)`.
+  
+For these line chart reveal animations it's important in the `ggplot` portion of code to set the `group` aesthetic equal to the variable you are interested in tracing (it may help to think of it as the variable you would facet over in a static plot). This `id` argument of the `transition_reveal` function should also be set to this same variable.
+
+
+```{r ozbabynames install, eval=FALSE}
+install_github("ropenscilabs/ozbabynames")
+```
+
+
+```{r baby library}
+library(ozbabynames)
+
+```
+
+
+```{r baby}
+author_names <- c("Robin", "Robert", "Mitchell", "Nicholas", "Jessie", "Jessica")
+
+ozbabynames %>%
+  filter(name %in% author_names) %>%
+  count(name,year, wt = count) %>%
+  ggplot(aes(x = year, 
+             y = n,
+             colour = name,
+             group = name,
+             label = name,
+             fill = name)) +
+  geom_line(size = 1, linetype = "dotted") +
+  geom_label(colour = "white", alpha = 0.75, size =  5) +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        legend.position = "none",
+        title = element_text(colour = "purple",
+                             size = 20,
+                             face = "bold")
+        ) +
+  labs( title = "number of bubs dubbed in {frame_along} ",
+        y = "n babies" ) +
+  scale_y_log10(labels = scales::comma) +
+  transition_reveal(id = name, along = year) +
+  enter_grow(fade = TRUE) +
+  exit_shrink(fade = TRUE)
+  #shadow?
+  #ease?
+```
 
 
 

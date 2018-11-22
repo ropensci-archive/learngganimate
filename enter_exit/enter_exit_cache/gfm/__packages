@@ -1,0 +1,10 @@
+base
+devtools
+usethis
+ggplot2
+gganimate
+dplyr
+readxl
+knitr
+ozbabynames
+bindrcpp
