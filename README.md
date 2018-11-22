@@ -21,5 +21,5 @@ We record our discoveries here for posterity
   - [transition\_time](transition_time/transition_time.md)
   - [ease\_aes](ease_aes.md)
   - [harvest\_animation](example_harvest_animation.md)
-  - [shadow\_wake](shadow_wake.html)
+  - [shadow\_wake](shadow_wake.md)
   - [enter\_exit](enter_exit/enter_exit.md)
