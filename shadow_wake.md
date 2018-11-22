@@ -101,10 +101,14 @@ wake1 %>% animate(detail = 5, type = "cairo")
 
 Much nicer!
 
-Changing length, size and transparency
---------------------------------------
+Changing the aesthetics of the wake
+-----------------------------------
 
-Changing the length of the tail by changing `wake_length`. To make it 20% of the total animation
+The `shadow_wake()` function allows you to control the appearance of the shadow in several ways. It's quite flexible, so you can change the length, size, transparency, colour and fill.
+
+### Changing the length
+
+To extend the shadow wake, alter the value of `wake_length`. In the previous version I set `wake_length = .1`, so the wake extends for 10% of the total length of the animation. To increase it to 20% I set `wake_length = .2`:
 
 ``` r
 wake2 <- base_anim + shadow_wake(wake_length = .2)
@@ -113,7 +117,9 @@ wake2 %>% animate(detail = 5, type = "cairo")
 
 ![](shadow_wake_files/figure-markdown_github/wake2-1.gif)
 
-At the moment the transparency of the trail is falling off as well as the size. So let's tell it to leave the size untouched and have the wake change only in transparency
+### (Not) changing the size
+
+The default behaviour `shadow_wake()` is to leave wake that decreases in size and becomes more transparent. We can suppress this behaviour if we want to. For example, to hold the size of the wake constant, set `size = NULL`, producing a shadow wake that becomes more transparent but does not shrink:
 
 ``` r
 wake3 <- base_anim + shadow_wake(wake_length = .1, size = NULL)
@@ -122,7 +128,9 @@ wake3 %>% animate(detail = 5, type = "cairo")
 
 ![](shadow_wake_files/figure-markdown_github/wake3-1.gif)
 
-Similarly we can turn off the transparency
+### (Not) changing the transparency
+
+To stop `shadow_wake()` from modifying the transparency, we can set `alpha = NULL`. In this example, I hold the transparency and the size constant:
 
 ``` r
 wake4 <- base_anim + shadow_wake(wake_length = .1, size = NULL, alpha = NULL)
@@ -131,10 +139,12 @@ wake4 %>% animate(detail = 5, type = "cairo")
 
 ![](shadow_wake_files/figure-markdown_github/wake4-1.gif)
 
-Colour and fill
----------------
+In this form, the shadow wake now looks like a long opaque "snake". The length of the wake is a lot clearer in this version.
 
-We can set it so that the `colour` and `fill` end up at a certain value. For example, to have the trails fade to black:
+Fading the colour (and fill)
+----------------------------
+
+`shadow_wake()` also allows control of the `colour` and `fill` aesthetics of the wake, using the `colour` and `fill` arguments (no surprise there!) The behaviour of these two aguments is the same, and since our original plot only specifies the colour, I'll just use that. Let's take the last animation, but have the colour of the wake fade to black. This is done by setting `colour = 'black'`:
 
 ``` r
 wake5 <- base_anim + 
@@ -148,8 +158,10 @@ wake5 %>% animate(detail = 5, type = "cairo")
 
 ![](shadow_wake_files/figure-markdown_github/wake5-1.gif)
 
-Easing functions on the shadow wake
------------------------------------
+Very pretty!
+
+Easings for shadow wake
+-----------------------
 
 At the moment the colour isn't changing linearly. We can do that by changing the `falloff` argument. By default it uses a the "cubic-in" easing function, but we can make it "linear":
 
