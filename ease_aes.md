@@ -20,7 +20,7 @@ from the `tweenr` package. They are
   - And the modifier for said `ease` function, in the form of `-in`,
     `-out`, or `-in-out`.
 
-Each ease\_aes() command requires the ease function AND the modifier,
+Each `ease_aes()` command requires the ease function AND the modifier,
 *except* for the special case of the `linear function`.
 
 ## The `ease` function
