@@ -2,7 +2,9 @@
 title: "transition_filter"
 author: "Anna Quaglieri"
 date: "22/11/2018"
-output: github_document
+output:
+  github_document:
+    toc: true
 ---
 
 ```{r setup, include=FALSE,message=FALSE}

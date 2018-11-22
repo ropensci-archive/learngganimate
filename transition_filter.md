@@ -3,6 +3,12 @@ transition\_filter
 Anna Quaglieri
 22/11/2018
 
+-   [`transition_filter`](#transition_filter)
+    -   [How do the filtering actually works?](#how-do-the-filtering-actually-works)
+    -   [Let's investigate the `keep` argument.](#lets-investigate-the-keep-argument.)
+-   [Errors encountered along the way](#errors-encountered-along-the-way)
+-   [Suggestion for improvement](#suggestion-for-improvement)
+
 ``` r
 devtools::install_github("thomasp85/gganimate")
 devtools::install_github("thomasp85/transformr")
