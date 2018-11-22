@@ -146,3 +146,19 @@ wake6 %>% animate(detail = 5, type = "cairo")
 ```
 
 ![](shadow_wake_files/figure-markdown_github/wake6-1.gif)
+
+Changing the easing function on the falloff can produce suprising variations. This is "bounce-out"
+
+``` r
+wake7 <- base_anim + 
+  shadow_wake(wake_length = .1, 
+              size = NULL, 
+              alpha = NULL,
+              colour = "black",
+              fill = "black",
+              falloff = "bounce-out"
+              )
+wake7 %>% animate(detail = 5, type = "cairo")
+```
+
+![](shadow_wake_files/figure-markdown_github/wake7-1.gif)
