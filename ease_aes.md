@@ -101,10 +101,12 @@ tweenr::display_ease('quadratic-out')
 
 It is clear that the role of the `-in` and `-out` modifiers is to change
 which *reflection* on the line *y=x* our function is on. This has the
-affect of changing concavity, or more pratically, the type of
+effect of changing concavity, or more pratically, the type of
 acceleration. In the `quadratic-in` example, our transition state is
 *speeding up* as time progresses. However, in `quadratic-out`, our
 transition state is *slowing down* as time progresses.
+
+If we wanted a more extreme version of this acceleration, the function can be changed, for example, the `quintic-in`/`quintic-out` function/modifier combination. 
 
 **Speeding up**
 
