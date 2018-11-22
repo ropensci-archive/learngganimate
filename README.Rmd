@@ -14,7 +14,7 @@ library(emo)
 library(icon)
 ```
 
-**Authors**
+**Team members**
 
 * [Adam Gruer](https://github.com/adam-gruer) @AdamGruer 
 * [Saskia Freytag](https://github.com/SaskiaFreytag) @trashystats
