@@ -9,6 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(gganimate)
+theme_set(theme_minimal())
 ```
 
 transistion_layers 
@@ -46,11 +47,43 @@ First attempt
 add two layers geom_point and geom_histogram
 It did do as I expected.
 It is very literal. ```ggplot(mtcars)``` is a layer albeit an uninteresting one. However one of the arguments ```from_blank``` which defaults to TRUE can be changed to FALSE so as to not show this first layer.
-I still struggle to understand the layer_length and transition_length 
+I still struggle to understand the layer_length and transition_length beyond them being relative times 
 ```{r first attempt}
  ggplot(mtcars ) + 
   geom_point(aes(disp, mpg), colour = "purple", size = 3)  +
   geom_histogram(aes(disp)) +
+  geom_bar(aes(cyl))+
   transition_layers(layer_length = 1, transition_length = 1, keep_layers = TRUE)
+```
+Here i show the effect of not showing the first 'blank' layer.
+```{r hid blank layer }
+ ggplot(mtcars ) + 
+  geom_point(aes(disp, mpg), colour = "purple", size = 3)  +
+  geom_histogram(aes(disp)) +
+    geom_bar(aes(cyl))+
+  transition_layers(layer_length = 1, transition_length = 1, keep_layers = TRUE, from_blank =  FALSE ) 
+```
+I can choose not to keep each layer as I animate by setting ```keep_layers = FALSE```
+
+```{r dont keep layers}
+ ggplot(mtcars ) + 
+  geom_point(aes(disp, mpg), colour = "purple", size = 3)  +
+  geom_histogram(aes(disp)) +
+    geom_bar(aes(cyl))+
+  transition_layers(layer_length = 1, transition_length = 1, keep_layers = FALSE, from_blank =  FALSE ) 
+```
+
+I can supply layer names to be used as label literals
+
+```{r supply label literals}
+ggplot(mtcars ) + 
+  geom_point(aes(disp, mpg), colour = "purple", size = 3)  +
+  geom_histogram(aes(disp)) +
+    geom_bar(aes(cyl)) +
+  labs(title = "{closest_layer}") +
+  transition_layers(layer_length = 1, transition_length = 1, keep_layers = FALSE, from_blank =  FALSE, layer_names  = c("geom_point(disp,mpg)",
+                                                                                                                        "geom_histogram(disp)",
+                                              "geom_bar(cyl)")
+                    ) 
 ```
 
