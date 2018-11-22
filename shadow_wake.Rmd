@@ -8,7 +8,67 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(e1071)
 library(gganimate)
-theme_set(theme_minimal())
 ```
+
+
+Create a two dimensional brownian bridge simulation
+
+```{r, createdata, cache=TRUE}
+ntimes <- 20  # how many time points to run the bridge?
+nseries <- 10 # how many time series to generate?
+
+# function to generate the brownian bridges
+make_bridges <- function(ntimes, nseries) {
+  replicate(nseries, rbridge(frequency = ntimes)) %>% as.vector()
+}
+
+# construct tibble
+tbl <- tibble(
+  Time = rep(1:ntimes, nseries),
+  Horizontal = make_bridges(ntimes, nseries),
+  Vertical = make_bridges(ntimes, nseries),
+  Series = gl(nseries, ntimes)
+)
+
+glimpse(tbl)
+```
+
+Draw a picture so that you can see what each of the frames looks like:
+
+```{r, basepic, cache=TRUE, fig.width=15, fig.height=15}
+base_pic <- tbl %>%
+  ggplot(aes(
+    x = Horizontal, 
+    y = Vertical, 
+    colour = Series)) + 
+  geom_point(
+    show.legend = FALSE,
+    size = 5) + 
+  coord_equal() + 
+  xlim(-2, 2) + 
+  ylim(-2, 2)
+
+base_pic + facet_wrap(~Time)
+```
+
+Make the base animation using `transition_time()`
+
+```{r, baseanim, cache=TRUE}
+base_anim <- base_pic + transition_time(time = Time) 
+base_anim %>% animate()
+```
+
+Now add some `shadow_wake()` because shadow wake is cool
+
+```{r, firstshadowwake, cache=TRUE}
+wake1 <- base_anim + shadow_wake(wake_length = .1)
+wake1 %>% animate()
+```
+
+Yay! 
+
+
+
 
