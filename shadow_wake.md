@@ -44,8 +44,7 @@ base_pic <- tbl %>%
   ggplot(aes(
     x = Horizontal, 
     y = Vertical, 
-    colour = Series,
-    fill = Series)) + 
+    colour = Series)) + 
   geom_point(
     show.legend = FALSE,
     size = 5) + 
@@ -142,8 +141,7 @@ wake5 <- base_anim +
   shadow_wake(wake_length = .1, 
               size = NULL, 
               alpha = NULL,
-              colour = "black",
-              fill = "black"
+              colour = "black"
               )
 wake5 %>% animate(detail = 5, type = "cairo")
 ```
@@ -161,7 +159,6 @@ wake6 <- base_anim +
               size = NULL, 
               alpha = NULL,
               colour = "black",
-              fill = "black",
               falloff = "linear"
               )
 wake6 %>% animate(detail = 5, type = "cairo")
@@ -177,7 +174,6 @@ wake7 <- base_anim +
               size = NULL, 
               alpha = NULL,
               colour = "black",
-              fill = "black",
               falloff = "bounce-out"
               )
 wake7 %>% animate(detail = 5, type = "cairo")
@@ -191,7 +187,7 @@ Playing with the combinations produces other variations,
 wake8 <- base_anim + 
   shadow_wake(wake_length = .3, 
               size = 15, 
-              fill = "white",
+              colour = "white",
               falloff = "quintic-in"
               )
 wake8 %>% animate(detail = 5, type = "cairo")
@@ -210,7 +206,7 @@ This can also produce interesting effects!
 wake9 <- base_anim + 
   shadow_wake(wake_length = .3, 
               size = 15, 
-              fill = "white",
+              colour = "white",
               falloff = "quintic-in",
               wrap = FALSE
               )
