@@ -12,3 +12,45 @@ library(gganimate)
 ```
 
 transistion_layers 
+
+what do I think it will do?
+I think it will  add a frame for each geom_ I add to the plot.
+
+What does the help say
+
+```{r transition_layers help}
+?transition_layers
+```
+Build up a plot, layer by layer
+
+This transition gradually adds layers to the plot in the order they have been defined. By default prior layers are kept for the remainder of the animation, but they can also be set to be removed as the next layer enters.
+
+Usage
+
+transition_layers(layer_length, transition_length, keep_layers = TRUE,
+  from_blank = TRUE, layer_names = NULL)
+Arguments
+
+layer_length	
+The proportional time to pause at each layer before a new one enters
+transition_length	
+The proportional time to use for the entrance of a new layer
+keep_layers	
+Should layers be kept on screen after they have appeared or transition out when a new layer enters
+from_blank	
+Should the first layer transition in or be present on the onset of the animation
+layer_names	
+A character vector of names for each layers, to be used when interpreting label literals
+
+First attempt
+add two layers geom_point and geom_histogram
+It did do as I expected.
+It is very literal. ```ggplot(mtcars)``` is a layer albeit an uninteresting one. However one of the arguments ```from_blank``` which defaults to TRUE can be changed to FALSE so as to not show this first layer.
+I still struggle to understand the layer_length and transition_length 
+```{r first attempt}
+ ggplot(mtcars ) + 
+  geom_point(aes(disp, mpg), colour = "purple", size = 3)  +
+  geom_histogram(aes(disp)) +
+  transition_layers(layer_length = 1, transition_length = 1, keep_layers = TRUE)
+```
+
