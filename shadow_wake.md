@@ -162,3 +162,18 @@ wake7 %>% animate(detail = 5, type = "cairo")
 ```
 
 ![](shadow_wake_files/figure-markdown_github/wake7-1.gif)
+
+Playing with the combinations produces other variations,
+
+``` r
+wake8 <- base_anim + 
+  shadow_wake(wake_length = .3, 
+              size = 15, 
+              colour = "black",
+              fill = "white",
+              falloff = "quintic-in"
+              )
+wake8 %>% animate(detail = 5, type = "cairo")
+```
+
+![](shadow_wake_files/figure-markdown_github/wake8-1.gif)
