@@ -175,5 +175,32 @@ wake9 <- base_anim +
 wake9 %>% animate(detail = 5, type = "cairo")
 ```
 
+When the base plot has multiple layers, you can control which layers get shadow wake and which don't. Let's create a plot with multiple layers:
 
+```{r, wake10, cache=TRUE}
+newanim <- base_pic + 
+  geom_point(colour = "black", size = 1, show.legend = FALSE) + 
+  transition_time(time = Time) + 
+  shadow_wake(wake_length = .2)
+  
+newanim %>% animate(detail = 5, type = "cairo")
+```
 
+This is really cool, but perhaps that's not what I want. I've constructed a plot with two layers, and maybe I only want to add shadow wake to the first one.
+
+```{r}
+newanim$layers
+```
+
+So let's suppose I want to exclude the second layer (the black dots I added over the top of the coloured ones). I can do this by setting `exclude_later = 2`:
+
+```{r, wake11, cache=TRUE}
+newanim2 <- base_pic + 
+  geom_point(colour = "black", size = 1, show.legend = FALSE) + 
+  transition_time(time = Time) + 
+  shadow_wake(wake_length = .2, exclude_layer = 2)
+  
+newanim2 %>% animate(detail = 5, type = "cairo")
+```
+
+Yay!
