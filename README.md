@@ -44,3 +44,4 @@ We record our discoveries here for posterity:
 -   [help needed! alluvial plot](alluvial_plot.md)
 -   [transition\_RUveal: using many of the gganimate functions](RuPaul_excercise/making_gganimate_fab.md)
 -   [airplanes example: using transition\_reveal](USflights.md)
+  - [cool cool cool syn crossover](coolcoolcool.md)
