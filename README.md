@@ -19,6 +19,9 @@
 
 ![](ease_aes_files/figure-gfm/unnamed-chunk-11-1.gif)
 
+![](coolcoolcool_files/figure-gfm/cool-1.gif)
+      
+
 The goal of learngganimate is to record the discoveries of an intrepid group of animation explorers in the wild 🐯, amazing jungle 🌳 of [`gganimate` package](https://github.com/thomasp85/gganimate) 📦.
 
 We aim to create documentation and share our user experience for this amazing ⭐, yet sparsly documented package 📦.
