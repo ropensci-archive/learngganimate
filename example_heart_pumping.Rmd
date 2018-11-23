@@ -73,8 +73,6 @@ ga <- ggplot(data=body, aes(x, -y)) +
   theme_void()  +
   ease_aes('quadratic-in-out') +
   transition_manual(state) 
- 
-
 animate(ga, nframes=5, width=350)  
 ```
 

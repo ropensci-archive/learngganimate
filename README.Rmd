@@ -28,6 +28,12 @@ library(emo)
 
 ![](transition_manual_files/figure-gfm/unnamed-chunk-2-1.gif)
 
+
+
+![](RuPaul_excercise/making_gganimate_fab_files/figure-markdown_github/rupaulgif-1.gif)
+
+
+
 The goal of learngganimate is to record the discoveries of an intrepid
 group of animation explorers in the wild `r emo::ji("tiger")`, amazing jungle `r emo::ji("tree")` of [`gganimate` package](https://github.com/thomasp85/gganimate) `r emo::ji("package")`.
 
@@ -53,5 +59,6 @@ We record our discoveries here for posterity:
   - [harvest_animation (transition_time)](example_harvest_animation.md)
   - [help needed! example heart pumping (animate, transition_manual, transition_states)](example_heart_pumping.md)
   - [help needed! alluvial plot](alluvial_plot.md)
+  - [transition_RUveal: using many of the gganimate functions](RuPaul_excercise/making_gganimate_fab.md)
   
   
