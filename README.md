@@ -6,7 +6,7 @@
 -   🐱 [Saskia Freytag](https://github.com/SaskiaFreytag) 🐦 [@trashystats](https://twitter.com/trashystats)
 -   🐱 [Anna Quaglieri](https://github.com/SaskiaFreytag) 🐦 [@annaquagli](https://twitter.com/annaquagli)
 -   🐱 [Sarah Romanes](https://github.com/sarahromanes) 🐦 [@sarah\_romanes](https://twitter.com/sarah_romanes)
--   🐱 [Danielle Navarro](https://github.com/SaskiaFreytag) 🐦 [@djnavarro](https://twitter.com/djnavarro)
+-   🐱 [Danielle Navarro](https://github.com/djnavarro) 🐦 [@djnavarro](https://twitter.com/djnavarro)
 -   🐱 [Roberto Bonelli](https://github.com/Robbie90) 🐦 [@robbie\_bonelli](https://twitter.com/robbie_bonelli)
 -   🐱 [Emi Tanaka](https://github.com/emitanaka) 🐦 [@statsgen](https://twitter.com/statsgen)
 
