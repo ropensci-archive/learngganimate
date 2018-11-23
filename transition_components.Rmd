@@ -53,11 +53,12 @@ animate(p, 200, 10,duration=20)
 ```
 
 
-# Example with US flights
-
-Failed example!
 
 ```{r eval=FALSE, echo=FALSE}
+# Example with US flights
+
+#Failed example!
+
 library(fivethirtyeight)
 library(nycflights13)
 library(tidyverse)
@@ -182,17 +183,24 @@ animate(p2,nframes = 100,duration = 10)
 * In order to show the transition across time you use `{frame_along}` from `transition_reveal` and `{frame_time}` in `transition_components`... 
 
 ```{r}
-p1=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
-  geom_point(aes(x=year,y=count,colour=name)) +
-  transition_reveal(id=name,along=year)+
+library(tidyverse)
+author_names <- c("Robin", "Robert", "Mitchell", "Nicholas", "Jessie", "Jessica")
+
+dat <- ozbabynames %>%
+  filter(name %in% author_names) %>%
+  count(name,year, wt = count) 
+
+p2=ggplot(dat) + 
+  geom_point(aes(x=year,y=n,colour=name)) +
+  transition_components(id=name,time=year)+
   shadow_trail(distance = 0.01, size = 2)+
-  labs(title="Year: {frame_along}")
-p1
+  labs(title="Year: {frame_time}")
+p2
 ```
 
 ```{r}
-p2=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
-  geom_point(aes(x=year,y=count,colour=name)) +
+p2=ggplot(dat) + 
+  geom_point(aes(x=year,y=n,colour=name)) +
   transition_components(id=name,time=year)+
   shadow_trail(distance = 0.01, size = 2)+
   labs(title="Year: {frame_time}")

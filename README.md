@@ -17,7 +17,7 @@
 
 ![](RuPaul_excercise/making_gganimate_fab_files/figure-markdown_github/rupaulgif-1.gif)
 
-The goal of learngganimate is to record the discoveries of an intrepid group of animation explorers in the wild 🐯, amazing jungle 🌴 of [`gganimate` package](https://github.com/thomasp85/gganimate) 📦.
+The goal of learngganimate is to record the discoveries of an intrepid group of animation explorers in the wild 🐯, amazing jungle 🎄 of [`gganimate` package](https://github.com/thomasp85/gganimate) 📦.
 
 We aim to create documentation and share our user experience for this amazing ⭐, yet sparsly documented package 📦.
 
@@ -40,3 +40,5 @@ We record our discoveries here for posterity:
 -   [harvest\_animation (transition\_time)](example_harvest_animation.md)
 -   [help needed! example heart pumping (animate, transition\_manual, transition\_states)](example_heart_pumping.md)
 -   [help needed! alluvial plot](alluvial_plot.md)
+-   [transition\_RUveal: using many of the gganimate functions](RuPaul_excercise/making_gganimate_fab.md)
+-   [airplanes example: using transition\_reveal](USflights.md)

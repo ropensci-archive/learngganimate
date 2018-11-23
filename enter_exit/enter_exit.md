@@ -173,3 +173,24 @@ animate(p)
 ```
 
 ![](enter_exit_files/figure-markdown_github/unnamed-chunk-6-1.gif)
+
+``` r
+p1=ggplot(dat1,aes(x=year,y=n,colour=name,fill = name)) + 
+  geom_point() +
+  transition_reveal(id=name,along=year)+
+  shadow_trail(distance = 0.01, size = 2)+
+  theme(panel.grid = element_blank(),
+        legend.position = "none",
+        title = element_text(colour = "purple",
+                             size = 20,
+                             face = "bold")
+        )+
+  ease_aes('bounce-out')+
+  geom_label(aes(label=name),colour = "white", alpha = 0.75, size =  10) +
+  scale_y_log10(labels = scales::comma) +
+  shadow_wake(wake_length = .4)+
+  labs(title="Year: {frame_along}")
+animate(p1,detail = 5, type = "cairo",nframes = 50)
+```
+
+![](enter_exit_files/figure-markdown_github/unnamed-chunk-7-1.gif)
