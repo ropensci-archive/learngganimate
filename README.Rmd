@@ -33,6 +33,10 @@ library(emo)
 ![](RuPaul_excercise/making_gganimate_fab_files/figure-markdown_github/rupaulgif-1.gif)
 
 
+![](ease_aes_files/figure-gfm/unnamed-chunk-11-1.gif)
+
+
+
 
 The goal of learngganimate is to record the discoveries of an intrepid
 group of animation explorers in the wild `r emo::ji("tiger")`, amazing jungle `r emo::ji("tree")` of [`gganimate` package](https://github.com/thomasp85/gganimate) `r emo::ji("package")`.
