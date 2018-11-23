@@ -10,3 +10,4 @@ stringr
 forcats
 gapminder
 gganimate
+bindrcpp
