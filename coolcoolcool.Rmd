@@ -1,0 +1,51 @@
+---
+title: "Syn"
+author: "Adam Gruer"
+date: "23/11/2018"
+output:
+  github_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, eval=FALSE}
+
+devtools::install_github("ropenscilabs/syn")
+
+```
+
+```{r libraries}
+library(ggplot2)
+library(syn)
+library(gganimate)
+library(dplyr)
+```
+
+# Cool, Cool, Cool, Cool!
+
+```{r cool}
+
+theme_set(theme_minimal())
+
+## basic example code
+synonyms <- syn("cool") 
+cool_df <- data_frame(sentence = paste0("This is really ", synonyms[1:10], "!"), x = factor("a"),  y = seq(100, 10, -10) )
+
+ggplot(cool_df,(aes(x,y, label = sentence, group = sentence, fill = sentence))) +
+  geom_label(size = 10,colour = "white",show.legend = FALSE) +
+  theme_void() +
+  transition_reveal(sentence, along = 100 - y) +
+  enter_grow(fade =TRUE) +
+  labs(title="https://github.com/ropenscilabs/syn") +
+  theme(title = element_text(size = 20))
+
+
+
+```
+
+
+
+

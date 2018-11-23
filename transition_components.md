@@ -5,7 +5,7 @@ Anna Quaglieri
 
 -   [Example with US flights](#example-with-us-flights)
 -   [Example with babynames](#example-with-babynames)
--   [What's are differences between `transition_reveal` and `transition_component`?](#whats-are-differences-between-transition_reveal-and-transition_component)
+-   [What are the differences between `transition_reveal` and `transition_component`?](#what-are-the-differences-between-transition_reveal-and-transition_component)
 
 ``` r
 library(gganimate)
@@ -132,8 +132,8 @@ animate(p2,nframes = 100,duration = 30)
 
 ![](transition_components_files/figure-markdown_github/unnamed-chunk-8-1.gif)
 
-What's are differences between `transition_reveal` and `transition_component`?
-==============================================================================
+What are the differences between `transition_reveal` and `transition_component`?
+================================================================================
 
 It look like they do sort of the same things...
 
@@ -164,19 +164,26 @@ animate(p2,nframes = 100,duration = 10)
 -   In order to show the transition across time you use `{frame_along}` from `transition_reveal` and `{frame_time}` in `transition_components`...
 
 ``` r
-p1=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
-  geom_point(aes(x=year,y=count,colour=name)) +
-  transition_reveal(id=name,along=year)+
+library(tidyverse)
+author_names <- c("Robin", "Robert", "Mitchell", "Nicholas", "Jessie", "Jessica")
+
+dat <- ozbabynames %>%
+  filter(name %in% author_names) %>%
+  count(name,year, wt = count) 
+
+p2=ggplot(dat) + 
+  geom_point(aes(x=year,y=n,colour=name)) +
+  transition_components(id=name,time=year)+
   shadow_trail(distance = 0.01, size = 2)+
-  labs(title="Year: {frame_along}")
-p1
+  labs(title="Year: {frame_time}")
+p2
 ```
 
 ![](transition_components_files/figure-markdown_github/unnamed-chunk-11-1.gif)
 
 ``` r
-p2=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
-  geom_point(aes(x=year,y=count,colour=name)) +
+p2=ggplot(dat) + 
+  geom_point(aes(x=year,y=n,colour=name)) +
   transition_components(id=name,time=year)+
   shadow_trail(distance = 0.01, size = 2)+
   labs(title="Year: {frame_time}")
