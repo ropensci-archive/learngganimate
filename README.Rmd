@@ -46,6 +46,7 @@ We record our discoveries here for posterity:
   - [transition_time](transition_time/transition_time.md)
   - [ease_aes](ease_aes.md)
   - [shadow_wake](shadow_wake.md)
+  - [shadow_mark](shadow_mark.md)
   - [enter_exit](enter_exit/enter_exit.md)
   - [view_follow](view_follow.md)
   - [compare transition_time with transition_reveal](transition_time_vs_transition_reveal.md)

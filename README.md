@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-**Team members 👩‍🌾 🕵**
+**Team members 👨‍🌾 🕵**
 
   - 🐱 [Adam Gruer](https://github.com/adam-gruer) 🐦
     [@AdamGruer](https://twitter.com/AdamGruer)
@@ -23,7 +23,7 @@
 ![](transition_manual_files/figure-gfm/unnamed-chunk-2-1.gif)
 
 The goal of learngganimate is to record the discoveries of an intrepid
-group of animation explorers in the wild 🐯, amazing jungle 🎄 of
+group of animation explorers in the wild 🐯, amazing jungle 🌳 of
 [`gganimate` package](https://github.com/thomasp85/gganimate) 📦.
 
 We aim to create documentation and share our user experience for this
@@ -42,6 +42,7 @@ We record our discoveries here for posterity:
   - [transition\_time](transition_time/transition_time.md)
   - [ease\_aes](ease_aes.md)
   - [shadow\_wake](shadow_wake.md)
+  - [shadow\_mark](shadow_mark.md)
   - [enter\_exit](enter_exit/enter_exit.md)
   - [view\_follow](view_follow.md)
   - [compare transition\_time with
