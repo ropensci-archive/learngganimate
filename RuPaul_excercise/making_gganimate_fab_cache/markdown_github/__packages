@@ -1,0 +1,9 @@
+base
+ggplot2
+gganimate
+dplyr
+readxl
+stringr
+png
+ggimage
+gridGraphics
