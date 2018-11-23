@@ -81,10 +81,12 @@ ggplot(data=body, aes(x, -y)) +
 #animate(ga, nframes=10, width=350)  
 ```
 
-BUt `transition_manual` works, if underwhelming.
+BUt `transition_manual` works. I also learnt that seeting the nframes
+argument of the `animate` function to a samll number makes the hear beat
+faster than a larger number
 
 ``` r
-ggplot(data=body, aes(x, -y)) +
+ga <- ggplot(data=body, aes(x, -y)) +
   geom_path() +
   geom_polygon(fill="yellow", colour="black") +
   geom_path(data=heart, aes(x, -y)) + 
@@ -92,6 +94,7 @@ ggplot(data=body, aes(x, -y)) +
   theme_void()  +
   ease_aes('quadratic-in-out') +
   transition_manual(state) 
+animate(ga, nframes=5, width=350)  
 ```
 
     ## nframes and fps adjusted to match transition
@@ -103,7 +106,3 @@ ggplot(data=body, aes(x, -y)) +
     ## Warning: Removed 1 rows containing missing values (geom_path).
 
 ![](example_heart_pumping_files/figure-gfm/transition_manual-1.gif)<!-- -->
-
-``` r
-#animate(ga, nframes=10, width=350)  
-```
