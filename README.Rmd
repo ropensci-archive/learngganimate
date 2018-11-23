@@ -11,18 +11,17 @@ knitr::opts_chunk$set(
 )
 
 library(emo)
-library(icon)
 ```
 
-**Team members**
+**Team members `r emo::ji("farmer")` `r emo::ji("detective")`**
 
-* [Adam Gruer](https://github.com/adam-gruer) @AdamGruer 
-* [Saskia Freytag](https://github.com/SaskiaFreytag) @trashystats
-* [Anna Quaglieri](https://github.com/SaskiaFreytag) @annaquagli
-* [Sarah Romanes](https://github.com/sarahromanes) @sarah_romanes
-* [Danielle Navarro](https://github.com/SaskiaFreytag) @djnavarro
-* [Roberto Bonelli](https://github.com/Robbie90) @robbie_bonelli
-* [Emi Tanaka](https://github.com/emitanaka) @statsgen
+* `r emo::ji("cat")` [Adam Gruer](https://github.com/adam-gruer) `r emo::ji("bird")`  [\@AdamGruer](https://twitter.com/AdamGruer)
+* `r emo::ji("cat")` [Saskia Freytag](https://github.com/SaskiaFreytag) `r emo::ji("bird")` [\@trashystats](https://twitter.com/trashystats)
+* `r emo::ji("cat")` [Anna Quaglieri](https://github.com/SaskiaFreytag) `r emo::ji("bird")` [\@annaquagli](https://twitter.com/annaquagli)
+* `r emo::ji("cat")` [Sarah Romanes](https://github.com/sarahromanes) `r emo::ji("bird")` [\@sarah_romanes](https://twitter.com/sarah_romanes)
+* `r emo::ji("cat")` [Danielle Navarro](https://github.com/SaskiaFreytag) `r emo::ji("bird")` [\@djnavarro](https://twitter.com/djnavarro)
+* `r emo::ji("cat")` [Roberto Bonelli](https://github.com/Robbie90) `r emo::ji("bird")` [\@robbie_bonelli](https://twitter.com/robbie_bonelli)
+* `r emo::ji("cat")` [Emi Tanaka](https://github.com/emitanaka) `r emo::ji("bird")` [\@statsgen](https://twitter.com/statsgen)
 
 
 # `learngganimate`
@@ -30,14 +29,14 @@ library(icon)
 ![](transition_manual_files/figure-gfm/unnamed-chunk-2-1.gif)
 
 The goal of learngganimate is to record the discoveries of an intrepid
-group of animation explorers in the wild, amazing jungle of [`gganimate` package](https://github.com/thomasp85/gganimate)
+group of animation explorers in the wild `r emo::ji("tiger")`, amazing jungle `r emo::ji("tree")` of [`gganimate` package](https://github.com/thomasp85/gganimate) `r emo::ji("package")`.
 
-We aim to create documentation and share our user experience for this amazing, yet sparsly documented package.
+We aim to create documentation and share our user experience for this amazing `r emo::ji("star")`, yet sparsly documented package `r emo::ji("package")`.
 
-we collectively set our minds to the task of exploring the gganimate
-package.
+We collectively set our minds to the task of exploring the gganimate
+package `r emo::ji("package")`.
 
-We record our discoveries here for posterity
+We record our discoveries here for posterity:
 
   - [transition_manual](transition_manual.md)
   - [transition_filter](transition_filter.md)
@@ -45,12 +44,14 @@ We record our discoveries here for posterity
   - [transition_layers](transition_layers.md)
   - [transition_reveal](transition_reveal/transition_reveal.md)
   - [transition_time](transition_time/transition_time.md)
-  - [compare transition_time with transition_reveal](transition_time_vs_transition_reveal.md)
   - [ease_aes](ease_aes.md)
-  - [harvest_animation](example_harvest_animation.md)
   - [shadow_wake](shadow_wake.md)
-  - [view_follow](view_follow.md)
+  - [shadow_mark](shadow_mark.md)
   - [enter_exit](enter_exit/enter_exit.md)
-  - [example heart pumping (animate, transition_manual, transition_states)](example_heart_pumping.md)
+  - [view_follow](view_follow.md)
+  - [compare transition_time with transition_reveal](transition_time_vs_transition_reveal.md)
+  - [harvest_animation (transition_time)](example_harvest_animation.md)
+  - [help needed! example heart pumping (animate, transition_manual, transition_states)](example_heart_pumping.md)
+  - [help needed! alluvial plot](alluvial_plot.md)
   
   

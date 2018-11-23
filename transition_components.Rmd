@@ -52,3 +52,150 @@ p=ggplot(fridays) +
 animate(p, 200, 10,duration=20)
 ```
 
+
+# Example with US flights
+
+Failed example!
+
+```{r eval=FALSE, echo=FALSE}
+library(fivethirtyeight)
+library(nycflights13)
+library(tidyverse)
+library(sf)
+
+# To plot the map I need:
+# every flight is defined by a plane (tailnum) a departure airport
+# link planes 
+airports <- airports %>% rename(origin = faa)
+infos_flights <- flights %>% left_join(planes) %>% left_join(airports) 
+
+# Create topo background
+earth <- st_as_sf(rnaturalearth::countries110)
+lon_range <- range(infos_flights$lon) + c(-20, 20)
+lat_range <- range(infos_flights$lat) + c(-20, 20)
+bbox <- st_polygon(list(cbind(lon_range[c(1,1,2,2,1)], lat_range[c(1,2,2,1,1)])))
+bbox <- st_sfc(bbox)
+st_crs(bbox) <- st_crs(earth)
+area <- st_intersection(earth, bbox)
+
+infos_flights$id <- paste(infos_flights$flight,infos_flights$tailnum,
+                          infos_flights$year,infos_flights$month,infos_flights$day,sep=".")
+p <- ggplot(infos_flights[1:100,]) + 
+  geom_sf(data = area, fill = 'white')+
+  geom_point(aes(lon, lat, group = tailnum, colour = year), size = 2.5) +
+  coord_sf(xlim = range(infos_flights$lon), ylim = range(infos_flights$lat))+
+  
+  theme(panel.background = element_rect(fill = 'lightblue'),
+        legend.position = 'bottom') + 
+  transition_components(tailnum, time_hour) + 
+  shadow_trail(distance = 0.01, size = 0.3)
+
+ggplot(infos_flights) + 
+  geom_point(aes(x= ))
+
+```
+
+
+# Example with babynames
+
+`shadow_trail` allows you to customise the way in which your observation leaves a trace of themself once they move on:
+
+* `distance` let's you specify the distance between each trace left. I noticed that it does not work with a very small distance (0.001 wasn't working). It has something to do with the fact that `distance` is used a denominator at some steps and probably it gets too small
+* `size` works like in the normal `ggplot()` (e.g. size of dots)
+
+```{r}
+library(devtools)
+install_github("ropenscilabs/ozbabynames")
+library(ozbabynames)
+library(gganimate)
+
+p=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
+  geom_point(aes(x=year,y=count,colour=name)) +
+  theme_bw() + 
+  transition_components(id=name,time=year)+
+  shadow_trail(distance = 0.1, size = 2)
+# leaves a trail after 0.1
+p
+```
+
+
+```{r}
+p=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
+  geom_point(aes(x=year,y=count,colour=name)) +
+  transition_components(id=name,time=year)+
+  shadow_trail(distance = 2, size = 2)
+p
+```
+
+```{r eval=FALSE}
+p=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
+  geom_point(aes(x=year,y=count,colour=name)) +
+  transition_components(id=name,time=year)+
+  shadow_trail(distance = 0.001, size = 2)
+# Error in seq.default(1, params$nframes, by = params$distance) : 
+# invalid '(to - from)/by'
+# 
+p
+```
+
+* Just an alternative with `transition_reveal`
+
+```{r}
+p2=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
+  geom_point(aes(x=year,y=count,colour=name,group=name)) +
+  geom_line(aes(x=year,y=count,colour=name,group=name)) +
+  geom_label_repel(aes(x=year,y=count,colour=name,label=name,group=name),
+    arrow = arrow(length = unit(0.03, "npc"), type = "closed", ends = "first"),
+    force = 10)+
+  transition_reveal(id=name,along=year,keep_last = FALSE)+
+  shadow_trail(distance = 0.01, size = 2,exclude_layer=3)
+animate(p2,nframes = 100,duration = 30)
+```
+
+# What are the differences between `transition_reveal` and `transition_component`?
+
+It look like they do sort of the same things... 
+
+But!
+
+* **geom_line()** with `transition_component()` throws and error: `Error: Unsupported layer type`
+
+```{r eval=FALSE}
+library(ggrepel)
+p=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
+  geom_point(aes(x=year,y=count,colour=name)) +
+  geom_line(aes(x=year,y=count,colour=name,group=name)) +
+  transition_components(id=name,time=year)+
+  shadow_trail(distance = 2, size = 2)
+animate(p,nframes = 20)
+```
+
+
+```{r}
+p2=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
+  geom_line(aes(x=year,y=count,colour=name,group=name)) +
+  transition_reveal(id=name,along=year,keep_last = FALSE)+
+  shadow_trail(distance = 0.01, size = 2)
+animate(p2,nframes = 100,duration = 10)
+```
+
+* In order to show the transition across time you use `{frame_along}` from `transition_reveal` and `{frame_time}` in `transition_components`... 
+
+```{r}
+p1=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
+  geom_point(aes(x=year,y=count,colour=name)) +
+  transition_reveal(id=name,along=year)+
+  shadow_trail(distance = 0.01, size = 2)+
+  labs(title="Year: {frame_along}")
+p1
+```
+
+```{r}
+p2=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
+  geom_point(aes(x=year,y=count,colour=name)) +
+  transition_components(id=name,time=year)+
+  shadow_trail(distance = 0.01, size = 2)+
+  labs(title="Year: {frame_time}")
+p2
+```
+
