@@ -134,20 +134,26 @@ library(ozbabynames)
 ```
 
 
+## `enter_*` or `exit_*` need a  **small range of the along parameter** to be perceived otherwise it will look like they are not working. Also it needs `transition_time()` not `transition_reveal()`... no idea why...
+
 ```{r baby}
 author_names <- c("Robin", "Robert", "Mitchell", "Nicholas", "Jessie", "Jessica")
 
-ozbabynames %>%
+dat <- ozbabynames %>%
   filter(name %in% author_names) %>%
-  count(name,year, wt = count) %>%
-  ggplot(aes(x = year, 
+  count(name,year, wt = count) 
+
+
+
+
+p1 <-   ggplot(aes(x = year, 
              y = n,
              colour = name,
              group = name,
              label = name,
-             fill = name)) +
+             fill = name),data=dat) +
   geom_line(size = 1, linetype = "dotted") +
-  geom_label(colour = "white", alpha = 0.75, size =  5) +
+  geom_label(colour = "white", alpha = 0.75, size =  10) +
   theme_bw() +
   theme(panel.grid = element_blank(),
         legend.position = "none",
@@ -155,19 +161,68 @@ ozbabynames %>%
                              size = 20,
                              face = "bold")
         ) +
-  labs( title = "number of bubs dubbed in {frame_along} ",
-        y = "n babies" ) +
-  scale_y_log10(labels = scales::comma) +
-  transition_reveal(id = name, along = year) +
-  enter_grow(fade = TRUE) +
-  exit_shrink(fade = TRUE)
-  #shadow?
-  #ease?
+  labs( title = "number of bubs dubbed in {frame_along} ",y = "n babies" ) +
+  scale_y_log10(labels = scales::comma) 
+
+  
+  
+p <- p1+  transition_reveal(id = name, along = year) + enter_grow() + exit_shrink()
+
+
+
+animate(p,nframes = 50)
 ```
 
 
 
 
+
+
+
+
+## Reduce the range of the **along** parameter (year) and use `transition_time()`.
+
+
+```{r}
+
+
+dat <- ozbabynames %>%
+  filter(name %in% author_names) %>%
+  count(name,year, wt = count)
+
+dat1 <- dat[dat$year%in%c(1942:1952),]
+
+
+
+p1 <-   ggplot(aes(x = year, 
+             y = n,
+             group = name,
+             label = name,
+             fill = name),data=dat1) +
+#  geom_line(aes(colour = name),size = 1, linetype = "dotted") +
+  geom_label(colour = "white", alpha = 0.75, size =  10) +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        legend.position = "none",
+        title = element_text(colour = "purple",
+                             size = 20,
+                             face = "bold")
+        ) +
+# labs( title = "number of bubs dubbed in {frame_along} ",y = "n babies" ) +
+  labs( title = "number of bubs dubbed in {frame_time} ",y = "n babies" ) +
+  scale_y_log10(labels = scales::comma) 
+
+
+
+
+#p <- p1+  transition_reveal(id = name, along = year,keep_last = F) + enter_grow() 
+p <- p1+  transition_time(time = year) + enter_grow() + exit_shrink()
+
+
+
+animate(p)
+
+```
 
 
 
