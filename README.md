@@ -1,27 +1,27 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-**Team members**
+**Team members 👨‍🌾 🕵**
 
--   [Adam Gruer](https://github.com/adam-gruer) @AdamGruer
--   [Saskia Freytag](https://github.com/SaskiaFreytag) @trashystats
--   [Anna Quaglieri](https://github.com/SaskiaFreytag) @annaquagli
--   [Sarah Romanes](https://github.com/sarahromanes) @sarah\_romanes
--   [Danielle Navarro](https://github.com/SaskiaFreytag) @djnavarro
--   [Roberto Bonelli](https://github.com/Robbie90) @robbie\_bonelli
--   [Emi Tanaka](https://github.com/emitanaka) @statsgen
+-   🐱 [Adam Gruer](https://github.com/adam-gruer) 🐦 [@AdamGruer](https://twitter.com/AdamGruer)
+-   🐱 [Saskia Freytag](https://github.com/SaskiaFreytag) 🐦 [@trashystats](https://twitter.com/trashystats)
+-   🐱 [Anna Quaglieri](https://github.com/SaskiaFreytag) 🐦 [@annaquagli](https://twitter.com/annaquagli)
+-   🐱 [Sarah Romanes](https://github.com/sarahromanes) 🐦 [@sarah\_romanes](https://twitter.com/sarah_romanes)
+-   🐱 [Danielle Navarro](https://github.com/SaskiaFreytag) 🐦 [@djnavarro](https://twitter.com/djnavarro)
+-   🐱 [Roberto Bonelli](https://github.com/Robbie90) 🐦 [@robbie\_bonelli](https://twitter.com/robbie_bonelli)
+-   🐱 [Emi Tanaka](https://github.com/emitanaka) 🐦 [@statsgen](https://twitter.com/statsgen)
 
 `learngganimate`
 ================
 
 ![](transition_manual_files/figure-gfm/unnamed-chunk-2-1.gif)
 
-The goal of learngganimate is to record the discoveries of an intrepid group of animation explorers in the wild, amazing jungle of [`gganimate` package](https://github.com/thomasp85/gganimate)
+The goal of learngganimate is to record the discoveries of an intrepid group of animation explorers in the wild, amazing jungle 🌲 of [`gganimate` package](https://github.com/thomasp85/gganimate) 📦
 
-We aim to create documentation and share our user experience for this amazing, yet sparsly documented package.
+We aim to create documentation and share our user experience for this amazing ⭐, yet sparsly documented package 📦.
 
-we collectively set our minds to the task of exploring the gganimate package.
+We collectively set our minds to the task of exploring the gganimate package 📦.
 
-We record our discoveries here for posterity
+We record our discoveries here for posterity:
 
 -   [transition\_manual](transition_manual.md)
 -   [transition\_filter](transition_filter.md)
