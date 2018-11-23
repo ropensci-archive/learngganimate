@@ -3,13 +3,20 @@
 
 **Team members**
 
-  - [Adam Gruer](https://github.com/adam-gruer) @AdamGruer
-  - [Saskia Freytag](https://github.com/SaskiaFreytag) @trashystats
-  - [Anna Quaglieri](https://github.com/SaskiaFreytag) @annaquagli
-  - [Sarah Romanes](https://github.com/sarahromanes) @sarah\_romanes
-  - [Danielle Navarro](https://github.com/SaskiaFreytag) @djnavarro
-  - [Roberto Bonelli](https://github.com/Robbie90) @robbie\_bonelli
-  - [Emi Tanaka](https://github.com/emitanaka) @statsgen
+  - [Adam Gruer](https://github.com/adam-gruer)
+    [twitter](https://twitter.com/AdamGruer)
+  - [Saskia Freytag](https://github.com/SaskiaFreytag)
+    [twitter](https://twitter.com/trashystats)
+  - [Anna Quaglieri](https://github.com/SaskiaFreytag)
+    [twitter](https://twitter.com/annaquagli)
+  - [Sarah Romanes](https://github.com/sarahromanes)
+    [twitter](https://twitter.com/sarah_romanes)
+  - [Danielle Navarro](https://github.com/SaskiaFreytag)
+    [twitter](https://twitter.com/djnavarro)
+  - [Roberto Bonelli](https://github.com/Robbie90)
+    [twitter](https://twitter.com/robbie_bonelli)
+  - [Emi Tanaka](https://github.com/emitanaka)
+    [twitter](https://twitter.com/statsgen)
 
 # `learngganimate`
 
@@ -39,5 +46,6 @@ We record our discoveries here for posterity
   - [harvest\_animation](example_harvest_animation.md)
   - [shadow\_wake](shadow_wake.md)
   - [enter\_exit](enter_exit/enter_exit.md)
-  - [example heart pumping (animate, transition\_manual,
+  - [help needed\! example heart pumping (animate, transition\_manual,
     transition\_states)](example_heart_pumping.md)
+  - [help needed\! alluvial plot](alluvial_plot.md)
