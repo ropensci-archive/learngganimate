@@ -51,7 +51,8 @@ base_pic <- tbl %>%
     colour = Series)) + 
   geom_point(
     show.legend = FALSE,
-    size = 5) + 
+    size = 5) +
+    scale_color_manual(values=cols, aesthetics = "colour")+
   coord_equal() + 
   xlim(-2, 2) + 
   ylim(-2, 2)
@@ -107,6 +108,7 @@ base_pic <- tbl %>%
   geom_point(
     show.legend = FALSE,
     size = 5) + 
+    scale_color_manual(values=cols, aesthetics = "colour")+
   coord_equal() + 
   xlim(-1.5, 1.5) + 
   ylim(-1.5, 1.5)
@@ -120,6 +122,6 @@ markcol <- base_anim +
   shadow_mark(alpha=0.6, 
               colour=tbl$col, 
               size = 1.5)
-markcol %>% animate()
+markcol %>% animate(detail = 5, type = "cairo")
 ```
 
