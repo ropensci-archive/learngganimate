@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-**Team members 👩‍🌾 🕵**
+**Team members 👨‍🌾 🕵**
 
 -   🐱 [Adam Gruer](https://github.com/adam-gruer) 🐦 [@AdamGruer](https://twitter.com/AdamGruer)
 -   🐱 [Saskia Freytag](https://github.com/SaskiaFreytag) 🐦 [@trashystats](https://twitter.com/trashystats)
@@ -15,7 +15,7 @@
 
 ![](transition_manual_files/figure-gfm/unnamed-chunk-2-1.gif)
 
-The goal of learngganimate is to record the discoveries of an intrepid group of animation explorers in the wild, amazing jungle 🌴 of [`gganimate` package](https://github.com/thomasp85/gganimate) 📦
+The goal of learngganimate is to record the discoveries of an intrepid group of animation explorers in the wild 🐯, amazing jungle 🎄 of [`gganimate` package](https://github.com/thomasp85/gganimate) 📦.
 
 We aim to create documentation and share our user experience for this amazing ⭐, yet sparsly documented package 📦.
 
