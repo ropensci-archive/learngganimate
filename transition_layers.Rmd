@@ -1,6 +1,6 @@
 ---
 title: "transistion_layers"
-author: "Adam Gruer"
+author: "Adam Gruer + Saskia Freytag"
 date: "22/11/2018"
 output: github_document
 ---
@@ -9,6 +9,8 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE, cache=TRUE)
 library(tidyverse)
 library(gganimate)
+library(emo)
+library(fivethirtyeight)
 theme_set(theme_minimal())
 ```
 
@@ -82,3 +84,30 @@ ggplot(mtcars ) +
                     ) 
 ```
 
+## Simulate some stuff
+
+In the next bit, we simulate a density and show which points we sample. Then we show what distribution they would form. To do this we can set the parameter `keep_layers = TRUE` and pass `layer_length` a vector of times we want to see each layer for.
+
+```{r simulation}
+sim <- data.frame(x = rnorm(10000, 0, 1), 
+  sampled = sample(c("TRUE", rep("FALSE", 9)), 10000, replace = TRUE),
+  index= 1:10000)
+
+sim <- sim %>% mutate(x_bins =cut(x, 30)) %>% mutate(x_bins2 = as.numeric(x_bins))
+sim <- sim[order(sim$x_bins2), ]
+sim$y <- 1
+sim$y <- unlist(lapply(split(sim$y, sim$x_bins2), cumsum)) 
+
+sim_1 <- sim %>% filter(sampled==TRUE)
+sim_1 <- sim_1[order(sim_1$x_bins2), ]
+sim_1$y_1 <- 1
+sim_1$y_1 <- unlist(lapply(split(sim_1$y_1, sim_1$x_bins2), cumsum)) 
+
+ggplot(sim, aes(x_bins, y)) + geom_point() + 
+  geom_point(data=sim_1, aes(x_bins, y), col="grey") +
+  geom_point(data=sim_1, aes(x_bins, y_1), col="hotpink") +
+  theme(axis.text.x = element_blank()) +
+   transition_layers(layer_length = c(1, 2, 2), transition_length = 1, 
+                     keep_layers = TRUE, from_blank = FALSE, 
+                     layer_names  = c("Density", rep("Sampled", 2))) 
+```
