@@ -2,7 +2,7 @@
 title: "Heart Pumping"
 author: "Emi Tanaka"
 date: "22/11/2018"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -62,10 +62,10 @@ ggplot(data=body, aes(x, -y)) +
 #animate(ga, nframes=10, width=350)  
 ```
 
-BUt `transition_manual` works, if underwhelming.
+BUt `transition_manual` works.  I also learnt that seeting the nframes argument of the `animate` function to a samll number makes the hear beat faster than a larger number
 
 ```{r transition_manual}
-ggplot(data=body, aes(x, -y)) +
+ga <- ggplot(data=body, aes(x, -y)) +
   geom_path() +
   geom_polygon(fill="yellow", colour="black") +
   geom_path(data=heart, aes(x, -y)) + 
@@ -75,6 +75,6 @@ ggplot(data=body, aes(x, -y)) +
   transition_manual(state) 
  
 
-#animate(ga, nframes=10, width=350)  
+animate(ga, nframes=5, width=350)  
 ```
 

@@ -44,7 +44,7 @@ cars_plot + transition_manual(cyl) +
 
 ## More complex example
 
-In this example we will be using the `okcupiddata` `r emo::ji("package")` `r emo::ji("heart")` to visualize how feelings about pets change with star sign, sex and status. First let's begin with some data wrangling.   
+In this example we will be using the `okcupiddata` `r emo::ji("package")` `r emo::ji("heart")` to visualize how feelings about pets change with star sign, sex and relationship status. First let's begin with some data wrangling.   
 
 Intitally, we extract the columns we are interested in the `profiles` data.
 
