@@ -119,7 +119,7 @@ Did you know how many types of Halloween Candies you could get?? I have been try
 
 Not sure that makes much sense though :/ 
 
-Probably, we should try to prevent the labels from moving while transitioning, since the dots remains in the same position.
+Probably, we should try to prevent the labels created from `ggrepel` from moving while transitioning, since the dots remains in the same position.
 I have been trying using the `exclude_layer = 5` inside `transition_filter` that Danielle successfully used in `shadow_wake` https://github.com/ropenscilabs/learngganimate/blob/master/shadow_wake.md but it does not like it. 
 
 ```{r}
