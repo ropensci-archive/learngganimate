@@ -163,7 +163,7 @@ Very pretty!
 Easings for shadow wake
 -----------------------
 
-At the moment the colour isn't changing linearly. We can do that by changing the `falloff` argument. By default it uses a the "cubic-in" easing function, but we can make it "linear":
+In the previous example, the wake changes only in colour, fading from the original colour to black. It's noticeable, however, that the colour isn't fading *linearly*. Instead it turns black very quickly. In the same way that the interpolation between successives states in the animation is governed by an easing function \[LINK TO SARAH'S TUTORIAL\] the `falloff` of the shadow wake is controlled by an easing function. By default, `shadow_wake()` assumes you want `falloff = 'cubic-in'` but you can modify this to used any of the `tweenr` easing functions. To illustate this, let's have our shadow wake fade linearly to black, by setting `falloff = 'linear'`:
 
 ``` r
 wake6 <- base_anim + 
@@ -178,11 +178,14 @@ wake6 %>% animate(detail = 5, type = "cairo")
 
 ![](shadow_wake_files/figure-markdown_github/wake6-1.gif)
 
-Changing the easing function on the falloff can produce suprising variations. This is "bounce-out"
+Try out different combinations!
+-------------------------------
+
+Because `gganimate` aims to function as a true grammar, allowing extremely flexible combinations of constituent parts, you can produce some surprising (and often quite silly) variations just by playing around with things. For instance, the "bounce out" easing function is something that makes a lot of sense when you want to simulate the behaviour of a ball dropping and bouncing from a hard surface, but there's nothing stopping you from "bouncing" a colour aesthetic on the shadow wake. I'm not sure it's at all useful, but this is what happens when we take the previous animation and set `falloff = "bounce-out"` with a longer wake:
 
 ``` r
 wake7 <- base_anim + 
-  shadow_wake(wake_length = .1, 
+  shadow_wake(wake_length = .2, 
               size = NULL, 
               alpha = NULL,
               colour = "black",
@@ -193,7 +196,7 @@ wake7 %>% animate(detail = 5, type = "cairo")
 
 ![](shadow_wake_files/figure-markdown_github/wake7-1.gif)
 
-Playing with the combinations produces other variations,
+It's a little creepy looking, but neat. By playing with the combinations we can produce quite a few other variations. In the version below, I've done a few things. Firstly I've set it so that the fade goes to `colour = "white"`, and the size of the wake *increases* to `size = 15`, and (for no particular reason) used a quintic falloff:
 
 ``` r
 wake8 <- base_anim + 
@@ -206,6 +209,8 @@ wake8 %>% animate(detail = 5, type = "cairo")
 ```
 
 ![](shadow_wake_files/figure-markdown_github/wake8-1.gif)
+
+Prettiness!
 
 To wrap or not to wrap the shadows
 ----------------------------------
@@ -259,7 +264,7 @@ newanim$layers
     ## stat_identity: na.rm = FALSE
     ## position_identity
 
-So let's suppose I want to exclude the second layer (the black dots I added over the top of the coloured ones). I can do this by setting `exclude_later = 2`:
+So let's suppose I want to exclude the second layer (the black dots I added over the top of the coloured ones). I can do this by setting `exclude_layer = 2`:
 
 ``` r
 newanim2 <- base_pic + 
