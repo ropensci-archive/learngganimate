@@ -49,6 +49,7 @@ We record our discoveries here for posterity
   - [ease_aes](ease_aes.md)
   - [harvest_animation](example_harvest_animation.md)
   - [shadow_wake](shadow_wake.md)
+  - [view_follow](view_follow.md)
   - [enter_exit](enter_exit/enter_exit.md)
   - [help needed! example heart pumping (animate, transition_manual, transition_states)](example_heart_pumping.md)
   - [help needed! alluvial plot](alluvial_plot.md)
