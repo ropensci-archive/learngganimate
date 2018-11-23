@@ -20,13 +20,10 @@ devtools::install_github("thomasp85/transformr")
 library(tidyverse)
 library(gganimate)
 library(transformr)
-
-# List all the transitions
-#ls("package:gganimate")
 ```
 
 
-# `transition_filter`
+# `transition_components`
 
 Let's start simple!! I believe that's where all big things start...
 
@@ -66,18 +63,22 @@ p1 + transition_filter(transition_length = 10,
   labs(title = "closest expression : {closest_expression}, \n transitioning : {transitioning}, \n closest_filter : {closest_filter}")
 ```
 
-You cannot provide as the logical condition `TRUE\FALSE` columns from your data frame!.
+You can also provide a `TRUE\FALSE` column from your data frame as the logical condition!!!
 
 ```{r }
 mydf <- mydf %>% mutate(cond1 = qsec < 15,
                         cond2 = qsec > 15 & qsec < 20,
                         cond3 = qsec > 20)
+
+# update ggplot plo
+p1=ggplot(mydf, aes(x = hp, y = mpg)) +
+geom_point()
+
 head(mydf[,c("cond1","cond2","cond3")])
 ```
 
-The plot below will throw an error...
 
-```{r eval=FALSE}
+```{r}
 p1 + transition_filter(transition_length = 10, 
                        filter_length = 0.2, 
                        wrap = TRUE, 
@@ -101,7 +102,7 @@ g <- p1 + transition_filter(transition_length = 10,
 animate(g, nframes = 10, fps = 2)
 ```
 
-Great! Well... now I cannot really see what's being filtered at each stage. 
+Great! But... now I cannot really see what's being filtered at each stage. 
 
 # Errors encountered along the way
 
@@ -111,3 +112,69 @@ If you ever get: `Error in transform_path(all_frames, next_filter, ease, params$
 
 * Maybe it would be good to add an option to have different colours for the observations that satisfy the regular expression. Something like a vector of length 1 or the same length as the number of conditions provided.
 
+
+# Halloween Candy data!
+
+Did you know how many types of Halloween Candies you could get?? I have been trying to understand how the sugar content and the price correlate depending whether is a `chocolate`, `fruity` or `caramel` candy! 
+
+Not sure that makes much sense though :/ 
+
+Probably, we should try to prevent the labels from moving while transitioning, since the dots remains in the same position.
+I have been trying using the `exclude_layer = 5` inside `transition_filter` that Danielle successfully used in `shadow_wake` https://github.com/ropenscilabs/learngganimate/blob/master/shadow_wake.md but it does not like it. 
+
+```{r}
+library(fivethirtyeight)
+library(ggrepel)
+data(candy_rankings)
+
+p1=ggplot(candy_rankings) + 
+  geom_point(aes(x=sugarpercent,y=pricepercent,colour=competitorname))+
+  theme_bw()+
+  theme(legend.position = "none") +
+  geom_text_repel(aes(x=sugarpercent,y=pricepercent,colour=competitorname,label=competitorname)) +
+  transition_filter(transition_length = 10, 
+                            filter_length = 0.2, 
+                            wrap = TRUE, 
+                            keep = FALSE,
+                    chocolate,fruity,caramel) + 
+  labs(title = "closest expression : {closest_expression}")
+
+animate(p1,nframes=50,duration=60)
+```
+
+
+```{r eval=FALSE,echo=FALSE}
+library(fivethirtyeight)
+library(ggrepel)
+data(candy_rankings)
+library(tweenr)
+library(ggimage)
+
+dta <- data.frame(y =     c(0.10, 0.10),
+                  x =     c(0, 1),
+                  tstep = c("a" , "b"),
+                  image = rep("halloween_candies.jpg",2))
+
+
+p1=ggplot(candy_rankings) + 
+  geom_point(aes(x=sugarpercent,y=pricepercent,colour=competitorname))+
+  theme_bw()+
+  theme(legend.position = "none")
+
+p2 <- p1 + geom_image(data=dta, aes(x,y, image=image), size=0.2)
+
+p1=ggplot(candy_rankings) + 
+  geom_point(aes(x=sugarpercent,y=pricepercent,colour=competitorname))+
+  theme_bw()+
+  theme(legend.position = "none") +
+  geom_text_repel(aes(x=sugarpercent,y=pricepercent,colour=competitorname,label=competitorname)) +
+  geom_image(data=dta, aes(x,y, image=image), size=0.2) + 
+  transition_filter(transition_length = 1, 
+                            filter_length = 0.2, 
+                            wrap = TRUE, 
+                            keep = FALSE,
+                    chocolate,fruity,caramel) + 
+  labs(title = "closest expression : {closest_expression}")
+
+animate(p1,nframes=50,duration=60)
+```
