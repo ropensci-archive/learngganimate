@@ -6,7 +6,7 @@ Danielle Navarro
 Creating the animation
 ----------------------
 
-Based on the `gapminder` animation from the `gganimate` GitHub page, let's plot GDP against life expectency for the African nations, and animate them by year:
+Based on the `gapminder` animation from the `gganimate` GitHub page, let's plot GDP against life expectancy for the African nations and animate them by year:
 
 ``` r
 pic <- gapminder %>% filter(continent == "Africa") %>%
