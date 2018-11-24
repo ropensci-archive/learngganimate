@@ -23,6 +23,7 @@ library(emo)
 * `r emo::ji("cat")` [Roberto Bonelli](https://github.com/Robbie90) `r emo::ji("bird")` [\@robbie_bonelli](https://twitter.com/robbie_bonelli)
 * `r emo::ji("cat")` [Emi Tanaka](https://github.com/emitanaka) `r emo::ji("bird")` [\@statsgen](https://twitter.com/statsgen)
 
+![the smiling team](assets/img/team.jpg)
 
 # `learngganimate`
 
