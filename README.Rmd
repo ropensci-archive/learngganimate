@@ -33,9 +33,14 @@ library(emo)
 * `r emo::ji("cat")` [Dale Maschette](https://github.com/Maschette) `r emo::ji("bird")`  [\@Dale_Masch](https://twitter.com/Dale_Masch)
 * `r emo::ji("cat")` [Jesse Mostipak](https://github.com/jmostipak) `r emo::ji("bird")`  [\@kierisi](https://twitter.com/kierisi)
 
+We'd love to add you to this list. Contributions are a most lovely thing you can do. Check out the [current issues](https://github.com/issues) for something you may want to help with. We can help you get started. Get in touch with us if you need help. Please check out our [contributing guide](github/CONTRIBUTING.md).
+
+Please note that the `learngganimate` project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
+
+**Now, SOME GIFS!!**
+
 
 ![](transition_manual_files/figure-gfm/unnamed-chunk-2-1.gif)
-
 
 
 ![](RuPaul_excercise/making_gganimate_fab_files/figure-markdown_github/rupaulgif-1.gif)
