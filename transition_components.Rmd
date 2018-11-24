@@ -11,20 +11,31 @@ output:
 knitr::opts_chunk$set(echo = TRUE,message = FALSE,cache=TRUE)
 ```
 
+```{r setup1, eval=FALSE}
+devtools::install_github("hadley/emo")
+devtools::install_github("ropenscilabs/icon")
+```
+
+
 ```{r}
 library(gganimate)
 library(tidyverse)
 library(fivethirtyeight)
-library(emo)
-devtools::install_github("hadley/emo")
-devtools::install_github("ropenscilabs/icon")
-library(icon)
-# List all the transitions
-#ls("package:gganimate")
 ```
 
 
-To understand how `transition_component` works I will use the `US_births_1994_2003` dataset from the `fivethirtyeight` package. The title of the article where this data was used is *Some People Are Too Superstitious To Have A Baby On Friday The 13th*. Is that true?
+# How does `transition_components()` work?
+
+> ## Transition individual components through their own lifecycle
+>
+> This transition allows individual visual components to define their own "life-cycle". This means that the final animation will not have any common "state" and "transition" phase as any component can be moving or static at any point in time.
+
+> ## Usage
+> transition_components(id, time, range = NULL, enter_length = NULL,
+  exit_length = NULL)
+
+
+To understand how `transition_components()` works I will use the `US_births_1994_2003` dataset from the `fivethirtyeight` package. The title of the article where this data was used is *Some People Are Too Superstitious To Have A Baby On Friday The 13th*. Is that true?
 
 ```{r}
 head(US_births_1994_2003)
@@ -32,93 +43,51 @@ head(US_births_1994_2003)
 
 Some key points to keep in mind:
 
-You need **id** and **time** components. The `transition_component` function is useful when you have the same subject (a plane, a day, a person, a neighborood etc..) with multiple observation over time. 
+In `transition_component()` you need an **id** and **time** component. The `transition_components()` function is useful when you have the same identifier (like a plane, a day, a person, a neighborood etc.) with multiple observations over time. 
 
-The first thing to keep in mind 
+In this example my **id** will be Fridays of the month. For example, one id is **Fri_1**, which is the 1st Friday of a generic month across years. My plan is to compare the number of babies born on the Fridays 13th of different months (**Fri_13**) with babies born on other Fridays! To speed up the process I will compare Fridays 13th with Fridays that occurs on the 1st, 2nd, 3rd, 18th and 28th across months and years.
 
 ```{r eval=TRUE}
-library(ggrepel)
 
 fridays <- US_births_1994_2003 %>% 
   filter(day_of_week %in% c("Fri") & date_of_month %in% c(1,2,3,13,18,28))
-table(fridays$date_of_month)
 
 p=ggplot(fridays) + 
   geom_point(aes(x=year,y=births,colour=date_of_month)) +
   facet_wrap(~date_of_month)+
+  theme(legend.position = "bottom") +
   transition_components(id=factor(date_of_month),time=date)+
   shadow_trail(distance = 0.01, size = 0.3)
 
-animate(p, 200, 10,duration=20)
+animate(p, nframes = 50, 10,duration=10)
 ```
 
-
-
-```{r eval=FALSE, echo=FALSE}
-# Example with US flights
-
-#Failed example!
-
-library(fivethirtyeight)
-library(nycflights13)
-library(tidyverse)
-library(sf)
-
-# To plot the map I need:
-# every flight is defined by a plane (tailnum) a departure airport
-# link planes 
-airports <- airports %>% rename(origin = faa)
-infos_flights <- flights %>% left_join(planes) %>% left_join(airports) 
-
-# Create topo background
-earth <- st_as_sf(rnaturalearth::countries110)
-lon_range <- range(infos_flights$lon) + c(-20, 20)
-lat_range <- range(infos_flights$lat) + c(-20, 20)
-bbox <- st_polygon(list(cbind(lon_range[c(1,1,2,2,1)], lat_range[c(1,2,2,1,1)])))
-bbox <- st_sfc(bbox)
-st_crs(bbox) <- st_crs(earth)
-area <- st_intersection(earth, bbox)
-
-infos_flights$id <- paste(infos_flights$flight,infos_flights$tailnum,
-                          infos_flights$year,infos_flights$month,infos_flights$day,sep=".")
-p <- ggplot(infos_flights[1:100,]) + 
-  geom_sf(data = area, fill = 'white')+
-  geom_point(aes(lon, lat, group = tailnum, colour = year), size = 2.5) +
-  coord_sf(xlim = range(infos_flights$lon), ylim = range(infos_flights$lat))+
-  
-  theme(panel.background = element_rect(fill = 'lightblue'),
-        legend.position = 'bottom') + 
-  transition_components(tailnum, time_hour) + 
-  shadow_trail(distance = 0.01, size = 0.3)
-
-ggplot(infos_flights) + 
-  geom_point(aes(x= ))
-
-```
-
+To me, really, it doesn't seem like parents go out of their way to avoid births on Friday 13th!
 
 # Example with babynames
 
-`shadow_trail` allows you to customise the way in which your observation leaves a trace of themself once they move on:
+The `babynames` packages is one of the great packages developed thanks to the effort of another #OzUnconf18 team https://github.com/ropenscilabs/ozbabynames! 
 
-* `distance` let's you specify the distance between each trace left. I noticed that it does not work with a very small distance (0.001 wasn't working). It has something to do with the fact that `distance` is used a denominator at some steps and probably it gets too small
-* `size` works like in the normal `ggplot()` (e.g. size of dots)
+Below I am showing another example that uses `transition_components()` in combination with other fun animations like:
+
+* `shadow_trail()` which allows you to customise the way in which your observations leave a trace of themselves once they move on with their transitions.
+
+* Within `shadow_trail()`, the argument `distance` lets you specify the distance between each trace left. I noticed that it does not work with a very small distance (0.001 wasn't working). It has something to do with the fact that `distance` is used as a denominator at some steps and probably it gets too small.
+* The argument `size` works like in the normal `ggplot()` (e.g. size of dots) and it specifies the size of trace left.
 
 ```{r}
-library(devtools)
-install_github("ropenscilabs/ozbabynames")
+# install_github("ropenscilabs/ozbabynames")
 library(ozbabynames)
-library(gganimate)
 
 p=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
   geom_point(aes(x=year,y=count,colour=name)) +
   theme_bw() + 
   transition_components(id=name,time=year)+
   shadow_trail(distance = 0.1, size = 2)
-# leaves a trail after 0.1
 p
 ```
 
+* Let's increase the `distance`
 
 ```{r}
 p=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
@@ -127,83 +96,17 @@ p=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) +
   shadow_trail(distance = 2, size = 2)
 p
 ```
+
+* `distance` too small. The code below will throw the error:
+
+> Error in seq.default(1, params$nframes, by = params$distance) : 
+invalid '(to - from)/by'
 
 ```{r eval=FALSE}
 p=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
   geom_point(aes(x=year,y=count,colour=name)) +
   transition_components(id=name,time=year)+
   shadow_trail(distance = 0.001, size = 2)
-# Error in seq.default(1, params$nframes, by = params$distance) : 
-# invalid '(to - from)/by'
-# 
+
 p
 ```
-
-* Just an alternative with `transition_reveal`
-
-```{r}
-p2=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
-  geom_point(aes(x=year,y=count,colour=name,group=name)) +
-  geom_line(aes(x=year,y=count,colour=name,group=name)) +
-  geom_label_repel(aes(x=year,y=count,colour=name,label=name,group=name),
-    arrow = arrow(length = unit(0.03, "npc"), type = "closed", ends = "first"),
-    force = 10)+
-  transition_reveal(id=name,along=year,keep_last = FALSE)+
-  shadow_trail(distance = 0.01, size = 2,exclude_layer=3)
-animate(p2,nframes = 100,duration = 30)
-```
-
-# What are the differences between `transition_reveal` and `transition_component`?
-
-It look like they do sort of the same things... 
-
-But!
-
-* **geom_line()** with `transition_component()` throws and error: `Error: Unsupported layer type`
-
-```{r eval=FALSE}
-library(ggrepel)
-p=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
-  geom_point(aes(x=year,y=count,colour=name)) +
-  geom_line(aes(x=year,y=count,colour=name,group=name)) +
-  transition_components(id=name,time=year)+
-  shadow_trail(distance = 2, size = 2)
-animate(p,nframes = 20)
-```
-
-
-```{r}
-p2=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
-  geom_line(aes(x=year,y=count,colour=name,group=name)) +
-  transition_reveal(id=name,along=year,keep_last = FALSE)+
-  shadow_trail(distance = 0.01, size = 2)
-animate(p2,nframes = 100,duration = 10)
-```
-
-* In order to show the transition across time you use `{frame_along}` from `transition_reveal` and `{frame_time}` in `transition_components`... 
-
-```{r}
-library(tidyverse)
-author_names <- c("Robin", "Robert", "Mitchell", "Nicholas", "Jessie", "Jessica")
-
-dat <- ozbabynames %>%
-  filter(name %in% author_names) %>%
-  count(name,year, wt = count) 
-
-p2=ggplot(dat) + 
-  geom_point(aes(x=year,y=n,colour=name)) +
-  transition_components(id=name,time=year)+
-  shadow_trail(distance = 0.01, size = 2)+
-  labs(title="Year: {frame_time}")
-p2
-```
-
-```{r}
-p2=ggplot(dat) + 
-  geom_point(aes(x=year,y=n,colour=name)) +
-  transition_components(id=name,time=year)+
-  shadow_trail(distance = 0.01, size = 2)+
-  labs(title="Year: {frame_time}")
-p2
-```
-

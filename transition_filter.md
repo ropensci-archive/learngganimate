@@ -3,12 +3,11 @@ transition\_filter
 Anna Quaglieri
 22/11/2018
 
--   [`transition_components`](#transition_components)
+-   [`transition_filter`](#transition_filter)
     -   [How do the filtering actually works?](#how-do-the-filtering-actually-works)
     -   [Let's investigate the `keep` argument.](#lets-investigate-the-keep-argument.)
+    -   [How does the `wrap` argument work?](#how-does-the-wrap-argument-work)
 -   [Errors encountered along the way](#errors-encountered-along-the-way)
--   [Suggestion for improvement](#suggestion-for-improvement)
--   [Halloween Candy data!](#halloween-candy-data)
 
 ``` r
 devtools::install_github("thomasp85/gganimate")
@@ -17,30 +16,33 @@ devtools::install_github("thomasp85/transformr")
 
 ``` r
 library(tidyverse)
-```
-
-    ## ── Attaching packages ────────────────────────────────────── tidyverse 1.2.1 ──
-
-    ## ✔ ggplot2 3.1.0     ✔ purrr   0.2.5
-    ## ✔ tibble  1.4.2     ✔ dplyr   0.7.7
-    ## ✔ tidyr   0.8.2     ✔ stringr 1.3.1
-    ## ✔ readr   1.1.1     ✔ forcats 0.3.0
-
-    ## ── Conflicts ───────────────────────────────────────── tidyverse_conflicts() ──
-    ## ✖ dplyr::filter() masks stats::filter()
-    ## ✖ dplyr::lag()    masks stats::lag()
-
-``` r
 library(gganimate)
 library(transformr)
+library(emo)
 ```
 
-`transition_components`
-=======================
+`transition_filter`
+===================
+
+This is what the help function tells us `transition_filter` does.
+
+``` r
+?transition_filter
+```
+
+> Transition between different filters
+> ------------------------------------
+>
+> This transition allows you to transition between a range of filtering conditions. The conditions are expressed as logical statements and rows in the data will be retained if the statement evaluates to TRUE. It is possible to keep filtered data on display by setting keep = TRUE which will let data be retained as the result of the exit function. Note that if data is kept the enter function will have no effect.
+
+> Usage
+> -----
+>
+> transition\_filter(transition\_length, filter\_length, ..., wrap = TRUE, keep = FALSE)
 
 Let's start simple!! I believe that's where all big things start...
 
--   `ggplot() + geom_point()`
+-   This is how a simple xy plot showing `hp` vs `mpg` from the `mtcars` data frame looks like using `ggplot() + geom_point()`
 
 ``` r
 mydf <- mtcars
@@ -51,7 +53,7 @@ p1
 
 ![](transition_filter_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
-Let's add `transition_filter()`
+-   Let's add `transition_filter()`
 
 ``` r
 p1 + transition_filter(transition_length = 10, 
@@ -64,12 +66,21 @@ p1 + transition_filter(transition_length = 10,
 
 ![](transition_filter_files/figure-markdown_github/unnamed-chunk-4-1.gif)
 
+To figure out what's happening at different stages of the transition you can ask `gganimate` to output the filters that are applied at different stages of the animation. This was achieved in the code above by setting the title to `{closest_expression}`. Every `gganimate` function has its own options which you can find listed in the **`Label variables`** section of a function's help page. For example these are three out of the **`Label variables`** for `gganimate::transition_filter`.
+
+> Label variables
+> ---------------
+
+> -   **transition\_filter** makes the following variables available for string literal interpretation:
+> -   **transitioning** is a boolean indicating whether the frame is part of the transitioning phase
+> -   **previous\_filter** The name of the last filter the animation was at
+
 How do the filtering actually works?
 ------------------------------------
 
-`transition_filter` requires at least two logical conditions that it will use to produce the different instances of the animation. For example, in the example below `transition_filter` will plot first `hp` vs `mpg` only for rows that satisfies `qsec < 15` and then will plot `hp` vs `mpg` only for rows that satisfies `qsec > 16`. You can add as many conditions as you like!
+`transition_filter()` requires at least two logical conditions that it will use to produce the different instances of the animation. For example, in the example below `transition_filter()` will plot first `hp` vs `mpg` only for rows that satisfies `qsec < 15` and then it will plot `hp` vs `mpg` only for rows that satisfies `qsec > 16`. You can add as many conditions as you like!
 
-Below I ran `transition_filter` with three filters and added `Label variables` to the title to give an idea what filters are used at each state.
+Below I ran `transition_filter()` with three filters and added several `Label variables` to the title to give an idea about what filters are used at each state.
 
 ``` r
 p1 + transition_filter(transition_length = 10, 
@@ -89,7 +100,7 @@ mydf <- mydf %>% mutate(cond1 = qsec < 15,
                         cond2 = qsec > 15 & qsec < 20,
                         cond3 = qsec > 20)
 
-# update ggplot plo
+# update ggplot plot
 p1=ggplot(mydf, aes(x = hp, y = mpg)) +
 geom_point()
 
@@ -109,7 +120,7 @@ p1 + transition_filter(transition_length = 10,
                        filter_length = 0.2, 
                        wrap = TRUE, 
                        keep = FALSE,
-                       cond1,cond2) + 
+                       cond1,cond2,cond3) + 
   labs(title = "closest expression : {closest_expression}")
 ```
 
@@ -118,10 +129,11 @@ p1 + transition_filter(transition_length = 10,
 Let's investigate the `keep` argument.
 --------------------------------------
 
-In the previous examples `keep` has always been `FALSE`. To make things a little bit exciting I will set it know to `FALSE`.
+In the previous examples `keep` has always been `FALSE`. To make things a little bit exciting I will set it know to `TRUE`.
 
 ``` r
-g <- p1 + transition_filter(transition_length = 10, 
+g=ggplot(mtcars, aes(x = hp, y = mpg, colour = factor(cyl))) +
+geom_point() + transition_filter(transition_length = 10, 
                             filter_length = 0.2, 
                             wrap = TRUE, 
                             keep = TRUE,
@@ -135,43 +147,56 @@ animate(g, nframes = 10, fps = 2)
 
 Great! But... now I cannot really see what's being filtered at each stage.
 
+Thanks to the `gganimate` 📦 author Thomas for helping with understanding `keep` in this [issue](https://github.com/thomasp85/gganimate/issues/220#issuecomment-441178296).
+
+Normally, you would set `keep = TRUE` if you are interested to see how specific filters modify your selection with respect to the whole background of observations (which include observations that would normally be excluded by a logical condition). The argument `keep` becomes useful in combination with an exit function **that does not make the observations disappear** . If you are not familar with exit function you can find some examples [here](https://github.com/ropenscilabs/learngganimate/blob/master/enter_exit/enter_exit.md). In general, the exit function will do something that you ask, to the observations that should be exiting a transition. The example below is adapted from this [issue](https://github.com/thomasp85/gganimate/issues/220#issuecomment-441178296).
+
+``` r
+g=ggplot(mtcars, aes(x = hp, y = mpg, colour = factor(cyl))) + 
+  geom_point(size = 2) + 
+  transition_filter(transition_length = 10, 
+                            filter_length = 0.2, 
+                            wrap = TRUE, 
+                            keep = TRUE,
+                            qsec < 14,qsec > 16,qsec > 20) + 
+  labs(title = "closest expression : {closest_expression}") +
+  exit_manual(function(x) dplyr::mutate(x, colour = "grey",size= 1))
+
+animate(g, nframes = 30, fps = 2)
+```
+
+![](transition_filter_files/figure-markdown_github/unnamed-chunk-9-1.gif)
+
+In the example above, all the observations are always plotted and by using the `exit_manual` function we can change the appearance of the observations that should actually be filtered out and highlight the ones that stay in!
+
+On a different note, when I first saw this: `dplyr::mutate(x, colour = "grey",size= 1)` my mind blew up 💣! How cool is that you can apply the `dplyr::mutate()` function to modify a `ggplot` object?!
+
+How does the `wrap` argument work?
+----------------------------------
+
+`wrap` is a common argument to different `gganimate()` functions and it is pretty self explanatory:
+
+> **wrap** Should the animation wrap-around? If TRUE the last filter will be transitioned into the first.
+
+When setting below, you can see that the transition between `qsec > 20` (last condition) and `qsec < 14` (first condition) happens with a sort of "*jump*". Whereas, when setting `wrap = TRUE` the transition between the last and first condition is wrapped and happens smoothly, like in a cycle.
+
+``` r
+g=ggplot(mtcars, aes(x = hp, y = mpg, colour = factor(cyl))) + 
+  geom_point(size = 2) + 
+  transition_filter(transition_length = 10, 
+                            filter_length = 0.2, 
+                            wrap = FALSE, 
+                            keep = TRUE,
+                            qsec < 14,qsec > 16,qsec > 20) + 
+  labs(title = "closest expression : {closest_expression}") +
+  exit_manual(function(x) dplyr::mutate(x, colour = "grey",size= 1))
+
+animate(g, nframes = 30, fps = 2)
+```
+
+![](transition_filter_files/figure-markdown_github/unnamed-chunk-10-1.gif)
+
 Errors encountered along the way
 ================================
 
 If you ever get: `Error in transform_path(all_frames, next_filter, ease, params$transition_length[i],transformr is required to tween paths and lines` install the package `transformr`.
-
-Suggestion for improvement
-==========================
-
--   Maybe it would be good to add an option to have different colours for the observations that satisfy the regular expression. Something like a vector of length 1 or the same length as the number of conditions provided.
-
-Halloween Candy data!
-=====================
-
-Did you know how many types of Halloween Candies you could get?? I have been trying to understand how the sugar content and the price correlate depending whether is a `chocolate`, `fruity` or `caramel` candy!
-
-Not sure that makes much sense though :/
-
-Probably, we should try to prevent the labels created from `ggrepel` from moving while transitioning, since the dots remains in the same position. I have been trying using the `exclude_layer = 5` inside `transition_filter` that Danielle successfully used in `shadow_wake` <https://github.com/ropenscilabs/learngganimate/blob/master/shadow_wake.md> but it does not like it.
-
-``` r
-library(fivethirtyeight)
-library(ggrepel)
-data(candy_rankings)
-
-p1=ggplot(candy_rankings) + 
-  geom_point(aes(x=sugarpercent,y=pricepercent,colour=competitorname))+
-  theme_bw()+
-  theme(legend.position = "none") +
-  geom_text_repel(aes(x=sugarpercent,y=pricepercent,colour=competitorname,label=competitorname)) +
-  transition_filter(transition_length = 10, 
-                            filter_length = 0.2, 
-                            wrap = TRUE, 
-                            keep = FALSE,
-                    chocolate,fruity,caramel) + 
-  labs(title = "closest expression : {closest_expression}")
-
-animate(p1,nframes=50,duration=60)
-```
-
-![](transition_filter_files/figure-markdown_github/unnamed-chunk-9-1.gif)
