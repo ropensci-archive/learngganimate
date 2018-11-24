@@ -7,11 +7,6 @@ A quick example of `gganimate` on US flights data. Inspired by example [here](ht
 
 No time to explain the code behind this *at the moment*
 
-<iframe src="https://giphy.com/embed/1hAsAJZ0NGt8rrxO5K" width="480" height="329" frameBorder="0" class="giphy-embed" allowFullScreen>
-</iframe>
-<p>
-<a href="https://giphy.com/gifs/youngertv-tvland-younger-tv-1hAsAJZ0NGt8rrxO5K">via GIPHY</a>
-</p>
 ... will explain ASAP!
 
 Load necessary packages
@@ -21,7 +16,7 @@ Load necessary packages
 library(tidyverse)
 ```
 
-    ## -- Attaching packages -------------------------------------------------------------------------------------------------------------------------------------- tidyverse 1.2.1 --
+    ## -- Attaching packages ----------------------------------------------------------------------------------------------------------------------------------------------------- tidyverse 1.2.1 --
 
     ## v ggplot2 3.1.0     v purrr   0.2.5
     ## v tibble  1.4.2     v dplyr   0.7.5
@@ -30,7 +25,7 @@ library(tidyverse)
 
     ## Warning: package 'ggplot2' was built under R version 3.5.1
 
-    ## -- Conflicts ----------------------------------------------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
+    ## -- Conflicts -------------------------------------------------------------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
 
@@ -93,19 +88,20 @@ map.opts <- theme(panel.grid.minor=element_blank(),
 
 (usamap <- ggplot() + geom_polygon(aes(x=x, y=y), data= states, fill="grey85", colour="white") +
     map.opts + 
-    geom_point(aes(x=longitude, y=latitude), size=0.7, colour="grey65", data=subset(airports, (Volume > 1000) & (longitude >= -130) & (longitude <= -60) & (latitude >= 20) & (latitude <= 50))) +
+    geom_point(aes(x=longitude, y=latitude), size=0.7, colour="grey65", data=subset(airports, (Volume > 1000) & (longitude >= -130) & (longitude <= -60) & (latitude >= 20) & (latitude <= 50))) 
+  #+
     #   opts(legend.position="none") + 
-    geom_line(aes(x=x, y=y, group=id), data=slider, colour="grey55", size=0.25) +
-    geom_line(aes(x=x, y=y, group=id), data=ticks, colour="grey55", size=0.25) +
-    annotate("text", x=-130, y=22.8, label=c("Jan 19 2006"), colour="grey40", size=3, hjust=0.25, vjust=0) + 
-    annotate("text", x=-71.2, y=22.8, label=c("Jan 20 2006"), colour="grey40", size=3, hjust=0.5, vjust=0)  +
+    #geom_line(aes(x=x, y=y, group=id), data=slider, colour="grey55", size=0.25) +
+    #geom_line(aes(x=x, y=y, group=id), data=ticks, colour="grey55", size=0.25) +
+    #annotate("text", x=-130, y=22.8, label=c("Jan 19 2006"), colour="grey40", size=3, hjust=0.25, vjust=0) + 
+    #annotate("text", x=-71.2, y=22.8, label=c("Jan 20 2006"), colour="grey40", size=3, hjust=0.5, vjust=0)  +
     #   annotate("text", x=ticks$x[1], y=22.8, label=c("Sep 11 2001"), colour="grey40", size=3, hjust=0.25, vjust=0) + 
     #   annotate("text", x=ticks$x[nrow(ticks)-2], y=22.8, label=c("Sep 12 2001"), colour="grey40", size=3, hjust=0.5, vjust=0)  +
     #   annotate("text", x=ticks$x[1], y=22.8, label=c("Sep 14 2004"), colour="grey40", size=3, hjust=0.25, vjust=0) + 
     #   annotate("text", x=ticks$x[nrow(ticks)-2], y=22.8, label=c("Sep 15 2004"), colour="grey40", size=3, hjust=0.5, vjust=0)  +
     #   annotate("text", x=-130, y=22.8, label=c("Mar 13 1993"), colour="grey40", size=3, hjust=0.25, vjust=0) + 
     #   annotate("text", x=-71.2, y=22.8, label=c("Mar 14 1993"), colour="grey40", size=3, hjust=0.5, vjust=0)  +
-    geom_text(aes(x=x, y=y, label=c( "3am EST", "6am", "9am", "12pm", "3pm", "6pm", "9pm", "12am EST", "3am")), data=ticks[idx,], colour="grey40", size=3, hjust=0.5, vjust=1.25)  
+    #geom_text(aes(x=x, y=y, label=c( "3am EST", "6am", "9am", "12pm", "3pm", "6pm", "9pm", "12am EST", "3am")), data=ticks[idx,], colour="grey40", size=3, hjust=0.5, vjust=1.25)  
   
 )
 ```
@@ -193,24 +189,26 @@ getFlights <- function(df, tp, interval) {
 }
 ```
 
-The `gganimate` looking at flight delays from 9am to 9.40 am on Jan 19, 2006.
+The `gganimate` looking at flight delays from 06:30 to 24:00 on Jan 19, 2006.
 -----------------------------------------------------------------------------
 
 ``` r
-t1 <- getFlights(flights, 900,10)
-t2 <- getFlights(flights, 910,10)
-t3 <- getFlights(flights, 920,10)
-t4 <- getFlights(flights, 930,10)
+#######
 
+lag <- 2
+t_seq <- seq(630, 2400, by=lag)
 
+count <- 1
+res <- c()
 
-t1 <- cbind(t1, time =rep(900, nrow(t1)))
-t2 <- cbind(t2, time =rep(910, nrow(t2)))
-t3 <- cbind(t3, time =rep(920, nrow(t3)))
-t4 <- cbind(t4, time =rep(930, nrow(t4)))
-
-test <- rbind(t1,t2,t3,t4)
-res <- test
+for(i in t_seq){
+  dat <- getFlights(flights, i, lag)
+  dat <- cbind(dat, time =rep(i, nrow(dat)))
+  
+  res <- rbind(res, dat)
+  count <- count+1
+  
+}
 
 
 cancel <- subset(res, Cancelled==1)
@@ -246,11 +244,11 @@ q <- q +  ylim(c(21, 49.4)) + xlim(-130, -60) +
     
 q <- q + transition_reveal(along=time, id=id) +
   enter_fade() + 
-  exit_shrink()
+  exit_shrink() +
+  ease_aes('quintic-in')+
+  shadow_wake(wake_length = .2)
 
-animate(q, type="cairo", ref_frame=50)
+animate(q, type="cairo",  height = 776, width =1000)
 ```
 
 ![](USflights_files/figure-markdown_github/unnamed-chunk-3-1.gif)
-
-I don't quite think this is giving me what I want yet - but work in progress - stay tuned (not sure what the rogue super sonic speed points are doing)
