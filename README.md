@@ -5,7 +5,7 @@
 
 ## `Coding together, learning together`
 
-**Team members** 👨‍🌾 🕵
+**Team members** 👩‍🌾 🕵
 
   - 🐱 [Adam Gruer](https://github.com/adam-gruer) 🐦
     [@AdamGruer](https://twitter.com/AdamGruer)
@@ -32,9 +32,10 @@
     [@kierisi](https://twitter.com/kierisi)
 
 We’d love to add you to this list. Contributions are a most lovely thing
-you can do. Check out the current issues for something you may want to
-help with. We can help you get started. Please check out our
-[contributing guide](github/CONTRIBUTING.md).
+you can do. Check out the [current issues](https://github.com/issues)
+for something you may want to help with. We can help you get started.
+Get in touch with us if you need help. Please check out our
+[contributing guide](CONTRIBUTING.md).
 
 Please note that the `learngganimate` project is released with a
 [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to
@@ -52,7 +53,7 @@ GIFS\!\!**
 ![](coolcoolcool_files/figure-gfm/cool-1.gif)
 
 The goal of learngganimate is to record the discoveries of an intrepid
-group of animation explorers in the wild 🐯, amazing jungle 🎋 of the
+group of animation explorers in the wild 🐯, amazing jungle 🎄 of the
 [`gganimate` package](https://github.com/thomasp85/gganimate) 📦.
 
 We aim to create documentation and share our user experience for this
