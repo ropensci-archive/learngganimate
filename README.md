@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-**Team members 👨‍🌾 🕵**
+**Team members 👩‍🌾 🕵**
 
 -   🐱 [Adam Gruer](https://github.com/adam-gruer) 🐦 [@AdamGruer](https://twitter.com/AdamGruer)
 -   🐱 [Saskia Freytag](https://github.com/SaskiaFreytag) 🐦 [@trashystats](https://twitter.com/trashystats)
@@ -19,10 +19,7 @@
 
 ![](ease_aes_files/figure-gfm/unnamed-chunk-11-1.gif)
 
-![](coolcoolcool_files/figure-gfm/cool-1.gif)
-      
-
-The goal of learngganimate is to record the discoveries of an intrepid group of animation explorers in the wild 🐯, amazing jungle 🌳 of [`gganimate` package](https://github.com/thomasp85/gganimate) 📦.
+The goal of learngganimate is to record the discoveries of an intrepid group of animation explorers in the wild 🐯, amazing jungle 🌲 of [`gganimate` package](https://github.com/thomasp85/gganimate) 📦.
 
 We aim to create documentation and share our user experience for this amazing ⭐, yet sparsly documented package 📦.
 
@@ -47,4 +44,4 @@ We record our discoveries here for posterity:
 -   [help needed! alluvial plot](alluvial_plot.md)
 -   [transition\_RUveal: using many of the gganimate functions](RuPaul_excercise/making_gganimate_fab.md)
 -   [airplanes example: using transition\_reveal](USflights.md)
-  - [cool cool cool syn crossover](coolcoolcool.md)
+-   [compare transitions](compare_transitions.md)

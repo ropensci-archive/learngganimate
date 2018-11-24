@@ -3,23 +3,34 @@ transition\_components
 Anna Quaglieri
 22/11/2018
 
--   [Example with US flights](#example-with-us-flights)
+-   [How does `transition_components()` work?](#how-does-transition_components-work)
 -   [Example with babynames](#example-with-babynames)
--   [What are the differences between `transition_reveal` and `transition_component`?](#what-are-the-differences-between-transition_reveal-and-transition_component)
+
+``` r
+devtools::install_github("hadley/emo")
+devtools::install_github("ropenscilabs/icon")
+```
 
 ``` r
 library(gganimate)
 library(tidyverse)
 library(fivethirtyeight)
-library(emo)
-devtools::install_github("hadley/emo")
-devtools::install_github("ropenscilabs/icon")
-library(icon)
-# List all the transitions
-#ls("package:gganimate")
 ```
 
-To understand how `transition_component` works I will use the `US_births_1994_2003` dataset from the `fivethirtyeight` package. The title of the article where this data was used is *Some People Are Too Superstitious To Have A Baby On Friday The 13th*. Is that true?
+How does `transition_components()` work?
+========================================
+
+> Transition individual components through their own lifecycle
+> ------------------------------------------------------------
+>
+> This transition allows individual visual components to define their own "life-cycle". This means that the final animation will not have any common "state" and "transition" phase as any component can be moving or static at any point in time.
+
+> Usage
+> -----
+>
+> transition\_components(id, time, range = NULL, enter\_length = NULL, exit\_length = NULL)
+
+To understand how `transition_components()` works I will use the `US_births_1994_2003` dataset from the `fivethirtyeight` package. The title of the article where this data was used is *Some People Are Too Superstitious To Have A Baby On Friday The 13th*. Is that true?
 
 ``` r
 head(US_births_1994_2003)
@@ -37,63 +48,55 @@ head(US_births_1994_2003)
 
 Some key points to keep in mind:
 
-You need **id** and **time** components. The `transition_component` function is useful when you have the same subject (a plane, a day, a person, a neighborood etc..) with multiple observation over time.
+In `transition_component()` you need and **id** and **time** components. The `transition_components()` function is useful when you have the same identifier (like a plane, a day, a person, a neighborood etc..) with multiple observation over time.
 
-The first thing to keep in mind
+In this example my **id** will be Fridays of the month. For example, one id if **Fri\_1** which is the 1st Friday of a generic month across years. My plan is to compare the number of babies born on the Fridays 13th of different months (**Fri\_13**) with baby born on other Fridays! To speed uo the process I will compare Fridays 13th with Fridays that occurs on the 1st, 2nd, 3rd, 18th and 28th across months and years.
 
 ``` r
-library(ggrepel)
-
 fridays <- US_births_1994_2003 %>% 
   filter(day_of_week %in% c("Fri") & date_of_month %in% c(1,2,3,13,18,28))
-table(fridays$date_of_month)
-```
 
-    ## 
-    ##  1  2  3 13 18 28 
-    ## 17 16 17 16 17 19
-
-``` r
 p=ggplot(fridays) + 
   geom_point(aes(x=year,y=births,colour=date_of_month)) +
   facet_wrap(~date_of_month)+
+  theme(legend.position = "bottom") +
   transition_components(id=factor(date_of_month),time=date)+
   shadow_trail(distance = 0.01, size = 0.3)
 
-animate(p, 200, 10,duration=20)
+animate(p, nframes = 50, 10,duration=10)
 ```
 
 ![](transition_components_files/figure-markdown_github/unnamed-chunk-3-1.gif)
 
-Example with US flights
-=======================
-
-Failed example!
+To me, really, it doesn't seem like parents go out of their way to avoid births on Friday 13th!
 
 Example with babynames
 ======================
 
-`shadow_trail` allows you to customise the way in which your observation leaves a trace of themself once they move on:
+The `babynames` is one of the great packages developed thanks to the effort of another \#OzUnconf18 team <https://github.com/ropenscilabs/ozbabynames>!
 
--   `distance` let's you specify the distance between each trace left. I noticed that it does not work with a very small distance (0.001 wasn't working). It has something to do with the fact that `distance` is used a denominator at some steps and probably it gets too small
--   `size` works like in the normal `ggplot()` (e.g. size of dots)
+Below I am showing another example that uses `transition_components()` in combination with other fun animations like:
+
+-   `shadow_trail()` which allows you to customise the way in which your observations leave a trace of themselves once they move on with their transitions.
+
+-   Within `shadow_trail()`, the argument `distance` let's you specify the distance between each trace left. I noticed that it does not work with a very small distance (0.001 wasn't working). It has something to do with the fact that `distance` is used a denominator at some steps and probably it gets too small.
+-   The argument `size` works like in the normal `ggplot()` (e.g. size of dots) and it specify the size of trace left.
 
 ``` r
-library(devtools)
-install_github("ropenscilabs/ozbabynames")
+# install_github("ropenscilabs/ozbabynames")
 library(ozbabynames)
-library(gganimate)
 
 p=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
   geom_point(aes(x=year,y=count,colour=name)) +
   theme_bw() + 
   transition_components(id=name,time=year)+
   shadow_trail(distance = 0.1, size = 2)
-# leaves a trail after 0.1
 p
 ```
 
-![](transition_components_files/figure-markdown_github/unnamed-chunk-5-1.gif)
+![](transition_components_files/figure-markdown_github/unnamed-chunk-4-1.gif)
+
+-   Let's increase the `distance`
 
 ``` r
 p=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
@@ -103,91 +106,17 @@ p=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) +
 p
 ```
 
-![](transition_components_files/figure-markdown_github/unnamed-chunk-6-1.gif)
+![](transition_components_files/figure-markdown_github/unnamed-chunk-5-1.gif)
+
+-   `distance` to small. The code below will throw the error:
+
+> Error in seq.default(1, params*n**f**r**a**m**e**s*, *b**y* = *p**a**r**a**m**s*distance) : invalid '(to - from)/by'
 
 ``` r
 p=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
   geom_point(aes(x=year,y=count,colour=name)) +
   transition_components(id=name,time=year)+
   shadow_trail(distance = 0.001, size = 2)
-# Error in seq.default(1, params$nframes, by = params$distance) : 
-# invalid '(to - from)/by'
-# 
+
 p
 ```
-
--   Just an alternative with `transition_reveal`
-
-``` r
-p2=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
-  geom_point(aes(x=year,y=count,colour=name,group=name)) +
-  geom_line(aes(x=year,y=count,colour=name,group=name)) +
-  geom_label_repel(aes(x=year,y=count,colour=name,label=name,group=name),
-    arrow = arrow(length = unit(0.03, "npc"), type = "closed", ends = "first"),
-    force = 10)+
-  transition_reveal(id=name,along=year,keep_last = FALSE)+
-  shadow_trail(distance = 0.01, size = 2,exclude_layer=3)
-animate(p2,nframes = 100,duration = 30)
-```
-
-![](transition_components_files/figure-markdown_github/unnamed-chunk-8-1.gif)
-
-What are the differences between `transition_reveal` and `transition_component`?
-================================================================================
-
-It look like they do sort of the same things...
-
-But!
-
--   **geom\_line()** with `transition_component()` throws and error: `Error: Unsupported layer type`
-
-``` r
-library(ggrepel)
-p=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
-  geom_point(aes(x=year,y=count,colour=name)) +
-  geom_line(aes(x=year,y=count,colour=name,group=name)) +
-  transition_components(id=name,time=year)+
-  shadow_trail(distance = 2, size = 2)
-animate(p,nframes = 20)
-```
-
-``` r
-p2=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
-  geom_line(aes(x=year,y=count,colour=name,group=name)) +
-  transition_reveal(id=name,along=year,keep_last = FALSE)+
-  shadow_trail(distance = 0.01, size = 2)
-animate(p2,nframes = 100,duration = 10)
-```
-
-![](transition_components_files/figure-markdown_github/unnamed-chunk-10-1.gif)
-
--   In order to show the transition across time you use `{frame_along}` from `transition_reveal` and `{frame_time}` in `transition_components`...
-
-``` r
-library(tidyverse)
-author_names <- c("Robin", "Robert", "Mitchell", "Nicholas", "Jessie", "Jessica")
-
-dat <- ozbabynames %>%
-  filter(name %in% author_names) %>%
-  count(name,year, wt = count) 
-
-p2=ggplot(dat) + 
-  geom_point(aes(x=year,y=n,colour=name)) +
-  transition_components(id=name,time=year)+
-  shadow_trail(distance = 0.01, size = 2)+
-  labs(title="Year: {frame_time}")
-p2
-```
-
-![](transition_components_files/figure-markdown_github/unnamed-chunk-11-1.gif)
-
-``` r
-p2=ggplot(dat) + 
-  geom_point(aes(x=year,y=n,colour=name)) +
-  transition_components(id=name,time=year)+
-  shadow_trail(distance = 0.01, size = 2)+
-  labs(title="Year: {frame_time}")
-p2
-```
-
-![](transition_components_files/figure-markdown_github/unnamed-chunk-12-1.gif)
