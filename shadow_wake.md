@@ -8,7 +8,7 @@ One of the nice features of gganimate is the ability to create *shadows*, in whi
 Creating the animation
 ----------------------
 
-To illustrate the flexibility of the function, I'll start by creating a two dimensional brownian bridge simulation using the `rbridge()` function from the `e1071` package:
+To illustrate the flexibility of the function, I'll start by creating a two dimensional Brownian bridge simulation using the `rbridge()` function from the `e1071` package:
 
 ``` r
 ntimes <- 20  # how many time points to run the bridge?
@@ -69,7 +69,7 @@ base_anim %>% animate()
 Basic use of shadow wake
 ------------------------
 
-To see what `shadow_wake()` does, we'll add it to the animation. the one required argument to the function is `wake_length`, which governs how "long" the wake is. The `wake_length` is a value from 0 to 1, where 1 means "the full length of the animation":
+To see what `shadow_wake()` does, we'll add it to the animation. The one required argument to the function is `wake_length`, which governs how "long" the wake is. The `wake_length` is a value from 0 to 1, where 1 means "the full length of the animation":
 
 ``` r
 wake1 <- base_anim + shadow_wake(wake_length = .1)
@@ -83,7 +83,7 @@ Yay! We have shadows following along in the "wake" of each of our particles.
 Tinkering with detail and graphics devices
 ------------------------------------------
 
-There's a bit of subtlety to this that is worth noting. By default, the animation leaves a shadow from each previous frame. Because this is a 100 frame anumation (the gganimate default) and we asked for a `wake_length` of .1, it's leaving 10 dots behind each particle, and they fall off in size and transparency. That's a sensible default, but in many situations the interpolating frames in the animation aren't actually terribly meaningful in and of themselves, and you might want to have a "continuous" wake. To do this, the easiest solution is to increase the `detail` argument in the call to `animate()`. What this does is increase the number of interpolated frames between successive states of the anumation. So if I set `detail = 5` the animation won't actually include any extra frames in the output, but the shadow wake will be computed as if there had been 5 additional frames between each "actual" frame:
+There's a bit of subtlety to this that is worth noting. By default, the animation leaves a shadow from each previous frame. Because this is a 100 frame anumation (the gganimate default) and we asked for a `wake_length` of .1, it's leaving 10 dots behind each particle, and they fall off in size and transparency. That's a sensible default, but in many situations the interpolating frames in the animation aren't actually terribly meaningful in and of themselves, and you might want to have a "continuous" wake. To do this, the easiest solution is to increase the `detail` argument in the call to `animate()`. What this does is increase the number of interpolated frames between successive states of the animation. So if I set `detail = 5` the animation won't actually include any extra frames in the output, but the shadow wake will be computed as if there had been 5 additional frames between each "actual" frame:
 
 ``` r
 wake1 %>% animate(detail = 5)
@@ -119,7 +119,7 @@ wake2 %>% animate(detail = 5, type = "cairo")
 
 ### (Not) changing the size
 
-The default behaviour `shadow_wake()` is to leave wake that decreases in size and becomes more transparent. We can suppress this behaviour if we want to. For example, to hold the size of the wake constant, set `size = NULL`, producing a shadow wake that becomes more transparent but does not shrink:
+The default behaviour `shadow_wake()` is to leave a wake that decreases in size and becomes more transparent. We can suppress this behaviour if we want to. For example, to hold the size of the wake constant, set `size = NULL`, producing a shadow wake that becomes more transparent but does not shrink:
 
 ``` r
 wake3 <- base_anim + shadow_wake(wake_length = .1, size = NULL)
@@ -144,7 +144,7 @@ In this form, the shadow wake now looks like a long opaque "snake". The length o
 Fading the colour (and fill)
 ----------------------------
 
-`shadow_wake()` also allows control of the `colour` and `fill` aesthetics of the wake, using the `colour` and `fill` arguments (no surprise there!) The behaviour of these two aguments is the same, and since our original plot only specifies the colour, I'll just use that. Let's take the last animation, but have the colour of the wake fade to black. This is done by setting `colour = 'black'`:
+`shadow_wake()` also allows control of the `colour` and `fill` aesthetics of the wake, using the `colour` and `fill` arguments (no surprise there!) The behaviour of these two arguments is the same, and since our original plot only specifies the colour, I'll just use that. Let's take the last animation, but have the colour of the wake fade to black. This is done by setting `colour = 'black'`:
 
 ``` r
 wake5 <- base_anim + 
@@ -163,7 +163,7 @@ Very pretty!
 Easings for shadow wake
 -----------------------
 
-In the previous example, the wake changes only in colour, fading from the original colour to black. It's noticeable, however, that the colour isn't fading *linearly*. Instead it turns black very quickly. In the same way that the interpolation between successives states in the animation is governed by an easing function \[LINK TO SARAH'S TUTORIAL\] the `falloff` of the shadow wake is controlled by an easing function. By default, `shadow_wake()` assumes you want `falloff = 'cubic-in'` but you can modify this to used any of the `tweenr` easing functions. To illustate this, let's have our shadow wake fade linearly to black, by setting `falloff = 'linear'`:
+In the previous example, the wake changes only in colour, fading from the original colour to black. It's noticeable, however, that the colour isn't fading *linearly*. Instead it turns black very quickly. In the same way that the interpolation between successives states in the animation is governed by an easing function \[LINK TO SARAH'S TUTORIAL\] the `falloff` of the shadow wake is controlled by an easing function. By default, `shadow_wake()` assumes you want `falloff = 'cubic-in'` but you can modify this to used any of the `tweenr` easing functions. To illustrate this, let's have our shadow wake fade linearly to black, by setting `falloff = 'linear'`:
 
 ``` r
 wake6 <- base_anim + 
