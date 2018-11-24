@@ -1,7 +1,11 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-**Team members 👩‍🌾 🕵**
+# `learngganimate`
+
+## `Coding together, learning together`
+
+**Team members** 👩‍🌾 🕵
 
   - 🐱 [Adam Gruer](https://github.com/adam-gruer) 🐦
     [@AdamGruer](https://twitter.com/AdamGruer)
@@ -18,10 +22,14 @@
   - 🐱 [Emi Tanaka](https://github.com/emitanaka) 🐦
     [@statsgen](https://twitter.com/statsgen)
 
-![the smiling
-team](assets/img/team.jpg)
+![the smiling team](assets/img/team.jpg)
 
-# `learngganimate`
+**Most wonderful contributors** 🙌
+
+  - 🐱 [Dale Maschette](https://github.com/Maschette) 🐦
+    [@Dale\_Masch](https://twitter.com/Dale_Masch)
+  - 🐱 [Jesse Mostipak](https://github.com/jmostipak) 🐦
+    [@kierisi](https://twitter.com/kierisi)
 
 ![](transition_manual_files/figure-gfm/unnamed-chunk-2-1.gif)
 
@@ -32,7 +40,7 @@ team](assets/img/team.jpg)
 ![](coolcoolcool_files/figure-gfm/cool-1.gif)
 
 The goal of learngganimate is to record the discoveries of an intrepid
-group of animation explorers in the wild 🐯, amazing jungle 🎋 of the
+group of animation explorers in the wild 🐯, amazing jungle 🌳 of the
 [`gganimate` package](https://github.com/thomasp85/gganimate) 📦.
 
 We aim to create documentation and share our user experience for this
