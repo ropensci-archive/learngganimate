@@ -3,14 +3,15 @@ Compare transitions
 Anna Quaglieri
 24/11/2018
 
--   [What are the differences between `transition_reveal` and `transition_component`?](#what-are-the-differences-between-transition_reveal-and-transition_component)
+This document is very very
+preliminary\!
 
-This document is very very preliminary!
+# What are the differences between `transition_reveal` and `transition_component`?
 
-What are the differences between `transition_reveal` and `transition_component`?
-================================================================================
+  - **geom\_line()** with `transition_component()` throws an error:
+    `Error: Unsupported layer type`
 
--   **geom\_line()** with `transition_component()` throws and error: `Error: Unsupported layer type`
+<!-- end list -->
 
 ``` r
 library(ggrepel)
@@ -30,9 +31,13 @@ p2=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) +
 animate(p2,nframes = 100,duration = 10)
 ```
 
-![](compare_transitions_files/figure-markdown_github/unnamed-chunk-2-1.gif)
+![](compare_transitions_files/figure-gfm/unnamed-chunk-2-1.gif)<!-- -->
 
--   In order to show the transition across time you use `{frame_along}` from `transition_reveal` and `{frame_time}` in `transition_components`...
+  - In order to show the transition across time you use `{frame_along}`
+    from `transition_reveal` and `{frame_time}` in
+    `transition_components`…
+
+<!-- end list -->
 
 ``` r
 library(tidyverse)
@@ -50,7 +55,7 @@ p2=ggplot(dat) +
 p2
 ```
 
-![](compare_transitions_files/figure-markdown_github/unnamed-chunk-3-1.gif)
+![](compare_transitions_files/figure-gfm/unnamed-chunk-3-1.gif)<!-- -->
 
 ``` r
 p2=ggplot(dat) + 
@@ -61,4 +66,4 @@ p2=ggplot(dat) +
 p2
 ```
 
-![](compare_transitions_files/figure-markdown_github/unnamed-chunk-4-1.gif)
+![](compare_transitions_files/figure-gfm/unnamed-chunk-4-1.gif)<!-- -->

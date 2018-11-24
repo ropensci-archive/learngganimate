@@ -9,25 +9,25 @@ Sarah Romanes
 > transitions.
 
 I like to think of ease describing the *acceleration* of our transition.
-Should it have a constant speed? Should it speed up, or slow down? Or
+Should it have a constant speed? Should it speed up or slow down? Or
 should it bounce around? We can control this using this component of
 `gganimate`.
 
 There are **two** components to the `ease_aes` function, which are drawn
-from the `tweenr` package. They are
+from the `tweenr` package. They are:
 
   - The name of the easing function to display: `ease`
   - And the modifier for said `ease` function, in the form of `-in`,
     `-out`, or `-in-out`.
 
 Each `ease_aes()` command requires the ease function AND the modifier,
-*except* for the special case of the `linear` function (explained later).
+*except* for the special case of the `linear function`.
 
 ## The `ease` function
 
 The ease function controls the *shape* of the acceleration. For example,
 `linear` will produce a constant speed for the transition, whereas
-`bounce` will provide a bouning effect\!
+`bounce` will provide a bouncing effect\!
 
 A list of the easing functions can be found
 [here](https://www.rdocumentation.org/packages/tweenr/versions/0.1.5/topics/display_ease),
@@ -76,12 +76,12 @@ ggplot(mtcars, aes(factor(cyl), mpg)) +
 
 ![](ease_aes_files/figure-gfm/unnamed-chunk-4-1.gif)<!-- -->
 
-# The effect of the modifiers
+# The affect of the modifiers
 
 ## Motivation
 
 For the `linear` ease function, it is clear the rate of change is
-constant - so there is only one possible way a linear rate of change could occur:
+constant - so there is only one possible linear combination:
 
 ``` r
 tweenr::display_ease('linear')
@@ -89,7 +89,7 @@ tweenr::display_ease('linear')
 
 ![](ease_aes_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
-However, for the `quadratic` function, we have two options.
+However, for the `quadratic` function, we have two options:
 
 ``` r
 par(mfrow=c(1,2))
@@ -101,12 +101,10 @@ tweenr::display_ease('quadratic-out')
 
 It is clear that the role of the `-in` and `-out` modifiers is to change
 which *reflection* on the line *y=x* our function is on. This has the
-effect of changing concavity, or more pratically, the type of
+affect of changing concavity, or more pratically, the type of
 acceleration. In the `quadratic-in` example, our transition state is
 *speeding up* as time progresses. However, in `quadratic-out`, our
 transition state is *slowing down* as time progresses.
-
-If we wanted a more extreme version of this acceleration, the function can be changed, for example, the `quintic-in`/`quintic-out` function/modifier combination. 
 
 **Speeding up**
 
@@ -150,7 +148,11 @@ the quadratic function as follows:
 
 ``` r
 tweenr::display_ease('quadratic-in-out')
+```
 
+![](ease_aes_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+``` r
 ggplot(mtcars, aes(factor(cyl), mpg)) + 
   geom_boxplot() + 
   transition_states(
@@ -163,7 +165,7 @@ ggplot(mtcars, aes(factor(cyl), mpg)) +
   ease_aes('quadratic-in-out')
 ```
 
-![](ease_aes_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->![](ease_aes_files/figure-gfm/unnamed-chunk-9-1.gif)<!-- -->
+![](ease_aes_files/figure-gfm/unnamed-chunk-9-1.gif)<!-- -->
 
 # A more interesting example
 
@@ -171,7 +173,7 @@ We can use the `ggimage` package to add in the image of a car and
 visualise it transitioning from state (one side of the screen to the
 other) and changing the way it gets there using `ease_aes()`.
 
-We first set up out static background -
+We first set up our static background:
 
 ``` r
 library(ggimage)

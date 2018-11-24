@@ -11,3 +11,6 @@ dplyr
 stringr
 forcats
 gganimate
+emo
+fivethirtyeight
+bindrcpp

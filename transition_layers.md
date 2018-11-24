@@ -3,37 +3,37 @@ transistion\_layers
 Adam Gruer + Saskia Freytag
 22/11/2018
 
-transistion\_layers()
-=====================
+# transistion\_layers()
 
-what do I think it will do?
----------------------------
+## what do I think it will do?
 
 I think it will add a frame for each geom\_ I add to the plot.
 
-What does the help say
-======================
+# What does the help say
 
 ``` r
 ?transition_layers
 ```
 
-> Build up a plot, layer by layer
-> -------------------------------
->
-> This transition gradually adds layers to the plot in the order they have been defined. By default prior layers are kept for the remainder of the animation, but they can also be set to be removed as the next layer enters.
+> ## Build up a plot, layer by layer
+> 
+> This transition gradually adds layers to the plot in the order they
+> have been defined. By default prior layers are kept for the remainder
+> of the animation, but they can also be set to be removed as the next
+> layer enters.
 
-> Usage
-> -----
+> ## Usage
 
-> transition\_layers(layer\_length, transition\_length, keep\_layers = TRUE, from\_blank = TRUE, layer\_names = NULL)
+> transition\_layers(layer\_length, transition\_length, keep\_layers =
+> TRUE, from\_blank = TRUE, layer\_names = NULL)
 
-First attempt
-=============
+# First attempt
 
-add three layers geom\_point and geom\_histogram and a geom\_bar It did do as I expected.
+Add three layers: geom\_point and geom\_histogram and a geom\_bar. It
+did do as I expected.
 
-I still struggle to understand the layer\_length and transition\_length beyond them being relative times
+I still struggle to understand the layer\_length and transition\_length
+beyond them being relative times.
 
 ``` r
  ggplot(mtcars ) + 
@@ -45,11 +45,13 @@ I still struggle to understand the layer\_length and transition\_length beyond t
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](transition_layers_files/figure-markdown_github/first%20attempt-1.gif)
+![](transition_layers_files/figure-gfm/first%20attempt-1.gif)<!-- -->
 
-It is very literal. `ggplot(mtcars)` is a layer albeit an uninteresting one. However one of the arguments `from_blank` which defaults to TRUE can be changed to FALSE so as to not show this first layer.
+It is very literal. `ggplot(mtcars)` is a layer, albeit an uninteresting
+one. However one of the arguments `from_blank` which defaults to TRUE
+can be changed to FALSE so as to not show this first layer.
 
-Here i show the effect of not showing the first 'blank' layer.
+Here I show the effect of not showing the first ‘blank’ layer.
 
 ``` r
  ggplot(mtcars ) + 
@@ -61,9 +63,10 @@ Here i show the effect of not showing the first 'blank' layer.
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](transition_layers_files/figure-markdown_github/hid%20blank%20layer-1.gif)
+![](transition_layers_files/figure-gfm/hid%20blank%20layer-1.gif)<!-- -->
 
-I can choose not to keep each layer as I animate by setting `keep_layers = FALSE`
+I can choose not to keep each layer as I animate by setting `keep_layers
+= FALSE`.
 
 ``` r
  ggplot(mtcars ) + 
@@ -75,9 +78,9 @@ I can choose not to keep each layer as I animate by setting `keep_layers = FALSE
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](transition_layers_files/figure-markdown_github/dont%20keep%20layers-1.gif)
+![](transition_layers_files/figure-gfm/dont%20keep%20layers-1.gif)<!-- -->
 
-I can supply layer names to be used as label literals
+I can supply layer names to be used as label literals.
 
 ``` r
 ggplot(mtcars ) + 
@@ -93,12 +96,14 @@ ggplot(mtcars ) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](transition_layers_files/figure-markdown_github/supply%20label%20literals-1.gif)
+![](transition_layers_files/figure-gfm/supply%20label%20literals-1.gif)<!-- -->
 
-Simulate some stuff
--------------------
+## Simulate some stuff
 
-In the next bit, we simulate a density and show which points we sample. Then we show what distribution they would form. To do this we can set the parameter `keep_layers = TRUE` and pass `layer_length` a vector of times we want to see each layer for.
+In the next bit we simulate a density and show which points we sample.
+Then we show what distribution they would form. To do this we can set
+the parameter `keep_layers = TRUE` and pass `layer_length` a vector of
+times we want to see each layer for.
 
 ``` r
 sim <- data.frame(x = rnorm(10000, 0, 1), 
@@ -124,4 +129,4 @@ ggplot(sim, aes(x_bins, y)) + geom_point() +
                      layer_names  = c("Density", rep("Sampled", 2))) 
 ```
 
-![](transition_layers_files/figure-markdown_github/data-load-1.gif)
+![](transition_layers_files/figure-gfm/simulation-1.gif)<!-- -->

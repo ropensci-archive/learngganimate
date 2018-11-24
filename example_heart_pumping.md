@@ -3,8 +3,8 @@ Heart Pumping
 Emi Tanaka
 22/11/2018
 
-This was working in the old version of `gganimate` but since upgrading
-to the new one, it has stopped working :(
+This was working in the old version of `gganimate`, but since upgrading
+to the new one it has stopped working :(
 
 ``` r
 ## install from Github
@@ -59,8 +59,10 @@ heart <- rbind(heart1, heart2) %>% select(x, y, state)
 ```
 
 I can’t get this `transition_states` function to work and am not sure
-why. It worked under an older version of gganimate. Then i updated the
-package and now I get an error? this is the error
+why. It worked under an older version of `gganimate`. Then I updated the
+package and now I get an error.
+
+This is the error:
 
 > Error in is\_quosure(e2) : argument “e2” is missing, with no default
 
@@ -81,9 +83,9 @@ ggplot(data=body, aes(x, -y)) +
 #animate(ga, nframes=10, width=350)  
 ```
 
-BUt `transition_manual` works. I also learnt that seeting the nframes
-argument of the `animate` function to a samll number makes the hear beat
-faster than a larger number
+But `transition_manual` works. I also learnt that setting the nframes
+argument of the `animate` function to a samll number makes the heart
+beat faster than a larger number.
 
 ``` r
 ga <- ggplot(data=body, aes(x, -y)) +

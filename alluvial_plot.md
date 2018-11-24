@@ -35,7 +35,7 @@ ggplot(data = to_lodes_form(as.data.frame(Titanic),
 
 ## Animated. HELP\! SOS\!
 
-Wondering how i might animated the above chart. First attempt error
+Wondering how I might animate the above chart. First attempt error:
 
 > Error in mapply(FUN = f, …, SIMPLIFY = FALSE) : zero-length inputs
 > cannot be mixed with those of non-zero length

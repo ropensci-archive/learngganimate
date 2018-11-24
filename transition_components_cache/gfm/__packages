@@ -1,0 +1,16 @@
+base
+devtools
+usethis
+ggplot2
+gganimate
+tidyverse
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
+fivethirtyeight
+bindrcpp
+ozbabynames
