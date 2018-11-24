@@ -39,9 +39,9 @@ library(emo)
 
 
 The goal of learngganimate is to record the discoveries of an intrepid
-group of animation explorers in the wild `r emo::ji("tiger")`, amazing jungle `r emo::ji("tree")` of [`gganimate` package](https://github.com/thomasp85/gganimate) `r emo::ji("package")`.
+group of animation explorers in the wild `r emo::ji("tiger")`, amazing jungle `r emo::ji("tree")` of the [`gganimate` package](https://github.com/thomasp85/gganimate) `r emo::ji("package")`.
 
-We aim to create documentation and share our user experience for this amazing `r emo::ji("star")`, yet sparsly documented package `r emo::ji("package")`.
+We aim to create documentation and share our user experience for this amazing `r emo::ji("star")`, yet sparsely documented, package `r emo::ji("package")`.
 
 We collectively set our minds to the task of exploring the gganimate
 package `r emo::ji("package")`.

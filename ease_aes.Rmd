@@ -18,19 +18,19 @@ library(gridExtra)
 
 > ease_aes() defines how different aesthetics should be eased during transitions.
 
-I like to think of ease describing the *acceleration* of our transition. Should it have a constant speed? Should it speed up, or slow down? Or should it bounce around? We can control this using this component of `gganimate`.
+I like to think of ease describing the *acceleration* of our transition. Should it have a constant speed? Should it speed up or slow down? Or should it bounce around? We can control this using this component of `gganimate`.
 
-There are **two** components to the `ease_aes` function, which are drawn from the `tweenr` package. They are 
+There are **two** components to the `ease_aes` function, which are drawn from the `tweenr` package. They are: 
 
 * The name of the easing function to display: `ease`
 * And the modifier for said `ease` function, in the form of `-in`, `-out`, or `-in-out`. 
 
-Each ease_aes() command requires the ease function AND the modifier, *except* for the special case of the `linear function`. 
+Each `ease_aes()` command requires the ease function AND the modifier, *except* for the special case of the `linear function`. 
 
 
 ## The `ease` function
 
-The ease function controls the *shape* of the acceleration. For example, `linear` will produce a constant speed for the transition, whereas `bounce` will provide a bouning effect! 
+The ease function controls the *shape* of the acceleration. For example, `linear` will produce a constant speed for the transition, whereas `bounce` will provide a bouncing effect! 
 
 A list of the easing functions can be found [here](https://www.rdocumentation.org/packages/tweenr/versions/0.1.5/topics/display_ease), and they can easily be visualised with the use of the `tweenr` package as follows:
 
@@ -76,13 +76,13 @@ ggplot(mtcars, aes(factor(cyl), mpg)) +
 
 ## Motivation
 
-For the `linear` ease function, it is clear the rate of change is constant - so there is only one possible linear combination
+For the `linear` ease function, it is clear the rate of change is constant - so there is only one possible linear combination:
 
 ```{r}
 tweenr::display_ease('linear')
 ```
 
-However, for the `quadratic` function, we have two options.
+However, for the `quadratic` function, we have two options:
 
 ```{r}
 par(mfrow=c(1,2))
@@ -149,7 +149,7 @@ ggplot(mtcars, aes(factor(cyl), mpg)) +
 
 We can use the `ggimage` package to add in the image of a car and visualise it transitioning from state (one side of the screen to the other) and changing the way it gets there using `ease_aes()`.
 
-We first set up out static background -
+We first set up our static background:  
 
 ```{r}
 library(ggimage)

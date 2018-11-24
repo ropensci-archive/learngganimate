@@ -63,21 +63,21 @@ p1 + transition_filter(transition_length = 10,
   labs(title="{closest_expression}")
 ```
 
-To figure out what's happening at different stages of the transition you can ask `gganimate` to output the filters that are applied at different stages of the animation. This was achieved in the code above by setting the title to `{closest_expression}`.  Every `gganimate` function has its own options which you can find listed in the **`Label variables`** section of a function's help page. For example these are three out of the **`Label variables`** for `gganimate::transition_filter`. 
+To figure out what's happening at different stages of the transition you can ask `gganimate` to output the filters that are applied at different stages of the animation. This was achieved in the code above by setting the title to `{closest_expression}`. Every `gganimate` function has its own options which you can find listed in the **`Label variables`** section of a function's help page. For example these are three out of the **`Label variables`** for `gganimate::transition_filter`. 
 
 
 > ## Label variables
 
-> * **transition_filter** makes the following variables available for string literal interpretation:
+> * **transition_filter** makes the following variables available for string literal interpretation
 > * **transitioning** is a boolean indicating whether the frame is part of the transitioning phase
 > * **previous_filter** The name of the last filter the animation was at
 
 
-## How do the filtering actually works?
+## How do the filtering functions actually work?
 
 `transition_filter()` requires at least two logical conditions that it will use to produce the different instances of the animation. For example, in the example below `transition_filter()` will plot first `hp` vs `mpg` only for rows that satisfies `qsec < 15` and then it will plot `hp` vs `mpg` only for rows that satisfies `qsec > 16`. You can add as many conditions as you like!
 
-Below I ran `transition_filter()` with three filters and added several `Label variables` to the title to give an idea about what filters are used at each state.
+Below I ran `transition_filter()` with three filters and added several `Label variables` to the title to give an idea about which filters are used at each state.
 
 ```{r}
 p1 + transition_filter(transition_length = 10, 
@@ -115,7 +115,7 @@ p1 + transition_filter(transition_length = 10,
 
 ## Let's investigate the `keep` argument.
     
-In the previous examples `keep` has always been `FALSE`. To make things a little bit exciting I will set it know to `TRUE`.  
+In the previous examples `keep` has always been `FALSE`. To make things a little bit exciting I will set it now to `TRUE`.  
     
 ```{r}
 g=ggplot(mtcars, aes(x = hp, y = mpg, colour = factor(cyl))) +
@@ -133,7 +133,7 @@ Great! But... now I cannot really see what's being filtered at each stage.
 
 Thanks to the `gganimate` `r emo::ji("package")` author Thomas for helping with understanding `keep` in this [issue](https://github.com/thomasp85/gganimate/issues/220#issuecomment-441178296).  
 
-Normally, you would set `keep = TRUE` if you are interested to see how specific filters modify your selection with respect to the whole background of observations (which include observations that would normally be excluded by a logical condition). The argument `keep` becomes useful in combination with an exit function **that does not make the observations disappear** . If you are not familar with exit function you can find some examples [here](https://github.com/ropenscilabs/learngganimate/blob/master/enter_exit/enter_exit.md). In general, the exit function will do something that you ask, to the observations that should be exiting a transition. 
+Normally, you would set `keep = TRUE` if you are interested in seeing how specific filters modify your selection with respect to the whole background of observations (which include observations that would normally be excluded by a logical condition). The argument `keep` becomes useful in combination with an exit function **that does not make the observations disappear** . If you are not familar with exit functions you can find some examples [here](https://github.com/ropenscilabs/learngganimate/blob/master/enter_exit/enter_exit.md). In general, the exit function will do something that you ask, to the observations that should be exiting a transition. 
 The example below is adapted from this [issue](https://github.com/thomasp85/gganimate/issues/220#issuecomment-441178296).
 
 ```{r}
@@ -150,7 +150,7 @@ g=ggplot(mtcars, aes(x = hp, y = mpg, colour = factor(cyl))) +
 animate(g, nframes = 30, fps = 2)
 ```
 
-In the example above, all the observations are always plotted and by using the `exit_manual` function we can change the appearance of the observations that should actually be filtered out and highlight the ones that stay in!
+In the example above, all the observations are always plotted, and by using the `exit_manual` function we can change the appearance of the observations that should actually be filtered out and highlight the ones that stay in!
 
 On a different note, when I first saw this: `dplyr::mutate(x, colour = "grey",size= 1)` my mind blew up `r emo::ji("bomb")`! How cool is that you can apply the `dplyr::mutate()` function to modify a `ggplot` object?!
 
@@ -161,7 +161,7 @@ On a different note, when I first saw this: `dplyr::mutate(x, colour = "grey",si
 
 > **wrap**	Should the animation wrap-around? If TRUE the last filter will be transitioned into the first.
 
-When setting `r wrap = FALSE` below, you can see that the transition between `qsec > 20` (last condition) and `qsec < 14` (first condition) happens with a sort of "*jump*". Whereas, when setting `wrap = TRUE` the transition between the last and first condition is wrapped and happens smoothly, like in a cycle. 
+When setting `r wrap = FALSE` below, you can see that the transition between `qsec > 20` (last condition) and `qsec < 14` (first condition) happens with a sort of "*jump*". Whereas when setting `wrap = TRUE` the transition between the last and first condition is wrapped and happens smoothly, like in a cycle. 
 
 ```{r}
 g=ggplot(mtcars, aes(x = hp, y = mpg, colour = factor(cyl))) + 

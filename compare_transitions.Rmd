@@ -36,7 +36,7 @@ This document is very very preliminary!
 # What are the differences between `transition_reveal` and `transition_component`?
 
 
-* **geom_line()** with `transition_component()` throws and error: `Error: Unsupported layer type`
+* **geom_line()** with `transition_component()` throws an error: `Error: Unsupported layer type`
 
 ```{r eval=FALSE}
 library(ggrepel)
