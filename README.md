@@ -5,7 +5,7 @@
 
 ## `Coding together, learning together`
 
-**Team members** 👩‍🌾 🕵
+**Team members** 👨‍🌾 🕵
 
   - 🐱 [Adam Gruer](https://github.com/adam-gruer) 🐦
     [@AdamGruer](https://twitter.com/AdamGruer)
@@ -55,7 +55,7 @@ GIFS\!\!**
 ![](coolcoolcool_files/figure-gfm/cool-1.gif)
 
 The goal of learngganimate is to record the discoveries of an intrepid
-group of animation explorers in the wild 🐯, amazing jungle 🎋 of the
+group of animation explorers in the wild 🐯, amazing jungle 🌳 of the
 [`gganimate` package](https://github.com/thomasp85/gganimate) 📦.
 
 We aim to create documentation and share our user experience for this
@@ -89,4 +89,4 @@ We record our discoveries here for posterity:
   - [airplanes example: using transition\_reveal](USflights.md)
   - [cool cool cool syn crossover](coolcoolcool.md)
   - [compare transitions](compare_transitions.md)
-  - [animate and renderer options](animate.md)
+  - [animate and renderer options](animate.html)
