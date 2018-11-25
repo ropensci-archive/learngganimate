@@ -6,9 +6,9 @@ If you need help with the process please get in touch with one of the team membe
 
 ## spirit
 
-    The spirit of this project is very much we welcome any and all contributions.
+The spirit of this project is very much we welcome any and all contributions.
 
-    During ozunconf18 our process was like a jam session between kind, lovely people who had each picked up an instrument they had either never or barely played before. Accidental art was superfun to share, we'd love if you include your 'missteps'.
+During ozunconf18 our process was like a jam session between kind, lovely people who had each picked up an instrument they had either never or barely played before. Accidental art was superfun to share, we'd love if you include your 'missteps'.
 
 **Turn off the internal critic/editor voice and jump in.**
 
@@ -29,28 +29,28 @@ If you need help with the process please get in touch with one of the team membe
 
 ### Source Files
 
-    The pages themselves we have been creating as R markdown files with the output format of github_document.  In the first chunk it's worth turning caching on if you have animations.  See the first few lines of some of the other files for examples.
+The pages themselves we have been creating as R markdown files with the output format of github_document.  In the first chunk it's worth turning caching on if you have animations.  See the first few lines of some of the other files for examples.
 
 ### Fixing typos
 
-    Small typos or grammatical errors in documentation may be edited directly using the GitHub web interface, so long as the changes are made in the _source_ file. These files will generally have the `.Rmd` extension.
+Small typos or grammatical errors in documentation may be edited directly using the GitHub web interface, so long as the changes are made in the _source_ file. These files will generally have the `.Rmd` extension.
 
 ### Other Changes
 
-    1. Fork the project to your github account
-    1. Clone the repo from your github account to your computer
-    1. Have fun creating you contributions
-    1. Commit locally often
-    1. Push from your machine back to your github account
-    1. From your github account create a pull request
-    1. Wait for one of the project team to review and accept your pull request
-    1. there may occasionally be a need to discuss your changes via comments added to the pull request. 
-    1. Bask in the glow of success
+1. Fork the project to your github account
+1. Clone the repo from your github account to your computer
+1. Have fun creating you contributions
+1. Commit locally often
+1. Push from your machine back to your github account
+1. From your github account create a pull request
+1. Wait for one of the project team to review and accept your pull request
+1. there may occasionally be a need to discuss your changes via comments added to the pull request. 
+1. Bask in the glow of success
 
 ### Bugs
 
-    If you’ve found a bug, create an associated issue and illustrate the bug with a minimal [reprex](https://www.tidyverse.org/help/#reprex).
+If you’ve found a bug, create an associated issue and illustrate the bug with a minimal [reprex](https://www.tidyverse.org/help/#reprex).
 
 ### Code of Conduct
 
-    Please note that the learngganimate project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project you agree to abide by its terms.
+Please note that the learngganimate project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project you agree to abide by its terms.
