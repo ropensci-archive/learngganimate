@@ -45,14 +45,15 @@ anim
 
 If we want to change the way this animation looks, we can call `animate()` directly and set the `nframes` and `fps` arguments. You can also set the `duration` argument with either of the other two, but I find it is easier to just set nframes and fps. Increasing `nframes` will increase the duration of the animation, and also increase the rendering time and file size of the output. Increasing `fps` will reduce the duration, but increase the "quality" of the animation, making it smoother. Here's a table that shows how changing `nframes` and `fps` will affect the final animation (a blank space means little to no change):
 
-![fps vs nframes](fps_vs_nframes.jpg)
+![fps vs nframes](animate_files/fps_vs_nframes.jpg)
 
 Let's see it in action
 
-```{r fig.show="hold", out.width="45%"}
+```{r}
 #slow and choppy animation
 animate(anim, nframes = 200, fps = 5)
-
+```
+```{r}
 #fast and smooth animation
 animate(anim, nframes = 100, fps = 20)
 ```
@@ -160,7 +161,7 @@ animate(base_pic, nframes = 100, fps = 10, detail = 3, type = "cairo", renderer 
 
 ```{r fig.align="center"}
 #render as video with audio 
-animate(base_pic, nframes = 100, fps = 10, detail = 3, type = "cairo", renderer = av_renderer(audio = "500_miles.WMA"))
+animate(base_pic, nframes = 100, fps = 10, detail = 3, type = "cairo", renderer = av_renderer(audio = "animate_files/500_miles.WMA"))
 ```
 
 ## Changing default arguments of `animate()`

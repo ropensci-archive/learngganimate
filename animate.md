@@ -62,19 +62,23 @@ smoother. Here’s a table that shows how changing `nframes` and `fps`
 will affect the final animation (a blank space means little to no
 change):
 
-![fps vs nframes](fps_vs_nframes.jpg)
+![fps vs nframes](animate_files/fps_vs_nframes.jpg)
 
 Let’s see it in action
 
 ``` r
 #slow and choppy animation
 animate(anim, nframes = 200, fps = 5)
+```
 
+![](animate_files/figure-gfm/unnamed-chunk-3-1.gif)<!-- -->
+
+``` r
 #fast and smooth animation
 animate(anim, nframes = 100, fps = 20)
 ```
 
-<img src="animate_files/figure-gfm/unnamed-chunk-3-1.gif" width="45%" />
+![](animate_files/figure-gfm/unnamed-chunk-4-1.gif)<!-- -->
 
 The goal is to strike a balance between rendering time/file size and
 quality. Usually 10 fps and 100 frames is a good starting point, but for
@@ -138,7 +142,7 @@ base_pic <- tbl %>%
 animate(base_pic, nframes = 100, fps = 10)
 ```
 
-<img src="animate_files/figure-gfm/unnamed-chunk-4-1.gif" style="display: block; margin: auto;" />
+<img src="animate_files/figure-gfm/unnamed-chunk-5-1.gif" style="display: block; margin: auto;" />
 
 It’s clear that there’s something wrong with the wake, as we can see the
 wake points don’t trail in a straight line. You only get this on a
@@ -155,7 +159,7 @@ the argument `type = "cairo"` when you call `animate()`. Voila\!
 animate(base_pic, nframes = 100, fps = 10, type = "cairo")
 ```
 
-<img src="animate_files/figure-gfm/unnamed-chunk-5-1.gif" style="display: block; margin: auto;" />
+<img src="animate_files/figure-gfm/unnamed-chunk-6-1.gif" style="display: block; margin: auto;" />
 
 ## `detail` argument (making smoother animations)
 
@@ -170,7 +174,7 @@ is the same speed overall.
 animate(base_pic, nframes = 300, fps = 30, type = "cairo")
 ```
 
-<img src="animate_files/figure-gfm/unnamed-chunk-6-1.gif" style="display: block; margin: auto;" />
+<img src="animate_files/figure-gfm/unnamed-chunk-7-1.gif" style="display: block; margin: auto;" />
 
 Another option is to set the `detail` argument. Looking at the
 documentation, details does this: “you can increase the `detail`
@@ -185,7 +189,7 @@ wrong). Let’s try it\!
 animate(base_pic, nframes = 100, fps = 10, type = "cairo", detail = 3)
 ```
 
-<img src="animate_files/figure-gfm/unnamed-chunk-7-1.gif" style="display: block; margin: auto;" />
+<img src="animate_files/figure-gfm/unnamed-chunk-8-1.gif" style="display: block; margin: auto;" />
 
 The difference between specifying the `detail` parameter and changing
 the frames/fps is that changing `detail` does not significantly increase
@@ -227,11 +231,11 @@ Let’s try some\!
 animate(base_pic, nframes = 100, fps = 10, detail = 3, type = "cairo", renderer = gifski_renderer(loop = FALSE))
 ```
 
-<img src="animate_files/figure-gfm/unnamed-chunk-8-1.gif" style="display: block; margin: auto;" />
+<img src="animate_files/figure-gfm/unnamed-chunk-9-1.gif" style="display: block; margin: auto;" />
 
 ``` r
 #render as video with audio 
-animate(base_pic, nframes = 100, fps = 10, detail = 3, type = "cairo", renderer = av_renderer(audio = "500_miles.WMA"))
+animate(base_pic, nframes = 100, fps = 10, detail = 3, type = "cairo", renderer = av_renderer(audio = "animate_files/500_miles.WMA"))
 ```
 
 <!--html_preserve-->
