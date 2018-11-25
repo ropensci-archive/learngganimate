@@ -2,7 +2,7 @@
 
 
 This outlines how you can contribute to learngganimate..
-If you need help with the process please get in tough with one of the team members.
+If you need help with the process please get in touch with one of the team members.
 
 ## spirit
 
