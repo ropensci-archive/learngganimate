@@ -3,8 +3,13 @@ title: "Animate"
 author: "Will Chase"
 date: "November 24, 2018"
 output:
-  github_document:
+  html_document:
     toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    code_folding: show
+    theme: flatly
 ---
 
 ```{r setup, include=FALSE}
