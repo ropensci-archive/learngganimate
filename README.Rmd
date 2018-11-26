@@ -32,6 +32,7 @@ library(emo)
 
 * `r emo::ji("cat")` [Dale Maschette](https://github.com/Maschette) `r emo::ji("bird")`  [\@Dale_Masch](https://twitter.com/Dale_Masch)
 * `r emo::ji("cat")` [Jesse Mostipak](https://github.com/jmostipak) `r emo::ji("bird")`  [\@kierisi](https://twitter.com/kierisi)
+* `r emo::ji("cat")` [Will Chase](https://github.com/will-r-chase) `r emo::ji("bird")`  [\@W_R_Chase](https://twitter.com/W_R_Chase)
 
 We'd love to add you to this list. Contributions are a most lovely thing you can do. Check out the [current issues](https://github.com/issues) for something you may want to help with. We can help you get started. Get in touch with us if you need help. Please check out our [contributing guide](CONTRIBUTING.md).
 
@@ -81,6 +82,7 @@ We record our discoveries here for posterity:
   - [airplanes example: using transition_reveal](USflights.md)
   - [cool cool cool syn crossover](coolcoolcool.md)
   - [compare transitions](compare_transitions.md)
+  - [animate and renderer options](animate.md)
 
   
   
