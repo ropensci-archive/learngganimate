@@ -2,19 +2,24 @@
 title: "Animate"
 author: "Will Chase"
 date: "November 24, 2018"
-output:
-  html_document:
-    toc: true
-    toc_float:
-      collapsed: false
-      smooth_scroll: true
-    code_folding: show
-    theme: flatly
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, cache = TRUE)
 ```
+**Table of Contents**
+
+- [Basics](#basics)
+  - [Controlling animation speed and quality](#controlling-animation-speed-and-quality)
+  - [Saving your animation](#saving-your-animation)
+- [Advanced](#advanced)
+  - [`type` argument (why your animation is pixelated on Windows)](#type-argument-why-your-animation-is-pixelated-on-windows)
+  - [`detail` argument (making smoother animations)](#detail-argument-making-smoother-animations)
+  - [Renderer options](#renderer-options)
+  - [Changing default arguments of `animate()`](#changing-default-arguments-of-animate)
+  - [Knitr support](#knitr-support)
+
 
 All of the `transition_` `ease_` `view_` etc. functions in gganimate will build a series of static images. To actually assemble those images into an animation, you will need to call the `animate()` function. This function seems simple, but much like file paths, what seems simple can cause great headaches. `animate()` actually combines many "under the hood" features and video rendering concepts that are not obvious to the majority of R users, but can make the difference between a beautiful smooth animation, and a choppy (or even incorrect) animation.
 
@@ -164,10 +169,14 @@ Let's try some!
 animate(base_pic, nframes = 100, fps = 10, detail = 3, type = "cairo", renderer = gifski_renderer(loop = FALSE))
 ```
 
-```{r fig.align="center"}
+```{r eval=FALSE}
 #render as video with audio 
 animate(base_pic, nframes = 100, fps = 10, detail = 3, type = "cairo", renderer = av_renderer(audio = "animate_files/500_miles.WMA"))
 ```
+
+Videos can't be rendered in github docs. Click the thumbnail to view this animation as a **video with sound!**
+
+[![video with audio](animate_files/vid_thumb.png)](https://www.williamrchase.com/slides/500_miles.mp4)
 
 ## Changing default arguments of `animate()`
 

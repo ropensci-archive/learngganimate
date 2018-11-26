@@ -89,4 +89,4 @@ We record our discoveries here for posterity:
   - [airplanes example: using transition\_reveal](USflights.md)
   - [cool cool cool syn crossover](coolcoolcool.md)
   - [compare transitions](compare_transitions.md)
-  - [animate and renderer options](animate.html)
+  - [animate and renderer options](animate.md)
