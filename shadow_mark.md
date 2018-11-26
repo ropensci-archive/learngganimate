@@ -128,3 +128,20 @@ mark3 %>% animate(type = "cairo")
 ```
 
 ![](shadow_mark_files/figure-markdown_github/mark3-1.gif)
+
+Shadow marks from the future
+============================
+
+By default `shadow_mark()` displays marks from earlier states but not future state, but this is flexible. The default parameters `past = TRUE` and `future = FALSE` can both be modified. For example, to show the shadow mark only for future points:
+
+``` r
+mark4 <- base_anim + 
+  shadow_mark(
+    past = FALSE,
+    future = TRUE,
+    colour = "grey70"
+  )
+mark4 %>% animate(type = "cairo")
+```
+
+![](shadow_mark_files/figure-markdown_github/mark4-1.gif)
