@@ -258,7 +258,7 @@ Videos can’t be rendered in github docs. Click the thumbnail to view
 this animation as a **video with sound\!**
 
 [![video with
-audio](animate_files/vid_thumb.png)](https://www.williamrchase.com/slides/500_miles.mp4)
+audio](animate_files/vid_thumb.PNG)](https://www.williamrchase.com/slides/500_miles.mp4)
 
 ## Changing default arguments of `animate()`
 
