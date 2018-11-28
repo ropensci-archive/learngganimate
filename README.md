@@ -55,7 +55,7 @@ GIFS\!\!**
 ![](coolcoolcool_files/figure-gfm/cool-1.gif)
 
 The goal of learngganimate is to record the discoveries of an intrepid
-group of animation explorers in the wild 🐯, amazing jungle 🌳 of the
+group of animation explorers in the wild 🐯, amazing jungle 🎋 of the
 [`gganimate` package](https://github.com/thomasp85/gganimate) 📦.
 
 We aim to create documentation and share our user experience for this
@@ -75,6 +75,7 @@ We record our discoveries here for posterity:
   - [ease\_aes](ease_aes.md)
   - [shadow\_wake](shadow_wake.md)
   - [shadow\_mark](shadow_mark.md)
+  - [shadow\_trail](shadow_trail.md)  
   - [enter\_exit](enter_exit/enter_exit.md)
   - [view\_follow](view_follow.md)
   - [compare transition\_time with

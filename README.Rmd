@@ -72,6 +72,7 @@ We record our discoveries here for posterity:
   - [ease_aes](ease_aes.md)
   - [shadow_wake](shadow_wake.md)
   - [shadow_mark](shadow_mark.md)
+  - [shadow_trail](shadow_trail.md)  
   - [enter_exit](enter_exit/enter_exit.md)
   - [view_follow](view_follow.md)
   - [compare transition_time with transition_reveal](transition_time_vs_transition_reveal.md)

@@ -86,4 +86,56 @@ mark2 <- new_pic +
 mark2 %>% animate(type = "cairo")
 ```
 
+In some cases the shadow mark might need to rendered using a different colour palette than the main points. This is slightly trickier as `ggplot2` isn't really designed to allow different layers to use different palettes. We can work around it using `scale_colour_manual()` like so:
 
+```{r, mark3, cache = TRUE}
+# add a dummy variable Series2
+tbl <- tbl %>% 
+  mutate(Series2 = as.factor(as.numeric(Series) + nseries))
+
+# Create a colour map that attaches a colour to each 
+# named value in Series or Series2. For simplicity they're both
+# rainbow() maps, one highly desaturated and the other one not
+cmap <- c(rainbow(nseries, s = .4), rainbow(nseries, s = .8))
+names(cmap) <- 1:(2*nseries)
+
+# Vonstruct the plot with two geom_point layers
+twin_pic <- tbl %>%
+  ggplot(aes(
+    x = Horizontal, 
+    y = Vertical, 
+    colour = Series)) + 
+  geom_point( # layer 1
+    show.legend = FALSE,
+    size = 5) +
+  geom_point( # layer 2
+    mapping = aes(colour = Series2),
+    show.legend = FALSE,
+    size = 5    
+  ) +
+  scale_color_manual(values = cmap) +
+  coord_equal() + 
+  xlim(-1.5, 1.5) + 
+  ylim(-1.5, 1.5)
+
+# Animation with shadow mark, excluding layer 2
+mark3 <- twin_pic + 
+  transition_time(time = Time) +
+  shadow_mark(size = 2, exclude_layer = 2)
+
+mark3 %>% animate(type = "cairo")
+```
+
+# Shadow marks from the future
+
+By default `shadow_mark()` displays marks from earlier states but not future state, but this is flexible. The default parameters `past = TRUE` and `future = FALSE` can both be modified. For example, to show the shadow mark only for future points:
+
+```{r, mark4, cache=TRUE}
+mark4 <- base_anim + 
+  shadow_mark(
+    past = FALSE,
+    future = TRUE,
+    colour = "grey70"
+  )
+mark4 %>% animate(type = "cairo")
+```
