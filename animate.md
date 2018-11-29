@@ -15,6 +15,7 @@ November 24, 2018
       - [`detail` argument (making smoother
         animations)](#detail-argument-making-smoother-animations)
       - [Renderer options](#renderer-options)
+      - [Device arguments](#device-arguments)
       - [Changing default arguments of
         `animate()`](#changing-default-arguments-of-animate)
       - [Knitr support](#knitr-support)
@@ -255,10 +256,32 @@ animate(base_pic, nframes = 100, fps = 10, detail = 3, type = "cairo", renderer 
 ```
 
 Videos can’t be rendered in github docs. Click the thumbnail to view
-this animation as a **video with sound\!**
+this animation as a **video with sound\!** *Warning for headphones
+users, this might be loud*
 
 [![video with
-audio](animate_files/vid_thumb.PNG)](https://www.williamrchase.com/slides/500_miles.mp4)
+audio](animate_files/vid_thumb.PNG)](https://www.williamrchase.com/slides/brownian_bridge_sound.mp4)
+
+## Device arguments
+
+Since you can specify which device will create the static plots that
+will make up the animation, you can also specify any device arguments
+via the `...` argument in `animate()`. Some arguments are available for
+all devices (eg. `height` `width`) while others are available only for
+certain devices (eg. `quality` for the jpeg device).
+
+Some things you can pass with the `...` argument:
+
+  - `width` `height` `units` to set the size of your animation
+  - `bg` the initial background color (can be set to transparent if
+    using png device)
+  - `type` was discussed earlier, “cairo” is recommended for
+    anti-aliasing
+  - `res` the resolution in ppi for the static images, can improve the
+    quality of your plot
+
+A full explanation of these options is found here:
+<a href="https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/png" target="_blank">https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/png</a>
 
 ## Changing default arguments of `animate()`
 
