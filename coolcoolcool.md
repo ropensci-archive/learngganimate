@@ -10,11 +10,6 @@ devtools::install_github("ropenscilabs/syn")
 ``` r
 library(ggplot2)
 library(syn)
-```
-
-    ## Loading ~/syn.rds
-
-``` r
 library(gganimate)
 library(dplyr)
 ```
@@ -43,7 +38,7 @@ ggplot(cool_df,(aes(x,y, label = sentence, group = sentence, fill = sentence))) 
   geom_label(size = 10,colour = "white",show.legend = FALSE) +
   theme_void() +
   transition_reveal(sentence, along = 100 - y) +
-  enter_grow(fade =TRUE) +
+  enter_grow() +
   labs(title="https://github.com/ropenscilabs/syn") +
   theme(title = element_text(size = 20))
 ```
