@@ -160,7 +160,22 @@ saveRDS(github_log,"analysis/github_log.RDS")
 #github_log <- readRDS("analysis/github_log.RDS")
 
 
-
+commits <- purrr::map_dfr(c("learngganimate",
+                            "syn",
+                            "tl",
+                            "vitae",
+                            "ozbabynames",
+                            "simpletextr",
+                            "geoflowr",
+                            "jerbs",
+                            "reviewer",
+                            "gendercoder",
+                            "containerit",
+                            "rwalkable",
+                            "UntweetdAus",
+                            "bindertools"),
+               github_commit_log,
+               owner = "ropenscilabs")
 
 
 
