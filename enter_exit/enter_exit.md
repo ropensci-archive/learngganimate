@@ -77,7 +77,7 @@ oz baby names
 
 Use the oz baby names backage to show how a selection of names have varied in popularity in Australia over time.
 
-This animation uses `geom_line()` and `geom_label()` with a `transition_reveal()` and `enter_grow(fade = TRUE)` and `exit_shrink(fade = TRUE)`.
+This animation uses `geom_line()` and `geom_label()` with a `transition_reveal()` and `enter_grow()` and `exit_shrink()`.
 
 For these line chart reveal animations it's important in the `ggplot` portion of code to set the `group` aesthetic equal to the variable you are interested in tracing (it may help to think of it as the variable you would facet over in a static plot). This `id` argument of the `transition_reveal` function should also be set to this same variable.
 
