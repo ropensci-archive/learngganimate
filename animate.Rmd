@@ -35,18 +35,19 @@ Let's start understanding this with a simple example using the mtcars data.
 library(ggplot2)
 library(gganimate)
 
-anim <-
-  ggplot(mtcars, aes(factor(cyl), mpg)) + 
-  geom_boxplot() + 
+anim <- 
+  ggplot(mtcars, aes(factor(cyl), mpg)) +
+  geom_boxplot() +
   transition_states(
     gear,
     transition_length = 3,
     state_length = 1
   ) +
-  enter_fade() + 
-  exit_shrink() +
+  enter_fade() +
+  exit_fade() +
   ease_aes('linear')
 ```
+
 
 There are three critical factors that affect the speed and look of your animation: number of frames (`nframes`), frames per second (`fps`), and duration (`duration`). These parameters are related by the formula `duration(milliseconds) = nframes * fps` In gganimate, you can set two of these, and the third will be calculated. The default values are `nframes = 100` and `fps = 10`. Calling the animation object (`anim`) or `print(anim)` will create an animation with the default values.
 

@@ -40,16 +40,16 @@ data.
 library(ggplot2)
 library(gganimate)
 
-anim <-
-  ggplot(mtcars, aes(factor(cyl), mpg)) + 
-  geom_boxplot() + 
+anim <- 
+  ggplot(mtcars, aes(factor(cyl), mpg)) +
+  geom_boxplot() +
   transition_states(
     gear,
     transition_length = 3,
     state_length = 1
   ) +
-  enter_fade() + 
-  exit_shrink() +
+  enter_fade() +
+  exit_fade() +
   ease_aes('linear')
 ```
 
@@ -323,7 +323,7 @@ It is possible to specify the arguments to `animate()` in the chunk
 options when using `gganimate` with `knitr`. Arguments specified in this
 way will have precedence over defaults, but not over arguments specified
 directly in `animate()`. The arguments should be provided as a list to
-the `gganimate` chunk option, e.g. `{r, gganimate = list(nframes = 50,
+the `gganimate` chunk option, e.g. `{r, gganimate = list(nframes = 50,
 fps = 20)}`. A few build-in knitr options have relevance for animation
 and will be used unless given specifically in the `gganimate` list
 option. The native knitr options supported are:
