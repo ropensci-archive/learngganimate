@@ -20,7 +20,7 @@ library(emo)
 
 * `r emo::ji("cat")` [Adam Gruer](https://github.com/adam-gruer) `r emo::ji("bird")`  [\@AdamGruer](https://twitter.com/AdamGruer)
 * `r emo::ji("cat")` [Saskia Freytag](https://github.com/SaskiaFreytag) `r emo::ji("bird")` [\@trashystats](https://twitter.com/trashystats)
-* `r emo::ji("cat")` [Anna Quaglieri](https://github.com/SaskiaFreytag) `r emo::ji("bird")` [\@annaquagli](https://twitter.com/annaquagli)
+* `r emo::ji("cat")` [Anna Quaglieri](https://github.com/annaquaglieri16) `r emo::ji("bird")` [\@annaquagli](https://twitter.com/annaquagli)
 * `r emo::ji("cat")` [Sarah Romanes](https://github.com/sarahromanes) `r emo::ji("bird")` [\@sarah_romanes](https://twitter.com/sarah_romanes)
 * `r emo::ji("cat")` [Danielle Navarro](https://github.com/djnavarro) `r emo::ji("bird")` [\@djnavarro](https://twitter.com/djnavarro)
 * `r emo::ji("cat")` [Roberto Bonelli](https://github.com/Robbie90) `r emo::ji("bird")` [\@robbie_bonelli](https://twitter.com/robbie_bonelli)

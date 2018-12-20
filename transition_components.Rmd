@@ -24,47 +24,91 @@ library(fivethirtyeight)
 ```
 
 
-# How does `transition_components()` work?
+## How does `transition_components()` work?
 
 > ## Transition individual components through their own lifecycle
 >
 > This transition allows individual visual components to define their own "life-cycle". This means that the final animation will not have any common "state" and "transition" phase as any component can be moving or static at any point in time.
 
 > ## Usage
-> transition_components(id, time, range = NULL, enter_length = NULL,
+> transition_components(time, range = NULL, enter_length = NULL,
   exit_length = NULL)
 
+Some key points to keep in mind:
 
-To understand how `transition_components()` works I will use the `US_births_1994_2003` dataset from the `fivethirtyeight` package. The title of the article where this data was used is *Some People Are Too Superstitious To Have A Baby On Friday The 13th*. Is that true?
+In `transition_components()` you need at least a **time** component and a variable id in your dataset that groups together observations. The `transition_components()` function is useful when you have the same identifier (like a plane, a day, a person, a neighborood etc.) with multiple observations over time.
+
+## A minimal example
+
+The example below is the one provided in the help page `?transition_components` and I added a few simple variants.
+
+* In the standard situation you would use the `group` argument in the `ggplot()` call to define which are the observations with the same IDs.
+
+```{r}
+data <- data.frame(
+  x = runif(10),
+  y = runif(10),
+  size = sample(1:3, 10, TRUE),
+  time = c(1, 4, 6, 7, 9, 6, 7, 8, 9, 10),
+  id = rep(1:2, each = 5)
+)
+
+anim <- ggplot(data, aes(x, y, size = size, group = id)) +
+  geom_point() +
+  transition_components(time)
+```
+
+
+* You can also achieve the same transition but with different colours per ID by using the `colour` argument, which is a more special way of grouping observations.
+
+```{r}
+anim <- ggplot(data, aes(x, y, size = size,colour=as.factor(id))) +
+  geom_point() +
+  transition_components(time)
+```
+
+
+* Notice what happens if you do not set any of the above (`group` or `colour`). You can see that the transition lost the knowledge about what observations belong to the same ID.
+
+```{r}
+anim <- ggplot(data, aes(x, y, size = size)) +
+  geom_point() +
+  transition_components(time)
+```
+
+## US births 1994-2003
+
+To show another example, I will use the `US_births_1994_2003` dataset from the `fivethirtyeight` package. The title of the article where this data was used is *Some People Are Too Superstitious To Have A Baby On Friday The 13th*. Is that true?
 
 ```{r}
 head(US_births_1994_2003)
 ```
 
-Some key points to keep in mind:
-
-In `transition_component()` you need an **id** and **time** component. The `transition_components()` function is useful when you have the same identifier (like a plane, a day, a person, a neighborood etc.) with multiple observations over time. 
-
-In this example my **id** will be Fridays of the month. For example, one id is **Fri_1**, which is the 1st Friday of a generic month across years. My plan is to compare the number of babies born on the Fridays 13th of different months (**Fri_13**) with babies born on other Fridays! To speed up the process I will compare Fridays 13th with Fridays that occurs on the 1st, 2nd, 3rd, 18th and 28th across months and years.
+In the example below my **grouping variable** will be Fridays of the month, stored into the variable `date_of_month` after I only filter for Fridays. For example, one id is **1**, which is the 1st Friday of a generic month across years. My plan is to compare the number of babies born on the Fridays 13th of different months (**13**) with babies born on other Fridays! To speed up the process I will compare Fridays 13th with Fridays that occurs on the 1st, 2nd, 3rd, 18th and 28th across months and years.
 
 ```{r eval=TRUE}
-
+# Select only Fridays
 fridays <- US_births_1994_2003 %>% 
   filter(day_of_week %in% c("Fri") & date_of_month %in% c(1,2,3,13,18,28))
 
-p=ggplot(fridays) + 
-  geom_point(aes(x=year,y=births,colour=date_of_month)) +
-  facet_wrap(~date_of_month)+
-  theme(legend.position = "bottom") +
-  transition_components(id=factor(date_of_month),time=date)+
-  shadow_trail(distance = 0.01, size = 0.3)
-
-animate(p, nframes = 50, 10,duration=10)
+head(fridays)
 ```
 
-To me, really, it doesn't seem like parents go out of their way to avoid births on Friday 13th!
+* Grouping using colouring allows me to compare different dates of Fridays
 
-# Example with babynames
+```{r eval=TRUE}
+p=ggplot(fridays) + 
+  geom_point(aes(x=year,y=births,colour=factor(date_of_month))) +
+  theme(legend.position = "bottom") +
+  transition_components(time=date)+
+  shadow_trail(distance = 0.01, size = 0.3)
+
+animate(p, nframes = 20, 10,duration=10)
+```
+
+It looks like between 1994 and 1995 there were consistently less babies born on Fridays 13th, but then this fashion went away. Was that just by chance?!   
+
+## Example with babynames
 
 The `babynames` packages is one of the great packages developed thanks to the effort of another #OzUnconf18 team https://github.com/ropenscilabs/ozbabynames! 
 
@@ -82,7 +126,7 @@ library(ozbabynames)
 p=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
   geom_point(aes(x=year,y=count,colour=name)) +
   theme_bw() + 
-  transition_components(id=name,time=year)+
+  transition_components(time=year)+
   shadow_trail(distance = 0.1, size = 2)
 p
 ```
@@ -92,7 +136,7 @@ p
 ```{r}
 p=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
   geom_point(aes(x=year,y=count,colour=name)) +
-  transition_components(id=name,time=year)+
+  transition_components(time=year)+
   shadow_trail(distance = 2, size = 2)
 p
 ```
@@ -105,7 +149,7 @@ invalid '(to - from)/by'
 ```{r eval=FALSE}
 p=ggplot(ozbabynames[ozbabynames$name %in% c("Michael","James"),]) + 
   geom_point(aes(x=year,y=count,colour=name)) +
-  transition_components(id=name,time=year)+
+  transition_components(time=year)+
   shadow_trail(distance = 0.001, size = 2)
 
 p

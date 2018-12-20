@@ -24,8 +24,6 @@ library(emo)
 ```
 
 
-# `transition_filter`
-
 This is what the help function tells us `transition_filter` does.
 
 ```{r transition_filter help}
@@ -133,7 +131,7 @@ Great! But... now I cannot really see what's being filtered at each stage.
 
 Thanks to the `gganimate` `r emo::ji("package")` author Thomas for helping with understanding `keep` in this [issue](https://github.com/thomasp85/gganimate/issues/220#issuecomment-441178296).  
 
-Normally, you would set `keep = TRUE` if you are interested in seeing how specific filters modify your selection with respect to the whole background of observations (which include observations that would normally be excluded by a logical condition). The argument `keep` becomes useful in combination with an exit function **that does not make the observations disappear** . If you are not familar with exit functions you can find some examples [here](https://github.com/ropenscilabs/learngganimate/blob/master/enter_exit/enter_exit.md). In general, the exit function will do something that you ask, to the observations that should be exiting a transition. 
+Normally, you would set `keep = TRUE` if you are interested in seeing how the filters modify your selection with respect to the whole background of observations (which comprises observations that would normally be excluded by the logical condition). The argument `keep` becomes useful in combination with an exit function **that does not make the observations disappear**. If you are not familar with exit functions you can find some examples [here](https://github.com/ropenscilabs/learngganimate/blob/master/enter_exit/enter_exit.md). In general, the exit function will do something, that you choose, to the observations that should be exiting a transition. 
 The example below is adapted from this [issue](https://github.com/thomasp85/gganimate/issues/220#issuecomment-441178296).
 
 ```{r}
@@ -152,7 +150,7 @@ animate(g, nframes = 30, fps = 2)
 
 In the example above, all the observations are always plotted, and by using the `exit_manual` function we can change the appearance of the observations that should actually be filtered out and highlight the ones that stay in!
 
-On a different note, when I first saw this: `dplyr::mutate(x, colour = "grey",size= 1)` my mind blew up `r emo::ji("bomb")`! How cool is that you can apply the `dplyr::mutate()` function to modify a `ggplot` object?!
+On a different note, it is really interesting what happens with the code: `dplyr::mutate(x, colour = "grey",size= 1)`! The exter/exit functions receive the data with enter/exit the animations and they are stored in the standard data frame object. This means that we could use the `dplyr::mutate()` function to specify how we want to modify the entering/exiting data!
 
 
 ## How does the `wrap` argument work?
@@ -161,7 +159,7 @@ On a different note, when I first saw this: `dplyr::mutate(x, colour = "grey",si
 
 > **wrap**	Should the animation wrap-around? If TRUE the last filter will be transitioned into the first.
 
-When setting `r wrap = FALSE` below, you can see that the transition between `qsec > 20` (last condition) and `qsec < 14` (first condition) happens with a sort of "*jump*". Whereas when setting `wrap = TRUE` the transition between the last and first condition is wrapped and happens smoothly, like in a cycle. 
+When setting `r wrap = FALSE` below, you can see that the transition between `qsec > 20` (last condition) and `qsec < 14` (first condition) happens with a sort of "*jump*". Whereas when setting `wrap = TRUE` the transition between the last and first condition is wrapped and happens in the same way as between the other ones, like in a cycle. 
 
 ```{r}
 g=ggplot(mtcars, aes(x = hp, y = mpg, colour = factor(cyl))) + 
@@ -177,7 +175,21 @@ g=ggplot(mtcars, aes(x = hp, y = mpg, colour = factor(cyl))) +
 animate(g, nframes = 30, fps = 2)
 ```
 
-# Errors encountered along the way
+```{r}
+g=ggplot(mtcars, aes(x = hp, y = mpg, colour = factor(cyl))) + 
+  geom_point(size = 2) + 
+  transition_filter(transition_length = 10, 
+                            filter_length = 0.2, 
+                            wrap = TRUE, 
+                            keep = TRUE,
+                            qsec < 14,qsec > 16,qsec > 20) + 
+  labs(title = "closest expression : {closest_expression}") +
+  exit_manual(function(x) dplyr::mutate(x, colour = "grey",size= 1))
+
+animate(g, nframes = 30, fps = 2)
+```
+
+## Errors encountered along the way
 
 If you ever get: `Error in transform_path(all_frames, next_filter, ease, params$transition_length[i],transformr is required to tween paths and lines` install the package `transformr`.
 
