@@ -1,5 +1,5 @@
 ---
-title: "GIF Eleganza Extravanganza with RuPaul Drag Race Seaosn 5"
+title: "GIF Eleganza Extravanganza with RuPaul Drag Race Season 5"
 author: "Robbie Bonelli"
 date: "23/11/2018"
 output: github_document
