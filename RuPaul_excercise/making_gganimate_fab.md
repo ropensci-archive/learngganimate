@@ -1,4 +1,4 @@
-GIF Eleganza Extravanganza with RuPaul Drag Race Seaosn 5
+GIF Eleganza Extravanganza with RuPaul Drag Race Season 5
 ================
 Robbie Bonelli
 23/11/2018
